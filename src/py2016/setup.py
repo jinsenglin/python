@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='py2016',
     packages=['pkg1', 'pkg2'],
-    version='1.0.0',
+    version='1.0.1',
     description='My first python project',
     author='jimlintw922',
     author_email='jimlintw922@gmail.com',
