@@ -1,5 +1,5 @@
 import yaml
-from fabric.api import lcd, local
+from fabric.api import lcd, local, cd, run, sudo, put, get
 
 # fab delivery:config=config.yaml
 def delivery(config=None):
