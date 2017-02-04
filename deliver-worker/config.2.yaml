@@ -1,0 +1,25 @@
+---
+version: 1
+
+destination: vagrant-kvm
+
+vagrant-vb:
+    box: ubuntu/trusty64
+
+vagrant-kvm:
+    box_url: https://vagrant-kvm-boxes.s3.amazonaws.com/trusty64_kvm.box
+
+vagrant-docker:
+    image: ubuntu:14.04    
+
+trystack:
+    auth_url: http://8.43.86.2:5000/v2.0
+
+aws:
+    region: us-east-1
+
+docker:
+    image: ubuntu:14.04
+
+openstack:
+    domain: default   
