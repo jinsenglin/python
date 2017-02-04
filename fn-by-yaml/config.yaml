@@ -1,0 +1,9 @@
+---
+version: 1.0.0
+section1:
+    modules:
+        - x
+        - y
+        - z
+section2:
+    name: xyz
