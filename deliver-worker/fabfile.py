@@ -1,7 +1,9 @@
+import yaml
+from fabric.api import lcd, local
+
 # fab delivery:config=config.yaml
 def delivery(config=None):
     if config:
-        import yaml
     
         f = open(config, 'r')
         y = yaml.load(f)
@@ -12,7 +14,8 @@ def delivery(config=None):
             print('compatible')
     
             if y['destination'] == 'vagrant-vb':
-                print(y['vagrant-vb']['box'])
+                with lcd(y['vagrant-vb']['vagrantfile_location']):
+                    local('vagrant up')
     
             elif y['destination'] == 'vagrant-kvm':
                 print(y['vagrant-kvm']['box_url'])

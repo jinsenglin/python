@@ -4,7 +4,7 @@ version: 1
 destination: vagrant-vb
 
 vagrant-vb:
-    box: ubuntu/trusty64
+    vagrantfile_location: /tmp
 
 vagrant-kvm:
     box_url: https://vagrant-kvm-boxes.s3.amazonaws.com/trusty64_kvm.box
@@ -22,4 +22,8 @@ docker:
     image: ubuntu:14.04
 
 openstack:
-    domain: default   
+    domain: default
+
+hosts:
+    - host: 192.168.100.101
+    - host: 192.168.100.102
