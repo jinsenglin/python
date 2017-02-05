@@ -46,7 +46,7 @@ def set_hosts(config=None):
             elif y['destination'] == 'hosts':
                 # parse machines' ssh login information
                 m = y['hosts']['monitor']
-                t = y['hosts']['monitor']
+                t = y['hosts']['target']
                 mh = '{}@{}:{}'.format(m['ssh_user'], m['ssh_host'], m['ssh_port'])
                 th = '{}@{}:{}'.format(t['ssh_user'], t['ssh_host'], t['ssh_port'])
 
@@ -154,7 +154,9 @@ def deliver_target(config=None):
                 run('hostname')
     
             elif y['destination'] == 'hosts':
-                # TODO run
+                # TODO put setup script
+                # TODO run setup script
+                # TODO local run installer, either ansible-playbook or bash-script
                 run('hostname')
     
             else:
