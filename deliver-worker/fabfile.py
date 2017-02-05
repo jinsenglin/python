@@ -15,17 +15,17 @@ def set_hosts(config=None):
             if y['destination'] == 'vagrant-vb':
                 with lcd(y['vagrant-vb']['vagrantfile_location']):
                     # launch machines
-                    #local('vagrant up')
+                    local('vagrant up')
 
                     # parse machines' ssh login information
                     mh = local('vagrant ssh-config monitor | grep "  HostName " | sed "s/  HostName //"', capture=True)
                     mp = local('vagrant ssh-config monitor | grep "  Port " | sed "s/  Port //"', capture=True)
                     mu = local('vagrant ssh-config monitor | grep "  User " | sed "s/  User //"', capture=True)
-                    mk = local('vagrant ssh-config monitor | grep "  IdentityFile " | sed "s/  IdentityFile //"', capture=True)
+                    mk = local('vagrant ssh-config monitor | grep "  IdentityFile " | sed "s/  IdentityFile //"', capture=True).replace('"', '')
                     th = local('vagrant ssh-config target | grep "  HostName " | sed "s/  HostName //"', capture=True)
                     tp = local('vagrant ssh-config target | grep "  Port " | sed "s/  Port //"', capture=True)
                     tu = local('vagrant ssh-config target | grep "  User " | sed "s/  User //"', capture=True)
-                    tk = local('vagrant ssh-config target | grep "  IdentityFile " | sed "s/  IdentityFile //"', capture=True)
+                    tk = local('vagrant ssh-config target | grep "  IdentityFile " | sed "s/  IdentityFile //"', capture=True).replace('"', '')
                     mhost = '{}@{}:{}'.format(mu, mh, mp)
                     thost = '{}@{}:{}'.format(tu, th, tp)
 
@@ -117,6 +117,10 @@ def deliver_monitor(config=None):
                 # TODO run
                 run('hostname')
     
+            elif y['destination'] == 'openstack':
+                # TODO run
+                run('hostname')
+
             elif y['destination'] == 'hosts':
                 # TODO run
                 run('hostname')
@@ -142,6 +146,10 @@ def deliver_target(config=None):
             print('compatible')
     
             if y['destination'] == 'vagrant-vb':
+                # TODO run
+                run('hostname')
+
+            elif y['destination'] == 'openstack':
                 # TODO run
                 run('hostname')
     
