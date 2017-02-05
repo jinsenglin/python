@@ -112,22 +112,16 @@ def deliver_monitor(config=None):
         # DSL
         if y['version'] == 1:
             print('compatible')
-    
-            if y['destination'] == 'vagrant-vb':
-                # TODO run
-                run('hostname')
-    
-            elif y['destination'] == 'openstack':
-                # TODO run
-                run('hostname')
 
-            elif y['destination'] == 'hosts':
-                # TODO run
-                run('hostname')
-    
-            else:
-                print("unsupported")
-    
+            v = y[y['destination']]['vars']
+            s = y[y['destination']]['monitor']['setup']
+            i = y[y['destination']]['monirtor']['install']
+            # TODO put setup script
+            # TODO run setup script
+            # TODO make vars file
+            # TODO local run installer, either ansible-playbook or bash-script
+            run('hostname')
+
         else:
             print("incompatible")
     else:
@@ -145,23 +139,15 @@ def deliver_target(config=None):
         if y['version'] == 1:
             print('compatible')
     
-            if y['destination'] == 'vagrant-vb':
-                # TODO run
-                run('hostname')
+            v = y[y['destination']]['vars']
+            s = y[y['destination']]['target']['setup']
+            i = y[y['destination']]['target']['install']
+            # TODO put setup script
+            # TODO run setup script
+            # TODO make vars file
+            # TODO local run installer, either ansible-playbook or bash-script
+            run('hostname')
 
-            elif y['destination'] == 'openstack':
-                # TODO run
-                run('hostname')
-    
-            elif y['destination'] == 'hosts':
-                # TODO put setup script
-                # TODO run setup script
-                # TODO local run installer, either ansible-playbook or bash-script
-                run('hostname')
-    
-            else:
-                print("unsupported")
-    
         else:
             print("incompatible")
     else:
