@@ -1,3 +1,11 @@
 fabric
 pyyaml
-apache-libcloud
+
+# http://docs.openstack.org/user-guide/sdk-overview.html
+# Use one of following library to interact with OpenStack
+
+apache-libcloud # A standard Python library that abstracts away differences among multiple cloud provider APIs.
+shade # Simple client library for interacting with OpenStack clouds
+openstacksdk # An SDK for building applications to work with OpenStack
+python-openstackclient # OpenStack Command-line Client
+
