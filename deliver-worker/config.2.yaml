@@ -1,7 +1,7 @@
 ---
 version: 1
 
-destination: vagrant-kvm
+destination: hosts
 
 vagrant-vb:
     vagrantfile_location: /tmp
@@ -25,5 +25,15 @@ openstack:
     domain: default
 
 hosts:
-    - host: 192.168.100.101
-    - host: 192.168.100.102
+    monitor:
+        ssh_host: 127.0.0.1
+        ssh_port: 2222
+        ssh_auth_type: password
+        ssh_user: ubuntu
+        ssh_pass: pass
+    target:
+        ssh_host: 127.0.0.1
+        ssh_port: 2223
+        ssh_auth_type: public-key
+        ssh_user: ubuntu
+        ssh_key_file: /tmp/id_rsa
