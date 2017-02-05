@@ -14,10 +14,34 @@ def set_hosts(config=None):
     
             if y['destination'] == 'vagrant-vb':
                 with lcd(y['vagrant-vb']['vagrantfile_location']):
+                    # launch machines
                     local('vagrant up')
-                    # TODO set hosts
-                    # TODO set roles
-                    # TODO set key files
+
+                    # parse machines' ssh login information
+                    mh = local('vagrant ssh-config monitor | grep "  HostName " | sed "s/  HostName //"', capture=True)
+                    mp = local('vagrant ssh-config monitor | grep "  Port " | sed "s/  Port //"', capture=True)
+                    mu = local('vagrant ssh-config monitor | grep "  User " | sed "s/  User //"', capture=True)
+                    mk = local('vagrant ssh-config monitor | grep "  IdentityFile " | sed "s/  IdentityFile //"', capture=True)
+                    th = local('vagrant ssh-config target | grep "  HostName " | sed "s/  HostName //"', capture=True)
+                    tp = local('vagrant ssh-config target | grep "  Port " | sed "s/  Port //"', capture=True)
+                    tu = local('vagrant ssh-config target | grep "  User " | sed "s/  User //"', capture=True)
+                    tk = local('vagrant ssh-config target | grep "  IdentityFile " | sed "s/  IdentityFile //"', capture=True)
+                    mhost = '{}@{}:{}'.format(mu, mh, mp)
+                    thost = '{}@{}:{}'.format(tu, th, tp)
+
+                    # set hosts
+                    env.hosts = [mhost, thost]
+
+                    # set roles
+                    env.roledefs.update({
+                        'monitor': [mhost],
+                        'target': [thost],
+                        })
+
+                    # set key files
+                    env.key_filename = []
+                    env.key_filename.append(mk)
+                    env.key_filename.append(tk)
     
             elif y['destination'] == 'hosts':
                 # set hosts
