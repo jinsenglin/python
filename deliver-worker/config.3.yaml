@@ -1,25 +1,20 @@
 ---
 version: 1
 
-destination: openstack
+destination: hosts
 
 vagrant-vb:
-    vagrantfile_location: /tmp
-
-vagrant-kvm:
-    box_url: https://vagrant-kvm-boxes.s3.amazonaws.com/trusty64_kvm.box
-
-vagrant-docker:
-    image: ubuntu:14.04    
-
-trystack:
-    auth_url: http://8.43.86.2:5000/v2.0
-
-aws:
-    region: us-east-1
-
-docker:
-    image: ubuntu:14.04
+    vagrantfile_location: /Volumes/120GB/vagrants/2-nodes
+    monitor:
+        setup: monitor-setup.sh
+        install:
+            type: bash-script
+            file: monitor-installer.sh
+    target:
+        setup: target-setup.sh
+        install:
+            type: ansible-playbook
+            file: target-installer.yaml
 
 openstack:
     identity_v3:
@@ -28,6 +23,16 @@ openstack:
         auth_pass: nomoresecret
         auth_tenant: admin
         auth_domain: default
+    monitor:
+        setup: monitor-setup.sh
+        install:
+            type: bash-script
+            file: monitor-installer.sh
+    target:
+        setup: target-setup.sh
+        install:
+            type: ansible-playbook
+            file: target-installer.yaml
 
 hosts:
     monitor:
@@ -36,9 +41,17 @@ hosts:
         ssh_auth_type: password
         ssh_user: ubuntu
         ssh_pass: pass
+        setup: monitor-setup.sh
+        install:
+            type: bash-script
+            file: monitor-installer.sh
     target:
         ssh_host: 127.0.0.1
         ssh_port: 2223
         ssh_auth_type: public-key
         ssh_user: ubuntu
         ssh_key_file: /tmp/id_rsa
+        setup: target-setup.sh
+        install:
+            type: ansible-playbook
+            file: target-installer.yaml

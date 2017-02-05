@@ -15,7 +15,7 @@ def set_hosts(config=None):
             if y['destination'] == 'vagrant-vb':
                 with lcd(y['vagrant-vb']['vagrantfile_location']):
                     # launch machines
-                    local('vagrant up')
+                    #local('vagrant up')
 
                     # parse machines' ssh login information
                     mh = local('vagrant ssh-config monitor | grep "  HostName " | sed "s/  HostName //"', capture=True)
