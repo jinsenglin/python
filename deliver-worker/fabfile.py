@@ -67,6 +67,28 @@ def set_hosts(config=None):
                         env.passwords[h] = v['ssh_pass']
                     elif v['ssh_auth_type'] == 'public-key':
                         env.key_filename.append(v['ssh_key_file']);
+
+            elif y['destination'] == 'openstack':
+                # TODO launch machines
+                ks = y['openstack']['identity_v3']
+
+                from libcloud.compute.types import Provider
+                from libcloud.compute.providers import get_driver
+                import libcloud.security
+                libcloud.security.VERIFY_SSL_CERT = False
+                cls = get_driver(Provider.OPENSTACK)
+                driver = cls(ks['auth_user'], ks['auth_pass'],
+                        ex_force_auth_version='3.x_password',
+                        ex_force_auth_url=ks['auth_url'],
+                        ex_domain_name=ks['auth_domain'],
+                        ex_tenant_name=ks['auth_tenant'])
+                print(driver.list_nodes())
+
+                # TODO parse machines' ssh login information
+                # TODO set hosts
+                # TODO set roles
+                # TODO set key files
+                pass
     
             else:
                 print("unsupported")

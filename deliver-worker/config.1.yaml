@@ -22,7 +22,12 @@ docker:
     image: ubuntu:14.04
 
 openstack:
-    domain: default
+    identity_v3:
+        auth_url: http://127.0.0.1:5000
+        auth_user: admin
+        auth_pass: nomoresecret
+        auth_tenant: admin
+        auth_domain: default
 
 hosts:
     monitor:
