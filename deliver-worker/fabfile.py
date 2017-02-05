@@ -44,11 +44,13 @@ def set_hosts(config=None):
                     env.key_filename.append(tk)
     
             elif y['destination'] == 'hosts':
-                # set hosts
+                # parse machines' ssh login information
                 m = y['hosts']['monitor']
                 t = y['hosts']['monitor']
                 mh = '{}@{}:{}'.format(m['ssh_user'], m['ssh_host'], m['ssh_port'])
                 th = '{}@{}:{}'.format(t['ssh_user'], t['ssh_host'], t['ssh_port'])
+
+                # set hosts
                 env.hosts = [mh, th]
 
                 # set roles
