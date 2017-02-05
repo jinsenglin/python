@@ -5,16 +5,19 @@ destination: vagrant-vb
 
 vagrant-vb:
     vagrantfile_location: /Volumes/120GB/vagrants/2-nodes
+    vars:
     monitor:
         setup: monitor-setup.sh
         install:
             type: bash-script
             file: monitor-installer.sh
+            vars: monitor-vars.sh
     target:
         setup: target-setup.sh
         install:
             type: ansible-playbook
             file: target-installer.yaml
+            vars: target-vars.yaml
 
 openstack:
     identity_v3:
@@ -23,18 +26,22 @@ openstack:
         auth_pass: nomoresecret
         auth_tenant: admin
         auth_domain: default
+    vars:
     monitor:
         setup: monitor-setup.sh
         install:
             type: bash-script
             file: monitor-installer.sh
+            vars: monitor-vars.sh
     target:
         setup: target-setup.sh
         install:
             type: ansible-playbook
             file: target-installer.yaml
+            vars: target-vars.yaml
 
 hosts:
+    vars:
     monitor:
         ssh_host: 127.0.0.1
         ssh_port: 2222
@@ -45,6 +52,7 @@ hosts:
         install:
             type: bash-script
             file: monitor-installer.sh
+            vars: monitor-vars.sh
     target:
         ssh_host: 127.0.0.1
         ssh_port: 2223
@@ -55,3 +63,4 @@ hosts:
         install:
             type: ansible-playbook
             file: target-installer.yaml
+            vars: target-vars.yaml
