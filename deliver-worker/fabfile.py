@@ -21,14 +21,16 @@ def set_hosts(config=None):
     
             elif y['destination'] == 'hosts':
                 # set hosts
-                monitor = '{}@{}:{}'.format(y['hosts']['monitor']['ssh_user'], y['hosts']['monitor']['ssh_host'], y['hosts']['monitor']['ssh_port'])
-                target = '{}@{}:{}'.format(y['hosts']['target']['ssh_user'], y['hosts']['target']['ssh_host'], y['hosts']['target']['ssh_port'])
-                env.hosts = [monitor, target]
+                m = y['hosts']['monitor']
+                t = y['hosts']['monitor']
+                mh = '{}@{}:{}'.format(m['ssh_user'], m['ssh_host'], m['ssh_port'])
+                th = '{}@{}:{}'.format(t['ssh_user'], t['ssh_host'], t['ssh_port'])
+                env.hosts = [mh, th]
 
                 # set roles
                 env.roledefs.update({
-                    'monitor': [monitor],
-                    'target': [target],
+                    'monitor': [mh],
+                    'target': [th],
                     })
 
                 # set passwords and key files
