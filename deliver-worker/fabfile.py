@@ -31,10 +31,14 @@ def set_hosts(config=None):
                     'target': [target],
                     })
 
-                # TODO set passwords
-                env.passwords = {monitor: y['hosts']['monitor']['ssh_pass'], }
-                # TODO set key files
-                env.key_filename = [y['hosts']['target']['ssh_key_file'], ]
+                # set passwords and key files
+                env.key_filename = []
+                for k,v in y['hosts'].iteritems():
+                    if v['ssh_auth_type'] == 'password':
+                        h = '{}@{}:{}'.format(v['ssh_user'], v['ssh_host'], v['ssh_port'])
+                        env.passwords[h] = v['ssh_pass']
+                    elif v['ssh_auth_type'] == 'public-key':
+                        env.key_filename.append(v['ssh_key_file']);
     
             else:
                 print("unsupported")
