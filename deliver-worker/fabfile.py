@@ -17,6 +17,7 @@ def set_hosts(config=None):
                     local('vagrant up')
                     # TODO set hosts
                     # TODO set roles
+                    # TODO set key files
     
             elif y['destination'] == 'hosts':
                 # set hosts
