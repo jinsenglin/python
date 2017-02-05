@@ -15,16 +15,25 @@ def set_hosts(config=None):
             if y['destination'] == 'vagrant-vb':
                 with lcd(y['vagrant-vb']['vagrantfile_location']):
                     local('vagrant up')
+                    # TODO set hosts
                     # TODO set roles
     
             elif y['destination'] == 'hosts':
-                print(y['hosts']['monitor'])
-                print(y['hosts']['target'])
-                # TODO set roles
+                # set hosts
+                monitor = '{}@{}:{}'.format(y['hosts']['monitor']['ssh_user'], y['hosts']['monitor']['ssh_host'], y['hosts']['monitor']['ssh_port'])
+                target = '{}@{}:{}'.format(y['hosts']['target']['ssh_user'], y['hosts']['target']['ssh_host'], y['hosts']['target']['ssh_port'])
+                env.hosts = [monitor, target]
+
+                # set roles
                 env.roledefs.update({
-                    'monitor': [y['hosts']['monitor']['ssh_host']],
-                    'target': [y['hosts']['target']['ssh_host']],
+                    'monitor': [monitor],
+                    'target': [target],
                     })
+
+                # TODO set passwords
+                env.passwords = {monitor: y['hosts']['monitor']['ssh_pass'], }
+                # TODO set key files
+                env.key_filename = [y['hosts']['target']['ssh_key_file'], ]
     
             else:
                 print("unsupported")
