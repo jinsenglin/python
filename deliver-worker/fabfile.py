@@ -34,9 +34,9 @@ def set_hosts(config=None):
     else:
         print("missing config file")
 
-# fab delivery_monitor:config=config.yaml
+# fab deliver_monitor:config=config.yaml
 @roles('monitor')
-def delivery_monitor(config=None):
+def deliver_monitor(config=None):
     if config:
 
         with open(config, 'r') as f:
@@ -62,9 +62,9 @@ def delivery_monitor(config=None):
     else:
         print("missing config file")
 
-# fab delivery_target:config=config.yaml
+# fab deliver_target:config=config.yaml
 @roles('target')
-def delivery_target(config=None):
+def deliver_target(config=None):
     if config:
 
         with open(config, 'r') as f:

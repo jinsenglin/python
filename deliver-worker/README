@@ -1,1 +1,1 @@
-Usage: fab set_hosts:config=config.yaml delivery_target:config=config.yaml delivery_monitor:config=config.yaml
+Usage: fab set_hosts:config=config.yaml deliver_target:config=config.yaml deliver_monitor:config=config.yaml
