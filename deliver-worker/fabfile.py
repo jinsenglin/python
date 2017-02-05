@@ -83,6 +83,9 @@ def set_hosts(config=None):
                         ex_domain_name=ks['auth_domain'],
                         ex_tenant_name=ks['auth_tenant'])
                 print(driver.list_nodes())
+                print(driver.list_sizes())
+                print(driver.list_images())
+                #node = driver.create_node(name='libcloud', size=size, image=image)
 
                 # TODO parse machines' ssh login information
                 # TODO set hosts
