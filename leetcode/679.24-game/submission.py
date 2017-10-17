@@ -63,7 +63,35 @@ class Solution(object):
 
         return ''.join(postfix)
     
+    def _new_expression_r(self, exp, mask):
+        left_oprand = ''
+        op = ''
+        right_oprand = ''
+        index = len(mask)-1;
+        new_exp = []
+        
+        while index > -1:
+            if index == len(mask)-1:
+                left_oprand = exp[index*2+1-1]
+                op = exp[index*2+1]
+                right_oprand = exp[index*2+1+1]
+            else:
+                op = exp[index*2+1]
+                left_oprand = exp[index*2+1-1]
+
+            if mask[index] == '1':
+                right_oprand = '({0}{1}{2})'.format(left_oprand, op, right_oprand)
+            else:
+                new_exp.insert(0, right_oprand)
+                new_exp.insert(0, op)
+                right_oprand = left_oprand
+
+            index -= 1
+
+        new_exp.insert(0, right_oprand)
+        return ''.join(new_exp)
     
+
     def _new_expression(self, exp, mask):
         left_oprand = ''
         op = ''
@@ -129,6 +157,7 @@ class Solution(object):
         for exp in self._yield_possible_expressions(nums):
             for mask in self._yield_possible_masks(len(nums)):
                 yield(self._new_expression(exp, mask))
+                yield(self._new_expression_r(exp, mask))
                 
                 
     def judgePoint24(self, nums):
@@ -141,7 +170,9 @@ class Solution(object):
             value = 0
             
             try:
-                value = self._eval_postfix(self._infix_to_postfix(exp))
+                postfix = self._infix_to_postfix(exp)
+                value = self._eval_postfix(postfix)
+                # print('DEBUG: {0} -> {1} = {2}'.format(exp, postfix, value))
             except ZeroDivisionError:
                 pass
             
