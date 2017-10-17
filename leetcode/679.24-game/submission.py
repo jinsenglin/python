@@ -156,8 +156,9 @@ class Solution(object):
     def _yield_possible_expressions_with_possible_masks(self, nums):
         for exp in self._yield_possible_expressions(nums):
             for mask in self._yield_possible_masks(len(nums)):
-                yield(self._new_expression(exp, mask))
-                yield(self._new_expression_r(exp, mask))
+                if '/' in exp or '*' in exp:
+                    yield(self._new_expression(exp, mask))
+                    yield(self._new_expression_r(exp, mask))
                 
                 
     def judgePoint24(self, nums):
@@ -170,8 +171,10 @@ class Solution(object):
             value = 0
             
             try:
-                postfix = self._infix_to_postfix(exp)
-                value = self._eval_postfix(postfix)
+                # postfix = self._infix_to_postfix(exp)
+                # value = self._eval_postfix(postfix)
+                
+                value = eval(exp)
                 # print('DEBUG: {0} -> {1} = {2}'.format(exp, postfix, value))
             except ZeroDivisionError:
                 pass
