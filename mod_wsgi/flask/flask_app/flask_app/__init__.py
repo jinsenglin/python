@@ -12,7 +12,7 @@ def hello():
     return "Hello"
 
 
-@app.route("/auth/always_deny")
+@app.route("/auth/always_deny", methods=["GET", "POST"])
 def auth_always_deny():
     import json
     obj = {}
