@@ -39,7 +39,13 @@ def os_sdk():
 
 @app.route("/k8s/sdk")
 def k8s_sdk():
-    return "TODO"
+    from kubernetes import client, config
+    config.load_kube_config(config_file='../samples/0000-0000-0000-0000.yaml')
+    v1 = client.CoreV1Api()
+    ret = v1.list_pod_for_all_namespaces(watch=False)
+    for i in ret.items:
+        print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
+    return "/k8s/sdk"
 
 if __name__ == "__main__":
     app.run()

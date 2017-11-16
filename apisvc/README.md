@@ -61,3 +61,11 @@ Start development server (two threads)
 cd apisvc
 gunicorn --workers=2 -b 127.0.0.1:5000 main:app
 ```
+
+# API References
+
+* https://python-etcd3.readthedocs.io/en/latest/usage.html#api
+* https://github.com/kubernetes-incubator/client-python/
+* https://github.com/kubernetes-incubator/client-python/blob/master/kubernetes/README.md
+* https://github.com/kubernetes-client/python-base/blob/b7a9f4a07eb39c41e7f813147a419ed0bfecbbd9/config/kube_config.py#L331
+* https://github.com/openstack/python-openstackclient
