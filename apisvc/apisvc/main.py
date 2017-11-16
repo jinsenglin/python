@@ -36,10 +36,9 @@ def k8s_cli():
 @app.route("/os/sdk")
 def os_sdk():
     # TODO utility to generate yaml file from openrc file
-    # TODO switch cloud
     # TODO check thread-safe
     import os_client_config
-    occ = os_client_config.OpenStackConfig()
+    occ = os_client_config.OpenStackConfig(config_files=['../samples/0000-0000-0000-0000.os.yaml'])
     cloud = occ.get_one_cloud('cc-iaas')
     from openstack import connection
     conn = connection.from_config(cloud_config=cloud)
