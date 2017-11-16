@@ -68,5 +68,4 @@ gunicorn --workers=2 -b 127.0.0.1:5000 main:app
 * https://github.com/kubernetes-incubator/client-python/
 * https://github.com/kubernetes-incubator/client-python/blob/master/kubernetes/README.md
 * https://github.com/kubernetes-client/python-base/blob/b7a9f4a07eb39c41e7f813147a419ed0bfecbbd9/config/kube_config.py#L331
-* https://github.com/openstack/python-openstackclient/tree/master/examples
-* https://github.com/openstack/python-openstackclient/blob/master/openstackclient/shell.py
+* https://developer.openstack.org/sdks/python/openstacksdk/users/index.html

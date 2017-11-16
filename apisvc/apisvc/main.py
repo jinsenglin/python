@@ -35,12 +35,6 @@ def k8s_cli():
 
 @app.route("/os/sdk")
 def os_sdk():
-    from keystoneauth1 import session as ks_session
-    from osc_lib.api import auth
-    import openstackclient
-    from openstackclient.common import client_config as cloud_config
-    from openstackclient.common import clientmanager
-    from openstackclient.common import commandmanager
     return "TODO"
 
 @app.route("/k8s/sdk")
