@@ -5,6 +5,12 @@ app = Flask(__name__)
 def root():
     return "GET /"
 
+@app.route("/bad-request")
+def bad_request():
+    from flask import abort
+    abort(404)
+    return "GET /bad-request"
+
 @app.route("/", methods=["POST"])
 def post_root():
     return "POST /"
