@@ -12,7 +12,19 @@
 # Sources
 
 * src home: apisvc
-* entrypoint: main.py
+* entrypoints:
+  * main.py
+  * main_dev.py
+* chain of responsibility:
+  * __init__.py
+    * initiate object `app`
+    * import module `routes`, which will trigger routes registration
+  * main.py
+    * import object `app`
+    * invoke method `app.run()`
+  * routes.py
+    * import object `app`
+    * invoke method `app.route()`
 
 # Setup Development Environment
 
@@ -52,12 +64,20 @@ Start development server (single thread)
 
 ```
 cd apisvc
-python main.py
+python main_dev.py
 ``` 
 
 Start development server (two threads)
 
 ```
+cd apisvc
+gunicorn --workers=2 -b 127.0.0.1:5000 main_dev:app
+```
+
+Start development server (two threads, production)
+
+```
+python setup.py install
 cd apisvc
 gunicorn --workers=2 -b 127.0.0.1:5000 main:app
 ```
@@ -69,3 +89,7 @@ gunicorn --workers=2 -b 127.0.0.1:5000 main:app
 * https://github.com/kubernetes-incubator/client-python/blob/master/kubernetes/README.md
 * https://github.com/kubernetes-client/python-base/blob/b7a9f4a07eb39c41e7f813147a419ed0bfecbbd9/config/kube_config.py#L331
 * https://developer.openstack.org/sdks/python/openstacksdk/users/index.html
+
+# Addiontional Resources
+
+* https://github.com/pallets/flask/tree/master/examples/patterns/largerapp

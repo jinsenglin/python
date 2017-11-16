@@ -1,3 +1,6 @@
 *.swp
 *.pyc
 venv/
+apisvc.egg-info/
+build/
+dist/
