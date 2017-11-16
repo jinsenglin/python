@@ -16,13 +16,13 @@
   * main.py
   * main_dev.py
 * chain of responsibility:
-  * __init__.py
+  * `__init__.py`
     * initiate object `app`
     * import module `routes`, which will trigger routes registration
-  * main.py
+  * `main.py`
     * import object `app`
     * invoke method `app.run()`
-  * routes.py
+  * `routes.py`
     * import object `app`
     * invoke method `app.route()`
 
