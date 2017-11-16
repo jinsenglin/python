@@ -22,10 +22,18 @@
   * `routes/__init__.py`
     * import package `routes.v1`
   * `routes/v1/__init__.py`
-    * import module `routes.v1.admin`, which will trigger url registration
+    * import package `routes.v1.admin`, which will trigger url registration
     * import module `routes.v1.tenant`, which will trigger url registration
     * import module `routes.v1.user`, which will trigger url registration
-  * `routes/v1/admin.py`
+  * `routes/v1/admin/__init__.py`
+    * import object `app`
+    * invoke method `app.route()`
+    * import module `tenants`, which will trigger url registration
+    * import module `nodes`, which will trigger url registration
+  * `routes/v1/admin/tenants.py`
+    * import object `app`
+    * invoke method `app.route()`
+  * `routes/v1/admin/nodes.py`
     * import object `app`
     * invoke method `app.route()`
   * `routes/v1/tenant.py`
