@@ -18,12 +18,13 @@
 * chain of responsibility:
   * `__init__.py`
     * initiate object `app`
-    * import all modules in package `routes.v1`, which will trigger url registration
-  * `main.py`
-    * import object `app`
-    * invoke method `app.run()`
+    * import package `routes`
+  * `routes/__init__.py`
+    * import package `routes.v1`
   * `routes/v1/__init__.py`
-    * initiate module variable `__all__`
+    * import module `routes.v1.admin`, which will trigger url registration
+    * import module `routes.v1.tenant`, which will trigger url registration
+    * import module `routes.v1.user`, which will trigger url registration
   * `routes/v1/admin.py`
     * import object `app`
     * invoke method `app.route()`
@@ -33,6 +34,9 @@
   * `routes/v1/user.py`
     * import object `app`
     * invoke method `app.route()`
+  * `main.py`
+    * import object `app`
+    * invoke method `app.run()`
 
 # Setup Development Environment
 
