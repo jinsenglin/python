@@ -18,7 +18,7 @@
 * chain of responsibility:
   * `__init__.py`
     * initiate object `app`
-    * import module `routes`, which will trigger routes registration
+    * import module `routes`, which will trigger url registration
   * `main.py`
     * import object `app`
     * invoke method `app.run()`
