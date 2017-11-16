@@ -42,6 +42,12 @@ docker run \
   --initial-cluster node1=http://${NODE1}:2380
 ```
 
+Start local kubernetes
+
+```
+minikube start --kubernetes-version=v1.8.2 --bootstrapper kubeadm --cpus 4 --memory 8192
+```
+
 Start development server (single thread)
 
 ```
