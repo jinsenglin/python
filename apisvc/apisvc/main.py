@@ -47,6 +47,11 @@ class TodoSimple(Resource):
 api = Api(app)
 api.add_resource(TodoSimple, '/resource/<string:id>')
 
+@app.route('/res/<string:id>')
+def show_post(id):
+    print(id)
+    return "GET /res"
+
 @app.route("/sleep")
 def sleep():
     import time
