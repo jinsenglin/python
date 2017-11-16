@@ -35,10 +35,17 @@ def k8s_cli():
 
 @app.route("/os/sdk")
 def os_sdk():
+    from keystoneauth1 import session as ks_session
+    from osc_lib.api import auth
+    import openstackclient
+    from openstackclient.common import client_config as cloud_config
+    from openstackclient.common import clientmanager
+    from openstackclient.common import commandmanager
     return "TODO"
 
 @app.route("/k8s/sdk")
 def k8s_sdk():
+    # TODO check thread-safe
     from kubernetes import client, config
     config.load_kube_config(config_file='../samples/0000-0000-0000-0000.yaml')
     v1 = client.CoreV1Api()
