@@ -1,4 +1,4 @@
-# Versions
+# Runtime Versions
 
 * python: 2.7.11
 * others: see requirements.txt
@@ -31,6 +31,8 @@ cd apisvc
 gunicorn --workers=2 -b 127.0.0.1:5000 main:app
 ``` 
 
-# Usage
+# External Components
 
-
+* openstack: >= mitaka
+* kubernetes: 1.8.2
+* etcd: 3.0.17
