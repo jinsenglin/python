@@ -1,4 +1,4 @@
 from flask import Flask
 app = Flask('apisvc')
 
-import apisvc.routes
+from routes.v1 import *

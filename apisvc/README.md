@@ -18,11 +18,19 @@
 * chain of responsibility:
   * `__init__.py`
     * initiate object `app`
-    * import module `routes`, which will trigger url registration
+    * import all modules in package `routes.v1`, which will trigger url registration
   * `main.py`
     * import object `app`
     * invoke method `app.run()`
-  * `routes.py`
+  * `routes/v1/__init__.py`
+    * initiate module variable `__all__`
+  * `routes/v1/admin.py`
+    * import object `app`
+    * invoke method `app.route()`
+  * `routes/v1/tenant.py`
+    * import object `app`
+    * invoke method `app.route()`
+  * `routes/v1/user.py`
     * import object `app`
     * invoke method `app.route()`
 
@@ -93,3 +101,4 @@ gunicorn --workers=2 -b 127.0.0.1:5000 main:app
 # Addiontional Resources
 
 * https://github.com/pallets/flask/tree/master/examples/patterns/largerapp
+* https://medium.com/@timburks/openapi-and-grpc-side-by-side-b6afb08f75ed
