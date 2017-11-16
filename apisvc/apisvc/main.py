@@ -15,6 +15,21 @@ def header():
     print(request.headers.get('X-PERSONATE'))
     return "GET /header"
 
+@app.route("/json/body", methods=["POST"])
+def json_body():
+    """Usage: curl -H "Content-Type: application/json" -d '{}' /json/body
+    """
+    from flask import request
+    print(request.get_json())
+    return "POST /json/body"
+
+@app.route("/json/return")
+def json_return():
+    import json
+    obj = {}
+    obj["status"] = 200
+    return json.dumps(obj)
+
 from flask_restful import Resource, Api
 class TodoSimple(Resource):
     def get(self, id):
