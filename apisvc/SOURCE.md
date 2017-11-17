@@ -58,4 +58,16 @@ More about `routes/v1/admin/__init__.py`
   * import object `app`
   * invoke function `app.logger.debug`
 
+Same applied to
+
+* `routes/v1/admin/tenants.py`
+* `routes/v1/admin/users.py`
+* `routes/v1/admin/nodes.py`
+* `routes/v1/tenant/__init__.py`
+* `routes/v1/tenant/vms.py`
+* `routes/v1/tenant/pods.py`
+* `routes/v1/user/__init__.py`
+* `routes/v1/user/vms.py`
+* `routes/v1/user/pods.py`
+
 ---
