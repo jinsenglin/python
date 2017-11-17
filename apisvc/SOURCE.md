@@ -53,7 +53,7 @@
 
 More about `routes/v1/admin/__init__.py`
 
-* import and invoke function `apisvc.common.timeit.timeit`
+* import and invoke function `common.timeit.timeit`
 * function `common.timeit.timeit`
   * import object `app`
   * invoke function `app.logger.debug`
