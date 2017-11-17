@@ -42,7 +42,9 @@
     * import module `routes.v1.user.pods`, which will trigger url registration
   * `__main__.py`
     * import object `app`
+    * configure `app.logger`
     * invoke method `app.run()`
   * `main.py`
     * import object `app`
+    * configure `app.logger`
     * invoke method `app.run()`

@@ -18,6 +18,10 @@
   * `main_dev.py`
 * chain of responsibility: see SOURCE.md
 
+# Log Files
+
+* /tmp/apisvc.log
+
 # Setup Development Environment
 
 ```
@@ -74,19 +78,34 @@ cd apisvc
 gunicorn --workers=2 -b 127.0.0.1:5000 main_dev:app
 ```
 
-Start development server (two threads, production, option1)
+Start development server (single thread, production, option1)
 
 ```
 python setup.py install
 cd apisvc
-gunicorn --workers=2 -b 127.0.0.1:5000 main:app
+python main.py
 ```
 
-Start development server (two threads, production, option2)
+Start development server (single thread, production, option2)
 
 ```
 python setup.py install
-gunicorn --workers=2 -b 127.0.0.1:5000 apisvc:app
+python -m apisvc
+```
+
+Start development server (single thread, production, option3)
+
+```
+python setup.py install
+cd apisvc
+gunicorn --workers=1 -b 127.0.0.1:5000 main:app
+```
+
+Start development server (single thread, production, option4)
+
+```
+python setup.py install
+gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 ```
 
 # API References and Examples
