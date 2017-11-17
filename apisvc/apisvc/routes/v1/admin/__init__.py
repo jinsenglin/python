@@ -1,8 +1,9 @@
 from apisvc import app
 
-@app.route('/v1/admin')
-def admin():
-    return 'GET /v1/admin'
+@app.route('/v1/admin/healthz')
+def healthz():
+    return 'ok'
 
 import tenants
+import users
 import nodes
