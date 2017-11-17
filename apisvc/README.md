@@ -18,9 +18,10 @@
   * `main_dev.py`
 * chain of responsibility: see SOURCE.md
 
-# Log Files
+# Logs
 
-* /tmp/apisvc.log
+* file: /tmp/apisvc.log
+* default log level: DEBUG (CHANGE it to WARNING in production site)
 
 # Setup Development Environment
 
@@ -125,3 +126,4 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
 * https://docs.python.org/2/library/logging.html#logging-levels
 * http://flask.pocoo.org/docs/0.12/errorhandling/#logging-to-a-file
+* http://trytofix.github.io/2016/05/05/Flask%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98AssertionError-View-function-mapping-is-overwriting-an-existing-endpoint-function/
