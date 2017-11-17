@@ -96,3 +96,5 @@ gunicorn --workers=2 -b 127.0.0.1:5000 main:app
 * https://www.zopyx.com/andreas-jung/contents/a-python-decorator-for-measuring-the-execution-time-of-methods
 * https://medium.com/pythonhive/python-decorator-to-measure-the-execution-time-of-methods-fa04cb6bb36d
 * http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
+* https://docs.python.org/2/library/logging.html#logging-levels
+* http://flask.pocoo.org/docs/0.12/errorhandling/#logging-to-a-file

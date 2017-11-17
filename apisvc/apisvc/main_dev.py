@@ -96,7 +96,6 @@ def k8s_cli():
 
 @app.route("/os/sdk")
 def os_sdk():
-    # TODO utility to generate yaml file from openrc file
     import os_client_config
     occ = os_client_config.OpenStackConfig(config_files=['../samples/0000-0000-0000-0000.os.yaml'])
     cloud = occ.get_one_cloud('cc-iaas')
@@ -134,4 +133,24 @@ def timeme():
     return "GET /timeme"
 
 if __name__ == "__main__":
+    import logging
+    app.logger.setLevel(logging.INFO)   # default level == WARNING
+    """
+        [ o ] error
+        [ o ] warning
+        [ o ] info
+        [ x ] debug
+    """
+
+    from logging.handlers import RotatingFileHandler
+    handler = RotatingFileHandler('/tmp/apisvc.log', maxBytes=10000, backupCount=1)
+    handler.setLevel(logging.ERROR)     # only record error level
+    app.logger.addHandler(handler)
+    """
+        [ o ] error
+        [ x ] warning
+        [ x ] info
+        [ x ] debug
+    """
+
     app.run()
