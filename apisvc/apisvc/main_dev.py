@@ -5,6 +5,14 @@ app = Flask(__name__)
 def root():
     return "GET /"
 
+@app.route("/log")
+def log():
+    app.logger.debug('This is log of level debug')
+    app.logger.info('This is log of level info')
+    app.logger.warning('This is log of level warning')
+    app.logger.error('This is log of level error')
+    return "GET /log"
+
 @app.route("/bad-request")
 def bad_request():
     from flask import abort
