@@ -4,3 +4,4 @@ venv/
 apisvc.egg-info/
 build/
 dist/
+.idea/

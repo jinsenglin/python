@@ -109,6 +109,14 @@ python setup.py install
 gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 ```
 
+# PyCharm
+
+1. Open PyCharm
+2. Create New Project
+3. Location: apisvc (NOTE not apisvc/apisvc)
+4. Interpreter :: Add Local: apisvc/venv/bin/python2.7
+5. Create :: Yes
+
 # API References and Examples
 
 * https://python-etcd3.readthedocs.io/en/latest/usage.html#api
