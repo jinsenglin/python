@@ -93,3 +93,5 @@ gunicorn --workers=2 -b 127.0.0.1:5000 main:app
 
 * https://github.com/pallets/flask/tree/master/examples/patterns/largerapp
 * https://medium.com/@timburks/openapi-and-grpc-side-by-side-b6afb08f75ed
+* https://www.zopyx.com/andreas-jung/contents/a-python-decorator-for-measuring-the-execution-time-of-methods
+* https://medium.com/pythonhive/python-decorator-to-measure-the-execution-time-of-methods-fa04cb6bb36d

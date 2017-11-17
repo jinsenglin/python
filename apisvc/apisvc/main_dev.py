@@ -116,5 +116,22 @@ def k8s_sdk():
         print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
     return "GET /k8s/sdk"
 
+def timeit(method):
+    def timed(*args, **kw):
+        import time
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+        print '%r (%r, %r) %2.2f sec' % (method.__name__, args, kw, te-ts)
+        return result
+    return timed
+
+@app.route("/timeme")
+@timeit
+def timeme():
+    import time
+    time.sleep(1)
+    return "GET /timeme"
+
 if __name__ == "__main__":
     app.run()
