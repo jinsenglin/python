@@ -78,6 +78,7 @@ More about `routes/v1/tenant/__init__.py`
 * function `common.check.need_personate_header`
   * import object `app`
   * invoke function `app.logger.debug`
+  * invoke function `flask.request.headers.get`
 
 Same applied to
 
