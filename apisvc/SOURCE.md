@@ -8,6 +8,7 @@
 * chain of responsibility:
   * `__init__.py`
     * initiate object `app`
+    * configure `app.logger`
     * import package `routes`
   * `routes/__init__.py`
     * import package `routes.v1`
@@ -42,11 +43,9 @@
     * import module `routes.v1.user.pods`, which will trigger url registration
   * `__main__.py`
     * import object `app`
-    * configure `app.logger`
     * invoke method `app.run()`
   * `main.py`
     * import object `app`
-    * configure `app.logger`
     * invoke method `app.run()`
 
 ---
