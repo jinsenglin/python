@@ -26,8 +26,8 @@
 # Setup Development Environment
 
 ```
-git clone ...
-cd ...
+git clone https://github.com/jinsenglin/python.git
+cd python/apisvc # PROJECT_HOME
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
@@ -60,14 +60,14 @@ minikube start --kubernetes-version=v1.8.2 --bootstrapper kubeadm --cpus 4 --mem
 Start development server (single thread)
 
 ```
-cd apisvc
+cd $PROJECT_HOME/apisvc
 python main_dev.py
 ``` 
 
 Start development server (single thread, watch)
 
 ```
-cd apisvc
+cd $PROJECT_HOME/apisvc
 export FLASK_DEBUG=1
 python main_dev.py
 ``` 
@@ -75,37 +75,57 @@ python main_dev.py
 Start development server (two threads)
 
 ```
-cd apisvc
+cd $PROJECT_HOME/apisvc
 gunicorn --workers=2 -b 127.0.0.1:5000 main_dev:app
 ```
 
 Start development server (single thread, production, option1)
 
 ```
-python setup.py install
-cd apisvc
-python main.py
+cd $PROJECT_HOME
+python -m apisvc
 ```
 
 Start development server (single thread, production, option2)
 
 ```
+cd $PROJECT_HOME
 python setup.py install
+cd $ANY_DIRECTORY
 python -m apisvc
 ```
 
 Start development server (single thread, production, option3)
 
 ```
+cd $PROJECT_HOME
 python setup.py install
 cd apisvc
-gunicorn --workers=1 -b 127.0.0.1:5000 main:app
+python main.py
 ```
 
 Start development server (single thread, production, option4)
 
 ```
+cd $PROJECT_HOME
 python setup.py install
+cd apisvc
+gunicorn --workers=1 -b 127.0.0.1:5000 main:app
+```
+
+Start development server (single thread, production, option5)
+
+```
+cd $PROJECT_HOME
+gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
+```
+
+Start development server (single thread, production, option6)
+
+```
+cd $PROJECT_HOME
+python setup.py install
+cd $ANY_DIRECTORY
 gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 ```
 
@@ -137,3 +157,5 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * http://trytofix.github.io/2016/05/05/Flask%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98AssertionError-View-function-mapping-is-overwriting-an-existing-endpoint-function/
 * http://ot-note.logdown.com/posts/67571/-decorator-with-without-arguments-in-function-class-form
 * https://www.thecodeship.com/patterns/guide-to-python-function-decorators/
+* http://flask.pocoo.org/docs/dev/logging/#basic-configuration
+* http://flask.pocoo.org/docs/dev/logging/#removing-the-default-handler
