@@ -135,3 +135,5 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * https://docs.python.org/2/library/logging.html#logging-levels
 * http://flask.pocoo.org/docs/0.12/errorhandling/#logging-to-a-file
 * http://trytofix.github.io/2016/05/05/Flask%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98AssertionError-View-function-mapping-is-overwriting-an-existing-endpoint-function/
+* http://ot-note.logdown.com/posts/67571/-decorator-with-without-arguments-in-function-class-form
+* https://www.thecodeship.com/patterns/guide-to-python-function-decorators/
