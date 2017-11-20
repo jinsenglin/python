@@ -19,14 +19,9 @@ def _check_account_existed_in_the_persistent_store(account):
     value, key = etcd.get('/apisvc/accounts/{0}'.format(account))
 
     if key:
-        account_k8s = '{0}.k8s.yaml'.format(account)
-        account_os = '{0}.os.yaml'.format(account)
+        credential_k8s_cache, credential_os_cache = util.credential_cache(account)
 
-        cache = app.config['APISVC_CACHE_STORE']
-        account_k8s_cache = '{0}/{1}'.format(cache, account_k8s)
-        account_os_cache = '{0}/{1}'.format(cache, account_os)
-
-        with open(account_k8s_cache, 'w') as k8s_file, open(account_os_cache, 'w') as os_file:
+        with open(credential_k8s_cache, 'w') as k8s_file, open(credential_os_cache, 'w') as os_file:
             k8s_file.write(value);
             os_file.write(value);
             
@@ -42,17 +37,12 @@ def _check_account_existed(account):
         return False if all checks are not passed
     """
 
-    account_k8s = '{0}.k8s.yaml'.format(account)
-    account_os = '{0}.os.yaml'.format(account)
+    credential_k8s_cache, credential_os_cache = util.credential_cache(account)
 
-    cache = app.config['APISVC_CACHE_STORE']
-    account_k8s_cache = '{0}/{1}'.format(cache, account_k8s)
-    account_os_cache = '{0}/{1}'.format(cache, account_os)
-
-    if os.path.isfile(account_k8s_cache) and os.path.isfile(account_os_cache):
+    if os.path.isfile(credential_k8s_cache) and os.path.isfile(credential_os_cache):
         return True
     else:
-        app.logger.debug('file {0} or {1} not found in local cache store'.format(account_k8s_cache, account_os_cache))
+        app.logger.debug('file {0} or {1} not found in local cache store'.format(credential_k8s_cache, credential_os_cache))
         return _check_account_existed_in_the_persistent_store(account)
 
 PERSONATE_ADMIN = 'ADMIN'
