@@ -4,6 +4,7 @@ from functools import wraps
 from flask import request, abort
 import etcd3
 from apisvc import app
+from apisvc.managers.manager import Manager
 
 def _check_account_existed_in_the_persistent_store(account):
     """
@@ -78,8 +79,8 @@ def need_personate_header(role):
                 personation = request.headers.get('X-PERSONATE')
                 if re.match(role, personation):
                     if _check_account_existed(personation):
-                        # TODO expand **kwargs
-                        kwargs['apisvc_res_manager'] = 'TODO'
+                        # TODO
+                        kwargs['apisvc_res_manager'] = Manager(role='', account='')
                         result = fn(*args, **kwargs)
                         return result
                     else:
