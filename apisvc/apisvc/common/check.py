@@ -2,6 +2,7 @@ import re
 import os.path
 from functools import wraps
 from flask import request, abort
+import etcd3
 from apisvc import app
 
 def _check_account_existed_in_the_persistent_store(account):
@@ -11,8 +12,26 @@ def _check_account_existed_in_the_persistent_store(account):
             return True
     """
 
-    # TODO 
-    return False
+    db = app.config['APISVC_PERSISTENT_STORE']
+    etcd = etcd3.client(host=db)
+    value, key = etcd.get('/apisvc/accounts/{0}'.format(account))
+
+    if key:
+        account_k8s = '{0}.k8s.yaml'.format(account)
+        account_os = '{0}.os.yaml'.format(account)
+
+        cache = app.config['APISVC_CACHE_STORE']
+        account_k8s_cache = '{0}/{1}'.format(cache, account_k8s)
+        account_os_cache = '{0}/{1}'.format(cache, account_os)
+
+        with open(account_k8s_cache, 'w') as k8s_file, open(account_os_cache, 'w') as os_file:
+            k8s_file.write(value);
+            os_file.write(value);
+            
+        return True
+    else:
+        app.logger.debug('/apisvc/accounts/{0} not found in remote persistent store'.format(account))
+        return False
 
 def _check_account_existed(personation):
     """
@@ -37,7 +56,7 @@ def _check_account_existed(personation):
         if os.path.isfile(account_k8s_cache) and os.path.isfile(account_os_cache):
             return True
         else:
-            app.logger.debug('file {0} or {1} not found'.format(account_k8s_cache, account_os_cache))
+            app.logger.debug('file {0} or {1} not found in local cache store'.format(account_k8s_cache, account_os_cache))
             return _check_account_existed_in_the_persistent_store(account)
 
 PERSONATE_ADMIN = 'ADMIN'
