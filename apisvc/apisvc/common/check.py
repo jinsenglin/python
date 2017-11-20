@@ -5,6 +5,7 @@ from flask import request, abort
 import etcd3
 from apisvc import app
 from apisvc.managers.manager import Manager
+from apisvc.common import util
 
 def _check_account_existed_in_the_persistent_store(account):
     """
@@ -34,31 +35,25 @@ def _check_account_existed_in_the_persistent_store(account):
         app.logger.debug('/apisvc/accounts/{0} not found in remote persistent store'.format(account))
         return False
 
-def _check_account_existed(personation):
+def _check_account_existed(account):
     """
         return True if the specified account exists in the local cache store
         return True if the specified account exists in the remote persistent store
         return False if all checks are not passed
     """
 
-    pair = personation.split(' ')
-    if (len(pair) < 2):
-        app.logger.debug('account not present')
-        return False
+    account_k8s = '{0}.k8s.yaml'.format(account)
+    account_os = '{0}.os.yaml'.format(account)
+
+    cache = app.config['APISVC_CACHE_STORE']
+    account_k8s_cache = '{0}/{1}'.format(cache, account_k8s)
+    account_os_cache = '{0}/{1}'.format(cache, account_os)
+
+    if os.path.isfile(account_k8s_cache) and os.path.isfile(account_os_cache):
+        return True
     else:
-        account = pair[1]
-        account_k8s = '{0}.k8s.yaml'.format(account)
-        account_os = '{0}.os.yaml'.format(account)
-
-        cache = app.config['APISVC_CACHE_STORE']
-        account_k8s_cache = '{0}/{1}'.format(cache, account_k8s)
-        account_os_cache = '{0}/{1}'.format(cache, account_os)
-
-        if os.path.isfile(account_k8s_cache) and os.path.isfile(account_os_cache):
-            return True
-        else:
-            app.logger.debug('file {0} or {1} not found in local cache store'.format(account_k8s_cache, account_os_cache))
-            return _check_account_existed_in_the_persistent_store(account)
+        app.logger.debug('file {0} or {1} not found in local cache store'.format(account_k8s_cache, account_os_cache))
+        return _check_account_existed_in_the_persistent_store(account)
 
 PERSONATE_ADMIN = 'ADMIN'
 PERSONATE_TENANT = 'TENANT'
@@ -77,10 +72,10 @@ def need_personate_header(role):
             app.logger.debug('checking X-PERSONATE header ... ')
             if 'X-PERSONATE' in request.headers:
                 personation = request.headers.get('X-PERSONATE')
-                if re.match(role, personation):
-                    if _check_account_existed(personation):
-                        # TODO
-                        kwargs['apisvc_res_manager'] = Manager(role='', account='')
+                if re.match('{0} '.format(role), personation):
+                    _, account = util.personation_to_role_account(personation)
+                    if _check_account_existed(account):
+                        kwargs['apisvc_res_manager'] = Manager(role=role, account=account)
                         result = fn(*args, **kwargs)
                         return result
                     else:
