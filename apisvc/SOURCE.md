@@ -8,6 +8,7 @@
 * chain of responsibility:
   * `__init__.py`
     * initiate object `app`
+    * configure `app.config`
     * configure `app.logger`
     * import package `routes`
   * `routes/__init__.py`

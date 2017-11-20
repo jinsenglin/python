@@ -163,3 +163,4 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * https://www.thecodeship.com/patterns/guide-to-python-function-decorators/
 * http://flask.pocoo.org/docs/dev/logging/#basic-configuration
 * http://flask.pocoo.org/docs/dev/logging/#removing-the-default-handler
+* http://flask.pocoo.org/docs/0.12/tutorial/setup/

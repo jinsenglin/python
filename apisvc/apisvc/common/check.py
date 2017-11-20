@@ -22,6 +22,7 @@ def need_personate_header(role):
                 personation = request.headers.get('X-PERSONATE')
                 if re.match(role, personation):
                     # TODO check
+                    app.logger.debug('app.config["APISVC_CONFIG_CACHE_PATH"] = {0}'.format(app.config['APISVC_CONFIG_CACHE_PATH']))
                     if True:
                         # TODO expand **kwargs
                         kwargs['apisvc_res_manager'] = 'TODO'

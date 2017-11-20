@@ -3,6 +3,14 @@ app = Flask('apisvc')
 
 # ===================== #
 #                       #
+# CONFIG SETTINGS       #
+#                       #
+# ===================== #
+
+app.config['APISVC_CONFIG_CACHE_PATH'] = 'TODO'
+
+# ===================== #
+#                       #
 # LOGGING SETTINGS      #
 #                       #
 # ===================== #
