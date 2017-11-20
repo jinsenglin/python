@@ -93,6 +93,10 @@ cd $PROJECT_HOME
 python setup.py install
 cd $ANY_DIRECTORY
 python -m apisvc
+
+# To uninstall
+# EGG=$(grep show apisvc | grep Location | awk '{print $2}')
+# [ -z $EGG ] || rm $EGG
 ```
 
 Start development server (single thread, production, option3)
