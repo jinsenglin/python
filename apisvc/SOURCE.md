@@ -78,6 +78,7 @@ More about `routes/v1/tenant/__init__.py`
   * import object `app`
   * invoke function `app.logger.debug`
   * invoke function `flask.request.headers.get`
+  * invoke function `flask.abort`
 
 Same applied to
 
