@@ -1,4 +1,5 @@
 import re
+import os.path
 from functools import wraps
 from flask import request, abort
 from apisvc import app
@@ -10,9 +11,25 @@ def _check_account_existed(personation):
         return False if all checks are not passed
     """
 
-    # TODO
-    app.logger.debug('app.config["APISVC_CACHE_STORE"] = {0}'.format(app.config['APISVC_CACHE_STORE']))
-    return False
+    pair = personation.split(' ')
+    if (len(pair) < 2):
+        app.logger.debug('account not present')
+        return False
+    else:
+        account = pair[1]
+        account_k8s = '{0}.k8s.yaml'.format(account)
+        account_os = '{0}.os.yaml'.format(account)
+
+        cache = app.config['APISVC_CACHE_STORE']
+        account_k8s_cache = '{0}/{1}'.format(cache, account_k8s)
+        account_os_cache = '{0}/{1}'.format(cache, account_os)
+
+        if os.path.isfile(account_k8s_cache) and os.path.isfile(account_os_cache):
+                return True
+        else:
+            app.logger.debug('file {0} or {1} not found'.format(account_k8s_cache, account_os_cache))
+            # TODO check remote persistent store
+            return False
 
 PERSONATE_ADMIN = 'ADMIN'
 PERSONATE_TENANT = 'TENANT'
