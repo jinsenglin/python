@@ -1,4 +1,6 @@
+import os
 from flask import Flask
+
 app = Flask('apisvc')
 
 # ===================== #
@@ -7,7 +9,15 @@ app = Flask('apisvc')
 #                       #
 # ===================== #
 
-app.config['APISVC_CONFIG_CACHE_PATH'] = 'TODO'
+#app.config.from_object(__name__)                                       # config source 1: load config from this file
+#app.config.from_pyfile('application.cfg', silent=True)                 # config source 2: load config from other file
+
+# Load default config and override config from an environment variable # config source 3
+app.config.update(dict(
+    APISVC_CACHE_STORE=os.path.join(app.root_path, 'data'),             # or /var/cache/apisvc/accounts
+))
+
+#app.config.from_envvar('APISVC_CONFIG_FILE_PATH', silent=True)         # config source 4: load config from other file
 
 # ===================== #
 #                       #

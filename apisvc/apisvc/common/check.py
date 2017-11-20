@@ -1,6 +1,7 @@
 import re
 from functools import wraps
 from flask import request, abort
+from apisvc import app
 
 def _check_account_existed(personation):
     """
@@ -10,6 +11,7 @@ def _check_account_existed(personation):
     """
 
     # TODO
+    app.logger.debug('app.config["APISVC_CACHE_STORE"] = {0}'.format(app.config['APISVC_CACHE_STORE']))
     return False
 
 PERSONATE_ADMIN = 'ADMIN'
