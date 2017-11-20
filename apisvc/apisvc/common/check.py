@@ -4,6 +4,16 @@ from functools import wraps
 from flask import request, abort
 from apisvc import app
 
+def _check_account_existed_in_the_persistent_store(account):
+    """
+        if the specified account exists in the remote persistent store
+            cache it
+            return True
+    """
+
+    # TODO 
+    return False
+
 def _check_account_existed(personation):
     """
         return True if the specified account exists in the local cache store
@@ -25,11 +35,10 @@ def _check_account_existed(personation):
         account_os_cache = '{0}/{1}'.format(cache, account_os)
 
         if os.path.isfile(account_k8s_cache) and os.path.isfile(account_os_cache):
-                return True
+            return True
         else:
             app.logger.debug('file {0} or {1} not found'.format(account_k8s_cache, account_os_cache))
-            # TODO check remote persistent store
-            return False
+            return _check_account_existed_in_the_persistent_store(account)
 
 PERSONATE_ADMIN = 'ADMIN'
 PERSONATE_TENANT = 'TENANT'
