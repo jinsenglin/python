@@ -10,7 +10,8 @@ def v1_tenant_healthz():
 @app.route('/v1/tenant/quota')
 @timeit
 @check.need_personate_header(check.PERSONATE_TENANT)
-def v1_tenant_quota():
+def v1_tenant_quota(*args, **kwargs):
+    app.logger.debug('kwargs["apisvc_res_manager"] = {0}'.format(kwargs['apisvc_res_manager']))
     return 'GET /v1/tenant/quota'
 
 import vms
