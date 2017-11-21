@@ -4,7 +4,7 @@ from functools import wraps
 from flask import request, abort
 import etcd3
 from apisvc import app
-from apisvc.managers.manager import Manager
+from apisvc.managers.gm import Manager
 from apisvc.common import util
 
 def _check_account_existed_in_the_persistent_store(account):

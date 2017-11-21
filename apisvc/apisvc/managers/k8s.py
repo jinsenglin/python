@@ -1,3 +1,3 @@
-class Kubernetes(object):
+class Manager(object):
     # TODO
     pass

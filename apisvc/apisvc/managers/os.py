@@ -1,3 +1,3 @@
-class OpenStack(object):
+class Manager(object):
     # TODO
     pass
