@@ -7,6 +7,7 @@ from apisvc import app
 from apisvc.managers.gm import Manager
 from apisvc.common import util
 
+
 def _check_account_existed_in_the_persistent_store(account):
     """
         if the specified account exists in the remote persistent store
@@ -30,6 +31,7 @@ def _check_account_existed_in_the_persistent_store(account):
         app.logger.debug('/apisvc/accounts/{0} not found in remote persistent store'.format(account))
         return False
 
+
 def _check_account_existed(account):
     """
         return True if the specified account exists in the local cache store
@@ -48,6 +50,7 @@ def _check_account_existed(account):
 PERSONATE_ADMIN = 'ADMIN'
 PERSONATE_TENANT = 'TENANT'
 PERSONATE_USER = 'USER'
+
 
 def need_personate_header(role):
     """

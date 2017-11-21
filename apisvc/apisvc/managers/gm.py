@@ -2,8 +2,8 @@ from apisvc.common import util
 from apisvc.managers import k8s
 from apisvc.managers import os
 
+
 class Manager(object):
-    # TODO
     def __init__(self, role=None, account=None):
         self._role = role
         self._account = account
@@ -13,4 +13,8 @@ class Manager(object):
         self._os_mgr = os.Manager(credential=credential_os_cache)
 
     def __str__(self):
-        return '{0} {1}'.format(self._role, self._account);
+        return '{0} {1}'.format(self._role, self._account)
+
+    def demo(self):
+        self._k8s_mgr.demo()
+        self._os_mgr.demo()
