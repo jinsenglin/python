@@ -14,9 +14,9 @@ app = Flask('apisvc')
 
 # Load default config and override config from an environment variable  # config source 3
 app.config.update(dict(
-    APISVC_LOG = '/tmp/apisvc.log',                                     # or /var/log/apisvc/apisvc.log
-    APISVC_CACHE_STORE = os.path.join(app.root_path, 'cache'),          # or /var/cache/apisvc/accounts
-    APISVC_PERSISTENT_STORE = 'localhost',                              # or remote etcd server
+    APISVC_LOG='/tmp/apisvc.log',                                     # or /var/log/apisvc/apisvc.log
+    APISVC_CACHE_STORE=os.path.join(app.root_path, 'cache'),          # or /var/cache/apisvc/accounts
+    APISVC_PERSISTENT_STORE='localhost',                              # or remote etcd server
 ))
 
 #app.config.from_envvar('APISVC_CONFIG_FILE_PATH', silent=True)         # config source 4: load config from other file

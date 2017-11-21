@@ -13,4 +13,4 @@ def credential_cache(account):
     credential_k8s_cache = '{0}/{1}'.format(cache, credential_k8s)
     credential_os_cache = '{0}/{1}'.format(cache, credential_os)
 
-    return (credential_k8s_cache, credential_os_cache)
+    return credential_k8s_cache, credential_os_cache
