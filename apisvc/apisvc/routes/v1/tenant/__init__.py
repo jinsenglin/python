@@ -1,6 +1,7 @@
 from apisvc import app
 from apisvc.common.profile import timeit
 from apisvc.common import check
+from apisvc.handlers.v1.tenant import quota
 import vms
 import pods
 
@@ -16,4 +17,4 @@ def v1_tenant_healthz():
 @check.need_personate_header(check.PERSONATE_TENANT)
 def v1_tenant_quota(*args, **kwargs):
     app.logger.debug('kwargs["apisvc_res_manager"] = {0}'.format(kwargs['apisvc_res_manager']))
-    return 'GET /v1/tenant/quota'
+    return quota(manager=kwargs['apisvc_res_manager'])
