@@ -1,4 +1,4 @@
-from apisvc import app
+from apisvc.common.route import ROUTE
 from apisvc.common.profile import timeit
 from apisvc.common import check
 from apisvc.handlers.v1.tenant import quota as quota_handler
@@ -7,13 +7,13 @@ import vms
 import pods
 
 
-@app.route('/v1/tenant/healthz')
+@ROUTE('/v1/tenant/healthz')
 @timeit
 def v1_tenant_healthz():
     return 'ok'
 
 
-@app.route('/v1/tenant/quota')
+@ROUTE('/v1/tenant/quota')
 @timeit
 @check.need_personate_header(check.PERSONATE_TENANT)
 def v1_tenant_quota(*args, **kwargs):
