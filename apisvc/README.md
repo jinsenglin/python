@@ -79,10 +79,11 @@ cd $PROJECT_HOME/apisvc
 gunicorn --workers=2 -b 127.0.0.1:5000 main_dev:app
 ```
 
-Start development server (single thread, production, option1)
+Start development server (single thread, production, option1, recommended)
 
 ```
 cd $PROJECT_HOME
+export APISVC_MODE=DEBUG # optional
 python -m apisvc
 ```
 
