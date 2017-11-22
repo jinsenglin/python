@@ -1,4 +1,4 @@
-from apisvc import app
+from apisvc.common import APP
 
 
-LOGGER = app.logger
+LOGGER = APP.logger

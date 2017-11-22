@@ -1,4 +1,4 @@
-from apisvc import app
+from apisvc.common import APP
 
 
-ROUTE = app.route
+ROUTE = APP.route

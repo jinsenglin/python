@@ -1,4 +1,4 @@
-from apisvc import app
+from apisvc.common import APP
 
 
-CONFIG = app.config
+CONFIG = APP.config
