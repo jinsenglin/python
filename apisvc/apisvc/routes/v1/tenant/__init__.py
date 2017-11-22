@@ -16,5 +16,4 @@ def v1_tenant_healthz():
 @timeit
 @check.need_personate_header(check.PERSONATE_TENANT)
 def v1_tenant_quota(*args, **kwargs):
-    app.logger.debug('kwargs["apisvc_res_manager"] = {0}'.format(kwargs['apisvc_res_manager']))
     return quota(manager=kwargs['apisvc_res_manager'])

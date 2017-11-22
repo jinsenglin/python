@@ -6,7 +6,7 @@ import etcd3
 from apisvc import app
 from apisvc.managers.gm import Manager
 from apisvc.common import util
-
+from apisvc.common.log import LOGGER
 
 def _check_account_existed_in_the_persistent_store(account):
     """
@@ -28,7 +28,7 @@ def _check_account_existed_in_the_persistent_store(account):
             
         return True
     else:
-        app.logger.debug('/apisvc/accounts/{0} not found in remote persistent store'.format(account))
+        LOGGER.debug('/apisvc/accounts/{0} not found in remote persistent store'.format(account))
         return False
 
 
@@ -44,7 +44,7 @@ def _check_account_existed(account):
     if os.path.isfile(credential_k8s_cache) and os.path.isfile(credential_os_cache):
         return True
     else:
-        app.logger.debug('file {0} or {1} not found in local cache store'.format(credential_k8s_cache, credential_os_cache))
+        LOGGER.debug('file {0} or {1} not found in local cache store'.format(credential_k8s_cache, credential_os_cache))
         return _check_account_existed_in_the_persistent_store(account)
 
 PERSONATE_ADMIN = 'ADMIN'
@@ -62,7 +62,7 @@ def need_personate_header(role):
     def need_personate_header_decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            app.logger.debug('checking X-PERSONATE header ... ')
+            LOGGER.debug('checking X-PERSONATE header ... ')
             if 'X-PERSONATE' in request.headers:
                 personation = request.headers.get('X-PERSONATE')
                 if re.match('{0} '.format(role), personation):
@@ -72,13 +72,13 @@ def need_personate_header(role):
                         result = fn(*args, **kwargs)
                         return result
                     else:
-                        app.logger.debug('bad request, no or wrong account present')
+                        LOGGER.debug('bad request, no or wrong account present')
                         abort(400)
                 else:
-                    app.logger.debug('bad request, no or wrong role present')
+                    LOGGER.debug('bad request, no or wrong role present')
                     abort(400)
             else:
-                app.logger.debug('bad request, no X-PERSONATE header present')
+                LOGGER.debug('bad request, no X-PERSONATE header present')
                 abort(400)
         return wrapper
     return need_personate_header_decorator
