@@ -1,6 +1,13 @@
-from apisvc import app
+import json
+from apisvc.common.log import LOGGER
 
 
-def quota(manager, *args, **kwargs):
-    app.logger.debug('manager = {0}'.format(manager))
-    return 'GET /v1/tenant/quota'
+def quota(manager, response, *args, **kwargs):
+    # use manager
+    LOGGER.debug('manager = {0}'.format(manager))
+
+    # update response
+    response['message'] = 'GET /v1/tenant/quota'
+
+    # return response
+    return json.dumps(response)

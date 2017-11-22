@@ -165,3 +165,5 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * http://flask.pocoo.org/docs/dev/logging/#removing-the-default-handler
 * http://flask.pocoo.org/docs/0.12/tutorial/setup/
 * https://spacewander.github.io/explore-flask-zh/5-configuration.html
+* http://blog.luisrei.com/articles/flaskrest.html
+* http://codingpy.com/article/customizing-the-flask-response-class/
