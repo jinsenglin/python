@@ -8,7 +8,7 @@ class Manager(object):
         self._role = role
         self._account = account
 
-        credential_k8s_cache, credential_os_cache=util.credential_cache(account)
+        credential_k8s_cache, credential_os_cache=util.account_to_credential_cache(account)
         self._k8s_mgr = k8s.Manager(credential=credential_k8s_cache)
         self._os_mgr = os.Manager(credential=credential_os_cache)
 

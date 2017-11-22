@@ -5,7 +5,7 @@ def personation_to_role_account(personation):
     return tuple(personation.split(' '))
 
 
-def credential_cache(account):
+def account_to_credential_cache(account):
     credential_k8s = '{0}.k8s.yaml'.format(account)
     credential_os = '{0}.os.yaml'.format(account)
 
