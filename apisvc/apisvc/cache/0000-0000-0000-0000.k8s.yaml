@@ -8,6 +8,7 @@ contexts:
 - context:
     cluster: minikube
     user: minikube
+    namespace: default
   name: minikube
 current-context: minikube
 kind: Config
