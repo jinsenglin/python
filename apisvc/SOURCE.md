@@ -89,7 +89,7 @@ More about `routes/v1/tenant/__init__.py`
 * function `common.check.need_personate_header`
   * invoke function `flask.request.headers.get`
   * invoke function `flask.abort`
-  * inject object `apisvc_res_manager`
+  * initiate and inject object `apisvc_res_manager`
 
 Same applied to
 
