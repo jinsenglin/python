@@ -1,6 +1,7 @@
 from apisvc.common import util
 from apisvc.managers import k8s
 from apisvc.managers import os
+from apisvc.managers import cia
 
 
 class Manager(object):
@@ -11,6 +12,7 @@ class Manager(object):
         credential_k8s_cache, credential_os_cache=util.account_to_credential_cache(account)
         self._k8s_mgr = k8s.Manager(credential=credential_k8s_cache)
         self._os_mgr = os.Manager(credential=credential_os_cache)
+        self.cia_mgr = cia.Manager()
 
     def __str__(self):
         return '{0} {1}'.format(self._role, self._account)
@@ -18,3 +20,4 @@ class Manager(object):
     def demo(self):
         self._k8s_mgr.demo()
         self._os_mgr.demo()
+        self._cia_mgr.demo()
