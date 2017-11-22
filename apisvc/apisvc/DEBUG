@@ -1,1 +1,4 @@
+import logging
+
 APISVC_LOG = '/tmp/apisvc-debug.log'
+APISVC_LOG_LEVEL = logging.DEBUG

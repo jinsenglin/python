@@ -1,4 +1,6 @@
 import os
+import logging
+from logging.handlers import RotatingFileHandler
 from flask import Flask
 
 app = Flask('apisvc')
@@ -12,6 +14,7 @@ app = Flask('apisvc')
 # Load default config and override config from an environment variable
 app.config.update(dict(
     APISVC_LOG='/tmp/apisvc.log',                                       # or /var/log/apisvc/apisvc.log
+    APISVC_LOG_LEVEL=logging.WARNING,                                   # WARNING for production, DEBUG for development
     APISVC_CACHE_STORE=os.path.join(app.root_path, 'cache'),            # or /var/cache/apisvc/accounts
     APISVC_PERSISTENT_STORE='localhost',                                # or remote etcd server
     APISVC_MANAGERS=['k8s', 'os'],
@@ -23,14 +26,6 @@ app.config.from_envvar('APISVC_MODE', silent=True)
 # LOGGING SETTINGS      #
 #                       #
 # ===================== #
-
-import logging
-app.logger.setLevel(logging.DEBUG) # WARNING for production, DEBUG for development
-
-from logging.handlers import RotatingFileHandler
-handler = RotatingFileHandler(app.config['APISVC_LOG'], maxBytes=10000, backupCount=1)
-handler.setLevel(logging.DEBUG)
-app.logger.addHandler(handler)
 
 #
 # Basic Configuration
@@ -51,6 +46,13 @@ app.logger.addHandler(handler)
 #        'handlers': ['wsgi']
 #    }
 #})
+
+handler = RotatingFileHandler(app.config['APISVC_LOG'], maxBytes=10000, backupCount=1)
+handler.setLevel(logging.DEBUG)
+handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+app.logger.addHandler(handler)
+
+app.logger.setLevel(app.config['APISVC_LOG_LEVEL']) # WARNING for production, DEBUG for development
 
 #
 # Removing the Default Handler
