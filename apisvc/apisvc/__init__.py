@@ -17,7 +17,7 @@ app.config.update(dict(
     APISVC_LOG_LEVEL=logging.WARNING,                                   # WARNING for production, DEBUG for development
     APISVC_CACHE_STORE=os.path.join(app.root_path, 'cache'),            # or /var/cache/apisvc/accounts
     APISVC_PERSISTENT_STORE='localhost',                                # or remote etcd server
-    APISVC_MANAGERS=['k8s', 'os'],
+    APISVC_MANAGERS=['cia', 'k8s', 'os'],
 ))
 app.config.from_envvar('APISVC_MODE', silent=True)
 
