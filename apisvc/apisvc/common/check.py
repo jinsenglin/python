@@ -3,10 +3,10 @@ import os.path
 from functools import wraps
 from flask import request, abort
 import etcd3
-from apisvc import app
 from apisvc.managers.gm import Manager
 from apisvc.common import util
 from apisvc.common.log import LOGGER
+from apisvc.common.config import CONFIG
 
 def _check_account_existed_in_the_persistent_store(account):
     """
@@ -15,7 +15,7 @@ def _check_account_existed_in_the_persistent_store(account):
             return True
     """
 
-    db = app.config['APISVC_PERSISTENT_STORE']
+    db = CONFIG['APISVC_PERSISTENT_STORE']
     etcd = etcd3.client(host=db)
     value, key = etcd.get('/apisvc/accounts/{0}'.format(account))
 
