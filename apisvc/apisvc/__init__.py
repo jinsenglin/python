@@ -15,7 +15,8 @@ app = Flask('apisvc')
 app.config.update(dict(
     APISVC_LOG='/tmp/apisvc.log',                                       # or /var/log/apisvc/apisvc.log
     APISVC_LOG_LEVEL=logging.WARNING,                                   # WARNING for production, DEBUG for development
-    APISVC_CACHE_STORE=os.path.join(app.root_path, 'cache'),            # or /var/cache/apisvc/accounts
+    APISVC_CACHE='file-system',                                         # or python-object
+    APISVC_CACHE_PATH=os.path.join(app.root_path, 'cache'),             # or /var/cache/apisvc/accounts
     APISVC_PERSISTENT_STORE='localhost',                                # or remote etcd server
     APISVC_MANAGERS=['cia', 'k8s', 'os'],
 ))
