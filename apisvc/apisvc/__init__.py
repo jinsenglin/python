@@ -49,7 +49,7 @@ app.config.from_envvar('APISVC_MODE', silent=True)
 
 handler = RotatingFileHandler(app.config['APISVC_LOG'], maxBytes=10000, backupCount=1)
 handler.setLevel(logging.DEBUG)
-handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 app.logger.addHandler(handler)
 
 app.logger.setLevel(app.config['APISVC_LOG_LEVEL']) # WARNING for production, DEBUG for development
