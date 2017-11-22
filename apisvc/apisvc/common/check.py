@@ -22,9 +22,15 @@ def _check_account_existed_in_the_persistent_store(account):
     if key:
         credential_k8s_cache, credential_os_cache = util.account_to_credential_cache(account)
 
-        with open(credential_k8s_cache, 'w') as k8s_file, open(credential_os_cache, 'w') as os_file:
-            k8s_file.write(value);
-            os_file.write(value);
+        # write cache
+        value, key = etcd.get('/apisvc/accounts/{0}/k8s'.format(account))
+        with open(credential_k8s_cache, 'w') as k8s_file:
+            k8s_file.write(value)
+
+        # write cache
+        value, key = etcd.get('/apisvc/accounts/{0}/os'.format(account))
+        with open(credential_os_cache, 'w') as os_file:
+            os_file.write(value)
             
         return True
     else:
@@ -41,6 +47,7 @@ def _check_account_existed(account):
 
     credential_k8s_cache, credential_os_cache = util.account_to_credential_cache(account)
 
+    # read cache
     if os.path.isfile(credential_k8s_cache) and os.path.isfile(credential_os_cache):
         return True
     else:
