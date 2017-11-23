@@ -174,3 +174,4 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * https://docs.python.org/2/library/multiprocessing.html#synchronization-between-processes
 * http://www.bogotobogo.com/python/Multithread/python_multithreading_Synchronization_Lock_Objects_Acquire_Release.php
 * https://pypi.python.org/pypi/fasteners
+* https://pyformat.info/
