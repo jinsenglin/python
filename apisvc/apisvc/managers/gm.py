@@ -1,4 +1,4 @@
-from apisvc.common import util
+from apisvc.common.cache import fs as fs_cache
 from apisvc.managers import k8s
 from apisvc.managers import os
 from apisvc.managers import cia
@@ -9,7 +9,7 @@ class Manager(object):
         self._role = role
         self._account = account
 
-        credential_k8s_cache, credential_os_cache=util.account_to_credential_cache(account)
+        credential_k8s_cache, credential_os_cache=fs_cache.get_credential(account)
         self._k8s_mgr = k8s.Manager(credential=credential_k8s_cache)
         self._os_mgr = os.Manager(credential=credential_os_cache)
         self._cia_mgr = cia.Manager()

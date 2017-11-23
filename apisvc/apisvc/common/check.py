@@ -5,7 +5,8 @@ from flask import request, abort
 from apisvc.managers.gm import Manager
 from apisvc.common import util
 from apisvc.common.log import LOGGER
-from apisvc.common.db import etcd
+from apisvc.common.db import etcd as etcd_db
+from apisvc.common.cache import fs as fs_cache
 
 
 def _check_account_existed_in_the_persistent_store(account):
@@ -15,18 +16,18 @@ def _check_account_existed_in_the_persistent_store(account):
             return True
     """
 
-    value, key = etcd.get_account(account)
+    value, key = etcd_db.get_account(account)
 
     if key:
-        credential_k8s_cache, credential_os_cache = util.account_to_credential_cache(account)
+        credential_k8s_cache, credential_os_cache = fs_cache.get_credential(account)
 
         # write cache
-        value, key = etcd.get_credential(account, 'k8s')
+        value, key = etcd_db.get_credential(account, 'k8s')
         with open(credential_k8s_cache, 'w') as k8s_file:
             k8s_file.write(value)
 
         # write cache
-        value, key = etcd.get_credential(account, 'os')
+        value, key = etcd_db.get_credential(account, 'os')
         with open(credential_os_cache, 'w') as os_file:
             os_file.write(value)
             
@@ -43,7 +44,7 @@ def _check_account_existed(account):
         return False if all checks are not passed
     """
 
-    credential_k8s_cache, credential_os_cache = util.account_to_credential_cache(account)
+    credential_k8s_cache, credential_os_cache = fs_cache.get_credential(account)
 
     # read cache
     if os.path.isfile(credential_k8s_cache) and os.path.isfile(credential_os_cache):
