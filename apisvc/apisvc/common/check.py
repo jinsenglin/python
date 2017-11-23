@@ -18,18 +18,9 @@ def _check_account_existed_in_the_persistent_store(account):
     value, key = etcd_db.get_account(account)
 
     if key:
-        credential_k8s_cache, credential_os_cache = fs_cache.get_credential(account)
-
-        # write cache
-        value, key = etcd_db.get_credential(account, 'k8s')
-        with open(credential_k8s_cache, 'w') as k8s_file:
-            k8s_file.write(value)
-
-        # write cache
-        value, key = etcd_db.get_credential(account, 'os')
-        with open(credential_os_cache, 'w') as os_file:
-            os_file.write(value)
-            
+        credential_k8s, _ = etcd_db.get_credential(account, 'k8s')
+        credential_os, _ = etcd_db.get_credential(account, 'os')
+        fs_cache.put_credential(account, credential_k8s, credential_os)
         return True
     else:
         LOGGER.debug('account {0} not found in remote persistent store'.format(account))
