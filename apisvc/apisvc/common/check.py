@@ -36,7 +36,7 @@ def _check_account_existed(account):
 
     account_cached = fs_cache.get_account(account)
 
-    if account_cached:
+    if account_cached is not None:
         return True
     else:
         LOGGER.debug('account {0} not found in local cache store'.format(account))

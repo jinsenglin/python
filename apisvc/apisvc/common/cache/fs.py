@@ -21,7 +21,8 @@ def get_credential(account):
 
 def put_credential(account, credential_k8s, credential_os):
     account_cached = get_account(account)
-    if account_cached:
+    if account_cached is None:
+        account_cached = '{0}/{1}'.format(_cache_path, account)
         os.makedirs(account_cached)
 
     credential_k8s_cached, credential_os_cached = get_credential(account)
