@@ -1,14 +1,19 @@
+import os
 from apisvc.common.config import CONFIG
 
 
 _cache_path = CONFIG['APISVC_CACHE_PATH']
 
 
+def get_account(account):
+    account_cached = '{0}/{1}'.format(_cache_path, account)
+    if os.path.isdir(account_cached):
+        return account_cached
+    else:
+        return None
+
+
 def get_credential(account):
-    credential_k8s = '{0}.k8s.yaml'.format(account)
-    credential_k8s_cache = '{0}/{1}'.format(_cache_path, credential_k8s)
-
-    credential_os = '{0}.os.yaml'.format(account)
-    credential_os_cache = '{0}/{1}'.format(_cache_path, credential_os)
-
-    return credential_k8s_cache, credential_os_cache
+    credential_k8s_cached = '{0}/{1}/k8s.yaml'.format(_cache_path, account)
+    credential_os_cached = '{0}/{1}/os.yaml'.format(_cache_path, account)
+    return credential_k8s_cached, credential_os_cached

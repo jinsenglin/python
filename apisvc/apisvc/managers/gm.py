@@ -9,9 +9,9 @@ class Manager(object):
         self._role = role
         self._account = account
 
-        credential_k8s_cache, credential_os_cache=fs_cache.get_credential(account)
-        self._k8s_mgr = k8s.Manager(credential=credential_k8s_cache)
-        self._os_mgr = os.Manager(credential=credential_os_cache)
+        credential_k8s_cached, credential_os_cached = fs_cache.get_credential(account)
+        self._k8s_mgr = k8s.Manager(credential=credential_k8s_cached)
+        self._os_mgr = os.Manager(credential=credential_os_cached)
         self._cia_mgr = cia.Manager()
 
     def __str__(self):

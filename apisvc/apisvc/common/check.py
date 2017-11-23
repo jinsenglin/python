@@ -1,5 +1,4 @@
 import re
-import os.path
 from functools import wraps
 from flask import request, abort
 from apisvc.managers.gm import Manager
@@ -44,13 +43,12 @@ def _check_account_existed(account):
         return False if all checks are not passed
     """
 
-    credential_k8s_cache, credential_os_cache = fs_cache.get_credential(account)
+    account_cached = fs_cache.get_account(account)
 
-    # read cache
-    if os.path.isfile(credential_k8s_cache) and os.path.isfile(credential_os_cache):
+    if account_cached:
         return True
     else:
-        LOGGER.debug('file {0} or {1} not found in local cache store'.format(credential_k8s_cache, credential_os_cache))
+        LOGGER.debug('account {0} not found in local cache store'.format(account))
         return _check_account_existed_in_the_persistent_store(account)
 
 
