@@ -21,7 +21,7 @@
 # Logs
 
 * file: /tmp/apisvc.log
-* default log level: DEBUG (CHANGE it to WARNING in production site)
+* default log level: WARNING (CHANGE it to DEBUG in development site)
 
 # Setup Development Environment
 
