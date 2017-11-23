@@ -4,7 +4,7 @@ from apisvc.common.log import LOGGER
 
 def quota(manager, response, *args, **kwargs):
     # use manager
-    LOGGER.debug('manager = {0}'.format(manager))
+    # TODO
 
     # update response
     response['message'] = 'GET /v1/tenant/quota'

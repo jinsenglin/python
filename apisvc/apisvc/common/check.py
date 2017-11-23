@@ -21,6 +21,7 @@ def _check_account_existed_in_the_persistent_store(account):
         credential_k8s, _ = etcd_db.get_credential(account, 'k8s')
         credential_os, _ = etcd_db.get_credential(account, 'os')
         fs_cache.put_credential(account, credential_k8s, credential_os)
+        LOGGER.debug('account {0} found in remote persistent store'.format(account))
         return True
     else:
         LOGGER.debug('account {0} not found in remote persistent store'.format(account))
@@ -37,6 +38,7 @@ def _check_account_existed(account):
     account_cached = fs_cache.get_account(account)
 
     if account_cached is not None:
+        LOGGER.debug('account {0} found in local cache store'.format(account))
         return True
     else:
         LOGGER.debug('account {0} not found in local cache store'.format(account))
@@ -60,9 +62,12 @@ def need_personate_header(role):
         @wraps(fn)
         def wrapper(*args, **kwargs):
             LOGGER.debug('checking X-PERSONATE header ... ')
+
             if 'X-PERSONATE' in request.headers:
                 personation = request.headers.get('X-PERSONATE')
                 if re.match('{0} '.format(role), personation):
+                    LOGGER.debug('personation = {0}'.format(personation))
+
                     _, account = util.personation_to_role_account(personation)
                     if _check_account_existed(account):
                         kwargs['apisvc_res_manager'] = Manager(role=role, account=account)
