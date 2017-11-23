@@ -11,11 +11,11 @@ from apisvc.common.cache import fs as fs_cache
 def _check_account_existed_in_the_persistent_store(account):
     """
         if the specified account exists in the remote persistent store
-            cache it
-            return True
+        then cache it
+        then return True
     """
 
-    value, key = etcd_db.get_account(account)
+    _, key = etcd_db.get_account(account)
 
     if key:
         credential_k8s, _ = etcd_db.get_credential(account, 'k8s')
