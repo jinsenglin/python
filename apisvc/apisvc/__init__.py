@@ -50,7 +50,7 @@ app.config.from_envvar('APISVC_MODE', silent=True)
 #    }
 #})
 
-handler = RotatingFileHandler(app.config['APISVC_LOG'], maxBytes=10000, backupCount=1)
+handler = RotatingFileHandler(app.config['APISVC_LOG'], maxBytes=10485760, backupCount=10) # 10MB per file
 handler.setLevel(logging.DEBUG)
 handler.setFormatter(logging.Formatter('%(asctime)s - %(process)d - %(thread)d - %(levelname)s - %(pathname)s - %(message)s'))
 app.logger.addHandler(handler)
