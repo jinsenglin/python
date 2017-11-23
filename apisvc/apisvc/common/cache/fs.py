@@ -26,11 +26,8 @@ def get_credential(account):
 @fasteners.interprocess_locked(CONFIG['APISVC_CACHE_LOCK'])
 def put_account_and_credentials(account, credential_k8s, credential_os):
     """
-    LOGGER.debug('..............................lock got')
-    import time
-    LOGGER.debug('..............................sleeping')
-    time.sleep(10)
-    LOGGER.debug('...............................wake up')
+    from apisvc.common import util
+    util.simulate_time_consuming_op()
     """
 
     account_cached = get_account(account)
