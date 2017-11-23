@@ -18,10 +18,12 @@ def _check_account_existed_in_the_persistent_store(account):
     _, key = etcd_db.get_account(account)
 
     if key:
+        LOGGER.debug('account {0} found in remote persistent store'.format(account))
+
         credential_k8s, _ = etcd_db.get_credential(account, 'k8s')
         credential_os, _ = etcd_db.get_credential(account, 'os')
         fs_cache.put_account_and_credentials(account, credential_k8s, credential_os)
-        LOGGER.debug('account {0} found in remote persistent store'.format(account))
+
         return True
     else:
         LOGGER.debug('account {0} not found in remote persistent store'.format(account))
@@ -35,9 +37,9 @@ def _check_account_existed(account):
         return False if all checks are not passed
     """
 
-    account_cached = fs_cache.get_account(account)
+    account_key = fs_cache.get_account_key(account)
 
-    if account_cached is not None:
+    if account_key is not None:
         LOGGER.debug('account {0} found in local cache store'.format(account))
         return True
     else:
