@@ -2,11 +2,11 @@ import re
 import os.path
 from functools import wraps
 from flask import request, abort
-import etcd3
 from apisvc.managers.gm import Manager
 from apisvc.common import util
 from apisvc.common.log import LOGGER
-from apisvc.common.config import CONFIG
+from apisvc.common.db import etcd
+
 
 def _check_account_existed_in_the_persistent_store(account):
     """
@@ -15,20 +15,18 @@ def _check_account_existed_in_the_persistent_store(account):
             return True
     """
 
-    db = CONFIG['APISVC_PERSISTENT_STORE']
-    etcd = etcd3.client(host=db)
-    value, key = etcd.get('/apisvc/accounts/{0}'.format(account))
+    value, key = etcd.get_account(account)
 
     if key:
         credential_k8s_cache, credential_os_cache = util.account_to_credential_cache(account)
 
         # write cache
-        value, key = etcd.get('/apisvc/accounts/{0}/k8s'.format(account))
+        value, key = etcd.get_credential(account, 'k8s')
         with open(credential_k8s_cache, 'w') as k8s_file:
             k8s_file.write(value)
 
         # write cache
-        value, key = etcd.get('/apisvc/accounts/{0}/os'.format(account))
+        value, key = etcd.get_credential(account, 'os')
         with open(credential_os_cache, 'w') as os_file:
             os_file.write(value)
             
@@ -54,6 +52,7 @@ def _check_account_existed(account):
         LOGGER.debug('file {0} or {1} not found in local cache store'.format(credential_k8s_cache, credential_os_cache))
         return _check_account_existed_in_the_persistent_store(account)
 
+
 PERSONATE_ADMIN = 'ADMIN'
 PERSONATE_TENANT = 'TENANT'
 PERSONATE_USER = 'USER'
@@ -66,6 +65,7 @@ def need_personate_header(role):
         return HTTP status code 400 if the specified account does not exist in the system
         expand **kwargs by injecting an object 'apisvc_res_manager' if all checks are passed
     """
+
     def need_personate_header_decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
