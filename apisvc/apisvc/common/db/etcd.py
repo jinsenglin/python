@@ -16,10 +16,8 @@ def get_credential(account, target):
     return value, key
 
 
-def put_account(account):
+def put_account_and_credentials(account, credential_k8s, credential_os):
     # TODO use transaction to put account and credentials
     _client.put('/apisvc/accounts/{0}'.format(account), 'ok')
-
-
-def put_credential(account, target, credential):
-    _client.put('/apisvc/accounts/{0}/{1}'.format(account, target), credential)
+    _client.put('/apisvc/accounts/{0}/{1}'.format(account, 'k8s'), credential_k8s)
+    _client.put('/apisvc/accounts/{0}/{1}'.format(account, 'os'), credential_os)

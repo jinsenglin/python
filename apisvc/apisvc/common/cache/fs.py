@@ -24,7 +24,7 @@ def get_credential(account):
 
 
 @fasteners.interprocess_locked(CONFIG['APISVC_CACHE_LOCK'])
-def put_credential(account, credential_k8s, credential_os):
+def put_account_and_credentials(account, credential_k8s, credential_os):
     """
     LOGGER.debug('..............................lock got')
     import time

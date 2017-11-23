@@ -20,7 +20,7 @@ def _check_account_existed_in_the_persistent_store(account):
     if key:
         credential_k8s, _ = etcd_db.get_credential(account, 'k8s')
         credential_os, _ = etcd_db.get_credential(account, 'os')
-        fs_cache.put_credential(account, credential_k8s, credential_os)
+        fs_cache.put_account_and_credentials(account, credential_k8s, credential_os)
         LOGGER.debug('account {0} found in remote persistent store'.format(account))
         return True
     else:
