@@ -51,6 +51,7 @@ docker run \
   --initial-cluster node1=http://${NODE1}:2380
 
 cd $PROJECT_HOME/scripts && bash init-etcd-for-dev.sh # optional
+cd $PROJECT_HOME/scripts && bash init-fs-cache-for-dev.sh # optional
 ```
 
 Start local kubernetes
