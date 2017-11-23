@@ -6,10 +6,10 @@ from apisvc.common.log import LOGGER
 def timeit(fn):
     @wraps(fn)
     def wrapper(*args, **kw):
-        LOGGER.debug('api %r (%r, %r) starting' % (fn.__name__, args, kw))
+        LOGGER.debug('api {0} ({1}, {2}) starting'.format(fn.__name__, args, kw))
         ts = time.time()
         result = fn(*args, **kw)
         te = time.time()
-        LOGGER.debug('api %r (%r, %r) finished of execution time = %2.2f sec' % (fn.__name__, args, kw, te - ts))
+        LOGGER.debug('api {0} ({1}, {2}) finished of execution time = {3} sec'.format(fn.__name__, args, kw, te - ts))
         return result
     return wrapper
