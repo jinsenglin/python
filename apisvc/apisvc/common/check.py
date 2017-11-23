@@ -32,7 +32,7 @@ def _check_account_existed_in_the_persistent_store(account):
             
         return True
     else:
-        LOGGER.debug('/apisvc/accounts/{0} not found in remote persistent store'.format(account))
+        LOGGER.debug('account {0} not found in remote persistent store'.format(account))
         return False
 
 
