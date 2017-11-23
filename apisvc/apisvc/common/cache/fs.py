@@ -1,5 +1,5 @@
 import os
-import threading
+import fasteners
 from apisvc.common.config import CONFIG
 from apisvc.common.log import LOGGER
 
@@ -23,25 +23,29 @@ def get_credential(account):
     return credential_k8s_cached, credential_os_cached
 
 
+@fasteners.interprocess_locked(CONFIG['APISVC_CACHE_LOCK'])
 def put_credential(account, credential_k8s, credential_os):
-    lock = threading.Lock() # for case: single-process multi-threads
-    # for case: multi-processes
-    # - https://docs.python.org/2/library/multiprocessing.html#synchronization-between-processes
-    # - https://pypi.python.org/pypi/fasteners
+    """
+    LOGGER.debug('..............................lock got')
+    import time
+    LOGGER.debug('..............................sleeping')
+    time.sleep(10)
+    LOGGER.debug('...............................wake up')
+    """
 
-    with lock:
-        account_cached = get_account(account)
-        if account_cached is None:
-            account_cached = '{0}/{1}'.format(_cache_path, account)
-            os.makedirs(account_cached)
-            LOGGER.debug('account {0} saved'.format(account))
+    account_cached = get_account(account)
 
-        credential_k8s_cached, credential_os_cached = get_credential(account)
+    if account_cached is None:
+        account_cached = '{0}/{1}'.format(_cache_path, account)
+        os.makedirs(account_cached)
+        LOGGER.debug('account {0} saved'.format(account))
 
-        with open(credential_k8s_cached, 'w') as file_k8s:
-            file_k8s.write(credential_k8s)
-            LOGGER.debug('credential {0} saved'.format(credential_k8s_cached))
+    credential_k8s_cached, credential_os_cached = get_credential(account)
 
-        with open(credential_os_cached, 'w') as file_os:
-            file_os.write(credential_os)
-            LOGGER.debug('credential {0} saved'.format(credential_os_cached))
+    with open(credential_k8s_cached, 'w') as file_k8s:
+        file_k8s.write(credential_k8s)
+        LOGGER.debug('credential {0} saved'.format(credential_k8s_cached))
+
+    with open(credential_os_cached, 'w') as file_os:
+        file_os.write(credential_os)
+        LOGGER.debug('credential {0} saved'.format(credential_os_cached))

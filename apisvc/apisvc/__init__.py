@@ -17,6 +17,7 @@ app.config.update(dict(
     APISVC_LOG_LEVEL=logging.WARNING,                                   # WARNING for production, DEBUG for development
     APISVC_CACHE='file-system',                                         # or python-object
     APISVC_CACHE_PATH=os.path.join(app.root_path, 'cache'),             # or /var/cache/apisvc/accounts
+    APISVC_CACHE_LOCK='/tmp/apisvc.lock',                               # or /var/lock/apisvc/apisvc.lock
     APISVC_DB='etcd',                                                   #
     APISVC_DB_HOST='localhost',                                         #
     APISVC_MANAGERS=['cia', 'k8s', 'os'],

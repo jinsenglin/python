@@ -171,3 +171,6 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * https://spacewander.github.io/explore-flask-zh/5-configuration.html
 * http://blog.luisrei.com/articles/flaskrest.html
 * http://codingpy.com/article/customizing-the-flask-response-class/
+* https://docs.python.org/2/library/multiprocessing.html#synchronization-between-processes
+* http://www.bogotobogo.com/python/Multithread/python_multithreading_Synchronization_Lock_Objects_Acquire_Release.php
+* https://pypi.python.org/pypi/fasteners
