@@ -173,5 +173,9 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * http://codingpy.com/article/customizing-the-flask-response-class/
 * https://docs.python.org/2/library/multiprocessing.html#synchronization-between-processes
 * http://www.bogotobogo.com/python/Multithread/python_multithreading_Synchronization_Lock_Objects_Acquire_Release.php
-* https://pypi.python.org/pypi/fasteners
 * https://pyformat.info/
+* https://pypi.python.org/pypi/fasteners
+* https://redis.io/topics/distlock
+* https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html
+* http://www.infoq.com/cn/articles/how-to-implement-active-high-availability
+* https://github.com/coreos/etcd/blob/master/Documentation/demo.md#distributed-locks
