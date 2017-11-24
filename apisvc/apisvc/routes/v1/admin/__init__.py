@@ -12,7 +12,7 @@ import nodes
 @timeit
 @audit_anonymous_access
 def v1_admin_healthz():
-    return 'ok'
+    return 'ok', {'Content-Type': 'text/plain'}
 
 
 @ROUTE('/v1/admin/apis')

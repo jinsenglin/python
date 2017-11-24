@@ -11,7 +11,7 @@ import pods
 @timeit
 @audit_anonymous_access
 def v1_user_healthz():
-    return 'ok'
+    return 'ok', {'Content-Type': 'text/plain'}
 
 
 @ROUTE('/v1/user/apis')
