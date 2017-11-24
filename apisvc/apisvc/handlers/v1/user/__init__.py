@@ -7,4 +7,4 @@ def apis(response, *args, **kwargs):
     # TODO
 
     # return response
-    return json.dumps(response)
+    return json.dumps(response), {'Content-Type': 'application/json'}

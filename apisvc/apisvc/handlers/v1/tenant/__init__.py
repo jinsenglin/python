@@ -7,7 +7,7 @@ def apis(response, *args, **kwargs):
     # TODO
 
     # return response
-    return json.dumps(response)
+    return json.dumps(response), {'Content-Type': 'application/json'}
 
 
 def quota(manager, response, *args, **kwargs):
@@ -18,4 +18,4 @@ def quota(manager, response, *args, **kwargs):
     response['message'] = 'GET /v1/tenant/quota'
 
     # return response
-    return json.dumps(response)
+    return json.dumps(response), {'Content-Type': 'application/json'}
