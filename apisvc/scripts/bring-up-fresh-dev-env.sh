@@ -1,18 +1,37 @@
 #!/bin/bash
 
+# This helper script does not do the following:
+#
+# 1. clone source code
+# 2. install packages
+# 3. switch to python virtualenv
+#
+# which means you need do these manually in advance
+
 set -e
+
+function clean_up {
+  docker stop etcd
+
+  echo cleaned
+  exit
+}
+trap clean_up SIGINT SIGTERM
 
 # =========================================================================================
 
+echo "$(date) | INFO | clearing file-system cache"
 bash clear-fs-cache.sh
 
 # =========================================================================================
 
+echo "$(date) | INFO | clearing lock files and log files"
 [ -f /tmp/apisvc-debug.log ] && rm  /tmp/apisvc-debug.log
 [ -f /tmp/apisvc.lock ] && rm  /tmp/apisvc.lock
 
 # =========================================================================================
 
+echo "$(date) | INFO | bringing up etcd server"
 export NODE1=127.0.0.1
 
 REGISTRY=quay.io/coreos/etcd
@@ -34,11 +53,13 @@ docker run \
 
 # =========================================================================================
 
+echo "$(date) | INFO | loading etcd server with initial data"
 sleep 5
 bash init-etcd-for-dev.sh
 
 # =========================================================================================
 
+echo "$(date) | INFO | bringing up http server"
 export APISVC_MODE=DEBUG
 cd ../ && gunicorn --workers=10 -b 127.0.0.1:5000 apisvc:app
 
