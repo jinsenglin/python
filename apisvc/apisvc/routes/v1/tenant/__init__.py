@@ -1,5 +1,6 @@
 from apisvc.common.route import ROUTE
 from apisvc.common.profile import timeit
+from apisvc.common.audit import audit_access, audit_anonymous_access
 from apisvc.common import check
 from apisvc.handlers.v1.tenant import quota as quota_handler
 from apisvc.responses.v1.tenant import quota as quota_response
@@ -9,6 +10,7 @@ import pods
 
 @ROUTE('/v1/tenant/healthz')
 @timeit
+@audit_anonymous_access
 def v1_tenant_healthz():
     return 'ok'
 
@@ -16,5 +18,6 @@ def v1_tenant_healthz():
 @ROUTE('/v1/tenant/quota')
 @timeit
 @check.need_personate_header(check.PERSONATE_TENANT)
+@audit_access
 def v1_tenant_quota(*args, **kwargs):
     return quota_handler(manager=kwargs['apisvc_res_manager'], response=quota_response)
