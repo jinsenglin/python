@@ -4,8 +4,8 @@ set -e
 
 export ETCDCTL_API=3
 
-etcdctl put /apisvc/controllers/k8s ok
-etcdctl put /apisvc/controllers/os ok
+cat ../samples/controller.k8s.yaml | etcdctl put /apisvc/controllers/k8s
+cat ../samples/controller.os.yaml | etcdctl put /apisvc/controllers/os
 
 etcdctl put /apisvc/nodes/comp1 ok
 etcdctl put /apisvc/nodes/comp2 ok
