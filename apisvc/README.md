@@ -179,3 +179,4 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 * https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html
 * http://www.infoq.com/cn/articles/how-to-implement-active-high-availability
 * https://github.com/coreos/etcd/blob/master/Documentation/demo.md#distributed-locks
+* flask-swagger vs. flasgger vs. flask-restful-swagger-2 vs. flask-restplus

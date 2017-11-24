@@ -15,6 +15,12 @@ function healthz() {
     curl http://localhost:5000/v1/user/healthz
 }
 
+function apis() {
+    curl http://localhost:5000/v1/admin/apis
+    curl http://localhost:5000/v1/tenant/apis
+    curl http://localhost:5000/v1/user/apis
+}
+
 function tenant_quota() {
     curl http://localhost:5000/v1/tenant/quota -H "X-PERSONATE: TENANT 0000-0000-0000-0000"
 }
