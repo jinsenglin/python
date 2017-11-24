@@ -1,0 +1,5 @@
+clouds:
+  os:
+    region_name: RegionOne
+    auth:
+      auth_url: http://192.168.228.31:5000/v2.0/
