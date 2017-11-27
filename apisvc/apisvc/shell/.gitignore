@@ -1,0 +1,6 @@
+.srl
+server.csr
+server.crt
+server.key
+server.crt.base64
+server.key.base64
