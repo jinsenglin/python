@@ -6,6 +6,7 @@
 
 # sample usage
 # bash $0 ../../samples/ca.crt ../../samples/ca.key user1 role1
+# bash $0 ../../samples/ca.crt ../../samples/ca.key cclin system:masters
 
 set -e
 
