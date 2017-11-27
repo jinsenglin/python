@@ -53,7 +53,7 @@ docker run \
 # =========================================================================================
 
 echo "$(date) | INFO | bringing up minikube"
-minikube start --kubernetes-version=v1.8.2 --bootstrapper kubeadm --cpus 4 --memory 8192
+minikube start --kubernetes-version=v1.8.0 --bootstrapper kubeadm --cpus 4 --memory 8192
 
 # =========================================================================================
 
