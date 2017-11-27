@@ -11,10 +11,13 @@
 set -e
 
 function clean_up {
-  docker stop etcd
+    echo "$(date) | INFO | shutting down etcd server"
+    docker stop etcd
+    echo "$(date) | INFO | shutting down minikube"
+    minikube delete
 
-  echo cleaned
-  exit
+    echo "$(date) | INFO | cleaned"
+    exit
 }
 trap clean_up SIGINT SIGTERM
 
@@ -49,7 +52,8 @@ docker run \
 
 # =========================================================================================
 
-# TODO minikube
+echo "$(date) | INFO | bringing up minikube"
+minikube start --kubernetes-version=v1.8.2 --bootstrapper kubeadm --cpus 4 --memory 8192
 
 # =========================================================================================
 
