@@ -10,7 +10,12 @@ _shell_path = CONFIG['APISVC_SHELL_PATH']
 _tmp_path = CONFIG['APISVC_TMP_PATH']
 
 
-def mk_ks8_user_client_certificate_data(username, group='system:masters'):
+def new_k8s_user_cert(username, group='system:masters'):
+    """
+        return None if ca not found
+        return None if subprocess exit code is non-zero
+        return a dict object if subprocess exit code is zero
+    """
 
     ca_key = fs_cache.get_ca_key()
 
@@ -27,7 +32,7 @@ def mk_ks8_user_client_certificate_data(username, group='system:masters'):
             fs_cache.put_ca_pems(ca_pem_crt, ca_pem_key)
         else:
             LOGGER.debug('ca not found in remote persistent store'.format())
-            # TODO raise an exception
+            return None
 
     ca_crt_pem_key, ca_key_pem_key = fs_cache.get_ca_pem_keys()
 
@@ -43,11 +48,8 @@ def mk_ks8_user_client_certificate_data(username, group='system:masters'):
         data = json.loads(stdout)
         LOGGER.debug('key = {0}'.format(data['key']))
         LOGGER.debug('crt = {0}'.format(data['crt']))
+        return data
 
     except subprocess.CalledProcessError as e:
         LOGGER.error('failed to make k8s user client certificate data')
-        LOGGER.error(e.message)
-        LOGGER.error(e.output)
-    except Exception:
-        LOGGER.error('failed to make k8s user client certificate data')
-
+        return None

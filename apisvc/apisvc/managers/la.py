@@ -1,15 +1,19 @@
 import subprocess
 import json
 from apisvc.common.log import LOGGER
-from apisvc.common.shell import mk_ks8_user_client_certificate_data as x
+from apisvc.common import shell
 
 
 class Manager(object):
     def __init__(self):
         pass
 
-    def mk_ks8_user_client_certificate_data(self, username, group='system:masters'):
-        x(username=username, group='system:masters')
+    def new_k8s_user_cert(self, username, group='system:masters'):
+        """
+            return a dict object
+        """
+        return shell.new_k8s_user_cert(username=username, group=group)
+
 
     def demo(self):
         output = ''

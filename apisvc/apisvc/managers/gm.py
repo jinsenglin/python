@@ -27,8 +27,42 @@ class Manager(object):
         self._la_mgr.demo()
 
     def create_namespace(self):
-        self._la_mgr.mk_ks8_user_client_certificate_data('cclin')
-        LOGGER.debug('create_namespace')
+        """
+            create namespace
+            create account
+            return True of False
+
+        """
+
+        LOGGER.debug('namespace created')
+
+        created = self.create_account()
+
+        if created:
+            LOGGER.debug('account created')
+            return True
+        else:
+            LOGGER.debug('account not created')
+
+        return False
 
     def create_account(self):
-        LOGGER.debug('create_account')
+        """
+            create k8s account
+            create os account
+            return True or False
+        """
+
+        data = self._la_mgr.new_k8s_user_cert('cclin')
+
+        if data is not None:
+            LOGGER.debug('account created')
+            # TODO update db
+            # TODO update cache
+            # TODO update k8s
+            # TODO update os
+            return True
+        else:
+            LOGGER.debug('account not created')
+
+        return False
