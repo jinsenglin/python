@@ -25,4 +25,8 @@ function tenant_quota() {
     curl http://localhost:5000/v1/tenant/quota -H "X-PERSONATE: TENANT 0000-0000-0000-0000"
 }
 
+function admin_tenants_post() {
+    curl http://localhost:5000/v1/admin/tenants -X POST -H "X-PERSONATE: ADMIN 0000-0000-0000-0000"
+}
+
 $CMD

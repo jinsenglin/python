@@ -3,6 +3,7 @@ from apisvc.managers import k8s
 from apisvc.managers import os
 from apisvc.managers import cia
 from apisvc.managers import la
+from apisvc.common.log import LOGGER
 
 
 class Manager(object):
@@ -24,3 +25,9 @@ class Manager(object):
         self._os_mgr.demo()
         self._cia_mgr.demo()
         self._la_mgr.demo()
+
+    def create_namespace(self):
+        LOGGER.debug('create_namespace')
+
+    def create_account(self):
+        LOGGER.debug('create_account')
