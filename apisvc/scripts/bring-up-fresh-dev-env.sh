@@ -12,8 +12,9 @@ set -e
 
 if [ $# -eq 0 ]; then
     MODE=PART
+else
+    MODE=$1 # PART or FULL
 fi
-MODE=$1 # PART or FULL
 
 function clean_up {
     echo "$(date) | INFO | shutting down etcd server"
