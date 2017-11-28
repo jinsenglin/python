@@ -1,0 +1,3 @@
+jq
+base64
+openssl

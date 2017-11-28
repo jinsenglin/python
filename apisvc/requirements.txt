@@ -1,3 +1,4 @@
+bindep == 2.5.0
 flask == 0.12.2
 flask-restful == 0.3.6 # optional
 openstacksdk == 0.9.19
