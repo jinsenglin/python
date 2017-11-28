@@ -10,11 +10,19 @@
 
 set -e
 
+if [ $# -eq 0 ]; then
+    MODE=PART
+fi
+MODE=$1 # PART or FULL
+
 function clean_up {
     echo "$(date) | INFO | shutting down etcd server"
     docker stop etcd
-    echo "$(date) | INFO | shutting down minikube"
-    minikube delete
+
+    if [ $MODE == FULL ]; then
+        echo "$(date) | INFO | shutting down minikube"
+        minikube delete
+    fi
 
     echo "$(date) | INFO | cleaned"
     exit
@@ -52,8 +60,10 @@ docker run \
 
 # =========================================================================================
 
-echo "$(date) | INFO | bringing up minikube"
-minikube start --kubernetes-version=v1.8.0 --bootstrapper kubeadm --cpus 4 --memory 8192
+if [ $MODE == FULL ]; then
+    echo "$(date) | INFO | bringing up minikube"
+    minikube start --kubernetes-version=v1.8.0 --bootstrapper kubeadm --cpus 2 --memory 4096
+fi
 
 # =========================================================================================
 
