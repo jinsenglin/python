@@ -1,6 +1,7 @@
 import subprocess
 import json
 from apisvc.common.log import LOGGER
+from apisvc.common.shell import mk_ks8_user_client_certificate_data as x
 
 
 class Manager(object):
@@ -8,19 +9,7 @@ class Manager(object):
         pass
 
     def mk_ks8_user_client_certificate_data(self, username, group='system:masters'):
-        try:
-            stdout = subprocess.check_output(['bash',
-                                              'shell/mk-k8s-user-client-certificate-data.sh',
-                                              '../../samples/ca.crt'
-                                              '../../samples/ca.key',
-                                              username,
-                                              group], shell=False)
-        except subprocess.CalledProcessError:
-            LOGGER.error('failed to make k8s user client certificate data')
-
-        data = json.loads(stdout)
-        LOGGER.debug('key = {0}'.format(data['key']))
-        LOGGER.debug('crt = {0}'.format(data['crt']))
+        x(username=username, group='system:masters')
 
     def demo(self):
         output = ''

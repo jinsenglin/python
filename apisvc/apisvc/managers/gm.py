@@ -27,6 +27,7 @@ class Manager(object):
         self._la_mgr.demo()
 
     def create_namespace(self):
+        self._la_mgr.mk_ks8_user_client_certificate_data('cclin')
         LOGGER.debug('create_namespace')
 
     def create_account(self):

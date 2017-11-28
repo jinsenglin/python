@@ -4,6 +4,7 @@ set -e
 
 export ETCDCTL_API=3
 
+etcdctl put /apisvc/ca ok
 cat ../samples/ca.key | etcdctl put /apisvc/ca/key
 cat ../samples/ca.crt | etcdctl put /apisvc/ca/crt
 

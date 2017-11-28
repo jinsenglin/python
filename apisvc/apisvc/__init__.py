@@ -20,7 +20,9 @@ app.config.update(dict(
     APISVC_CACHE_LOCK='/tmp/apisvc.lock',                               # or /var/lock/apisvc/apisvc.lock
     APISVC_DB='etcd',                                                   #
     APISVC_DB_HOST='localhost',                                         #
-    APISVC_MANAGERS=['cia', 'k8s', 'os'],
+    APISVC_SHELL_PATH=os.path.join(app.root_path, 'shell'),             #
+    APISVC_TMP_PATH=os.path.join('/tmp'),                               #
+    APISVC_MANAGERS=['cia', 'k8s', 'os'],                               #
 ))
 app.config.from_envvar('APISVC_MODE', silent=True)
 
