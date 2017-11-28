@@ -30,6 +30,7 @@ git clone https://github.com/jinsenglin/python.git
 cd python/apisvc # PROJECT_HOME
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
+bindep
 ```
 
 Start local etcd
