@@ -18,10 +18,11 @@ class Pool(Resource):
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
+    @check.check_body_against_in_message(new_message().input_for_post)
     @audit_access
     def post(self, *args, **kwargs):
         return new_handler().post(manager=kwargs['apisvc_res_manager'],
-                                  in_message=new_message().input_for_post,
+                                  in_message=kwargs['apisvc_in_message'],
                                   out_message=new_message().output_for_post)
 
     @timeit
