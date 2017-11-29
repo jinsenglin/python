@@ -88,7 +88,7 @@ def need_personate_header(role):
     return need_personate_header_decorator
 
 
-def check_body_against_in_message(message):
+def check_body_against_in_message(in_message):
     """
         return HTTP status code 400 if body message format is wrong
         expand **kwargs by injecting an object 'apisvc_in_message' if all checks are passed
@@ -97,13 +97,14 @@ def check_body_against_in_message(message):
     def check_body_against_in_message_decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            LOGGER.debug('checking body ... ')
+            LOGGER.debug('checking body content ... ')
 
-            in_message = request.get_json()
-            # TODO
+            body_content = request.get_json()
 
-            if True:
-                kwargs['apisvc_in_message'] = in_message
+            no_missing_key = all(key in body_content for key in in_message)
+
+            if no_missing_key:
+                kwargs['apisvc_in_message'] = body_content
                 result = fn(*args, **kwargs)
                 return result
             else:
