@@ -31,6 +31,9 @@ function admin_tenants_post() {
 
 function v2() {
     curl http://localhost:5000/v2/admin/tenants -H "X-PERSONATE: ADMIN 0000-0000-0000-0000"
+    curl http://localhost:5000/v2/admin/tenants -H "X-PERSONATE: ADMIN 0000-0000-0000-0000" -X POST
+    curl http://localhost:5000/v2/admin/tenants -H "X-PERSONATE: ADMIN 0000-0000-0000-0000" -X PUT
+    curl http://localhost:5000/v2/admin/tenants -H "X-PERSONATE: ADMIN 0000-0000-0000-0000" -X DELETE
 }
 
 $CMD

@@ -3,8 +3,8 @@ from apisvc.common.api import API
 from apisvc.common.profile import timeit
 from apisvc.common.audit import audit_access
 from apisvc.common import check
-from apisvc.handlers.v2.admin.tenants import new_handler
-from apisvc.messages.v2.admin.tenants import new_message
+from apisvc.handlers.v2.admin.keyrings import new_handler
+from apisvc.messages.v2.admin.keyrings import new_message
 
 
 class Tenant(Resource):
@@ -41,4 +41,4 @@ class Tenant(Resource):
                                     out_message=new_message().output_for_delete)
 
 
-API.add_resource(Tenant, '/v2/admin/tenants')
+API.add_resource(Tenant, '/v2/admin/keyrings')

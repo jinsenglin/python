@@ -1,4 +1,4 @@
-class Tenant(object):
+class Keyring(object):
 
     def __init__(self):
         self.input_for_get = {}
@@ -15,4 +15,4 @@ class Tenant(object):
 
 
 def new_message():
-    return Tenant()
+    return Keyring()
