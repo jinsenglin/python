@@ -7,7 +7,7 @@ from apisvc.handlers.v2.admin.keyrings import new_handler
 from apisvc.messages.v2.admin.keyrings import new_message
 
 
-class Tenant(Resource):
+class Keyring(Resource):
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @audit_access
@@ -41,4 +41,4 @@ class Tenant(Resource):
                                     out_message=new_message().output_for_delete)
 
 
-RESOURCE.add_resource(Tenant, '/v2/admin/keyrings')
+RESOURCE.add_resource(Keyring, '/v2/admin/keyrings')

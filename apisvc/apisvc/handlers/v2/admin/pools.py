@@ -1,4 +1,4 @@
-class Tenant(object):
+class Pool(object):
     def get(self, manager, in_message, out_message, *args, **kwargs):
         # TODO check in_message
         # TODO use manager
@@ -25,4 +25,4 @@ class Tenant(object):
 
 
 def new_handler():
-    return Tenant()
+    return Pool()

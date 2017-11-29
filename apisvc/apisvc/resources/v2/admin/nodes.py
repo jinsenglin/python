@@ -7,7 +7,7 @@ from apisvc.handlers.v2.admin.nodes import new_handler
 from apisvc.messages.v2.admin.nodes import new_message
 
 
-class Tenant(Resource):
+class Node(Resource):
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @audit_access
@@ -41,4 +41,4 @@ class Tenant(Resource):
                                     out_message=new_message().output_for_delete)
 
 
-RESOURCE.add_resource(Tenant, '/v2/admin/nodes')
+RESOURCE.add_resource(Node, '/v2/admin/nodes')

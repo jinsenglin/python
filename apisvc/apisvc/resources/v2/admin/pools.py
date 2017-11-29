@@ -3,11 +3,11 @@ from apisvc.common.resource import RESOURCE
 from apisvc.common.profile import timeit
 from apisvc.common.audit import audit_access
 from apisvc.common import check
-from apisvc.handlers.v2.admin.tenants import new_handler
-from apisvc.messages.v2.admin.tenants import new_message
+from apisvc.handlers.v2.admin.pools import new_handler
+from apisvc.messages.v2.admin.pools import new_message
 
 
-class Tenant(Resource):
+class Pool(Resource):
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @audit_access
@@ -41,4 +41,4 @@ class Tenant(Resource):
                                     out_message=new_message().output_for_delete)
 
 
-RESOURCE.add_resource(Tenant, '/v2/admin/tenants')
+RESOURCE.add_resource(Pool, '/v2/admin/pools')
