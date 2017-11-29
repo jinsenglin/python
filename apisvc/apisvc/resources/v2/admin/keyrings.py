@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from apisvc.common.api import API
+from apisvc.common.resource import RESOURCE
 from apisvc.common.profile import timeit
 from apisvc.common.audit import audit_access
 from apisvc.common import check
@@ -41,4 +41,4 @@ class Tenant(Resource):
                                     out_message=new_message().output_for_delete)
 
 
-API.add_resource(Tenant, '/v2/admin/keyrings')
+RESOURCE.add_resource(Tenant, '/v2/admin/keyrings')
