@@ -1,6 +1,6 @@
 bindep == 2.5.0
 flask == 0.12.2
-flask-restful == 0.3.6 # optional
+flask-restful == 0.3.6
 openstacksdk == 0.9.19
 kubernetes == 4.0.0b1
 etcd3 == 0.7.0
