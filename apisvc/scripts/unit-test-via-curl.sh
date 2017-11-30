@@ -59,10 +59,14 @@ function pool() {
 }
 
 function rings() {
-    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
-    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -d '{}'
-    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -d '{}'
-    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE -d '{}'
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -H "Content-Type: application/json" -d '{}' | jq '.'
+}
+
+function ring() {
+    curl http://localhost:5000/$VER/admin/rings/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
+    curl http://localhost:5000/$VER/admin/rings/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}' | jq '.'
+    curl http://localhost:5000/$VER/admin/rings/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE | jq '.'
 }
 
 $CMD

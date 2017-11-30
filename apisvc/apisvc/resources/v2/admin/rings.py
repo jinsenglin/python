@@ -8,6 +8,7 @@ from apisvc.messages.v2.admin.rings import new_message
 
 
 class Rings(Resource):
+
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_get)
@@ -25,24 +26,6 @@ class Rings(Resource):
         return new_handler().post(manager=kwargs['apisvc_res_manager'],
                                   in_message=kwargs['apisvc_in_message'],
                                   out_message=new_message().output_for_post)
-
-    @timeit
-    @check.need_personate_header(check.PERSONATE_ADMIN)
-    @check.check_body_against_in_message(new_message().input_for_put)
-    @audit_access
-    def put(self, *args, **kwargs):
-        return new_handler().put(manager=kwargs['apisvc_res_manager'],
-                                 in_message=kwargs['apisvc_in_message'],
-                                 out_message=new_message().output_for_put)
-
-    @timeit
-    @check.need_personate_header(check.PERSONATE_ADMIN)
-    @check.check_body_against_in_message(new_message().input_for_delete)
-    @audit_access
-    def delete(self, *args, **kwargs):
-        return new_handler().delete(manager=kwargs['apisvc_res_manager'],
-                                    in_message=kwargs['apisvc_in_message'],
-                                    out_message=new_message().output_for_delete)
 
 
 RESOURCE.add_resource(Rings, '/v2/admin/rings')

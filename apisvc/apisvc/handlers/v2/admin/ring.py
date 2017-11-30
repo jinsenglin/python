@@ -1,4 +1,4 @@
-class Rings(object):
+class Ring(object):
 
     def get(self, manager, in_message, out_message, *args, **kwargs):
         # TODO check in_message
@@ -6,7 +6,13 @@ class Rings(object):
         # TODO update out_message
         return out_message, {'Content-Type': 'application/json'}
 
-    def post(self, manager, in_message, out_message, *args, **kwargs):
+    def put(self, manager, in_message, out_message, *args, **kwargs):
+        # TODO check in_message
+        # TODO use manager
+        # TODO update out_message
+        return out_message, {'Content-Type': 'application/json'}
+
+    def delete(self, manager, in_message, out_message, *args, **kwargs):
         # TODO check in_message
         # TODO use manager
         # TODO update out_message
@@ -14,4 +20,4 @@ class Rings(object):
 
 
 def new_handler():
-    return Rings()
+    return Ring()
