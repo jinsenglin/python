@@ -9,6 +9,8 @@ setup(
         'flask-restful',
         'openstacksdk',
         'kubernetes',
-        'etcd3'
+        'etcd3',
+        'requests',
+        'fasteners'
     ],
 )
