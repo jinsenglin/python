@@ -38,20 +38,24 @@ function apis() {
 }
 
 function nodes() {
-    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
-    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "compute"}'
+    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
+    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "compute"}' | jq '.'
 }
 
 function node() {
-    curl http://localhost:5000/$VER/admin/nodes/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
-    curl http://localhost:5000/$VER/admin/nodes/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}'
+    curl http://localhost:5000/$VER/admin/nodes/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
+    curl http://localhost:5000/$VER/admin/nodes/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}' | jq '.'
 }
 
 function pools() {
-    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
-    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -d '{}'
-    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -d '{}'
-    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE -d '{}'
+    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
+    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -H "Content-Type: application/json" -d '{}' | jq '.'
+}
+
+function pool() {
+    curl http://localhost:5000/$VER/admin/pools/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
+    curl http://localhost:5000/$VER/admin/pools/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}' | jq '.'
+    curl http://localhost:5000/$VER/admin/pools/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE | jq '.'
 }
 
 function rings() {

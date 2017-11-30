@@ -1,4 +1,4 @@
-class Pools(object):
+class Pool(object):
 
     def get(self, manager, in_message, out_message, *args, **kwargs):
         # TODO check in_message
@@ -6,15 +6,18 @@ class Pools(object):
         # TODO update out_message
         return out_message, {'Content-Type': 'application/json'}
 
-    def post(self, manager, in_message, out_message, *args, **kwargs):
+    def put(self, manager, in_message, out_message, *args, **kwargs):
         # TODO check in_message
         # TODO use manager
+        # TODO update out_message
+        return out_message, {'Content-Type': 'application/json'}
 
-        # manager.create_namespace()
-
+    def delete(self, manager, in_message, out_message, *args, **kwargs):
+        # TODO check in_message
+        # TODO use manager
         # TODO update out_message
         return out_message, {'Content-Type': 'application/json'}
 
 
 def new_handler():
-    return Pools()
+    return Pool()
