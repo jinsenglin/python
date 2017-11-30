@@ -32,6 +32,7 @@ def new_k8s_user_cert(username, group='system:masters'):
             fs_cache.put_ca_pems(ca_pem_crt, ca_pem_key)
         else:
             LOGGER.debug('ca not found in remote persistent store'.format())
+            LOGGER.error('interrupting new_k8s_user_cert due to ca not found in remote persistent store'.format())
             return None
 
     ca_crt_pem_key, ca_key_pem_key = fs_cache.get_ca_pem_keys()
@@ -51,5 +52,5 @@ def new_k8s_user_cert(username, group='system:masters'):
         return data
 
     except subprocess.CalledProcessError as e:
-        LOGGER.error('failed to make k8s user client certificate data')
+        LOGGER.critical('failed to make k8s user client certificate data')
         return None
