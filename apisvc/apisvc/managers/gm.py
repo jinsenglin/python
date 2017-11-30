@@ -26,6 +26,25 @@ class Manager(object):
         self._cia_mgr.demo()
         self._la_mgr.demo()
 
+    def create_pool(self, tenant_id):
+        """
+            create pool
+            create ring
+        """
+
+        # TODO
+
+        return {}
+
+    def create_ring(self, tenant_id, account_id):
+        """
+            create ring
+        """
+
+        # TODO
+
+        return {}
+
     def create_namespace(self):
         """
             create namespace
