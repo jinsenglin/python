@@ -16,18 +16,18 @@ def get_ca_pem(target):
     return value, key
 
 
-def get_account(account):
-    value, key = _client.get('/apisvc/accounts/{0}'.format(account))
+def get_ring(role, account):
+    value, key = _client.get('/apisvc/rings/{0}/{1}'.format(role, account))
     return value, key
 
 
-def get_credential(account, target):
-    value, key = _client.get('/apisvc/accounts/{0}/{1}'.format(account, target))
+def get_credential(role, account, target):
+    value, key = _client.get('/apisvc/rings/{0}/{1}/{2}'.format(role, account, target))
     return value, key
 
 
-def put_account_and_credentials(account, credential_k8s, credential_os):
+def put_ring_and_credentials(role, account, credential_k8s, credential_os):
     # TODO use transaction to put account and credentials
-    _client.put('/apisvc/accounts/{0}'.format(account), 'ok')
-    _client.put('/apisvc/accounts/{0}/{1}'.format(account, 'k8s'), credential_k8s)
-    _client.put('/apisvc/accounts/{0}/{1}'.format(account, 'os'), credential_os)
+    _client.put('/apisvc/rings/{0}/{1}'.format(role, account), 'ok')
+    _client.put('/apisvc/rings/{0}/{1}/{2}'.format(role, account, 'k8s'), credential_k8s)
+    _client.put('/apisvc/rings/{0}/{1}/{2}'.format(role, account, 'os'), credential_os)

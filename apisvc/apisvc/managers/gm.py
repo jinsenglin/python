@@ -11,7 +11,7 @@ class Manager(object):
         self._role = role
         self._account = account
 
-        credential_key_k8s, credential_key_os = fs_cache.get_credential_keys(account)
+        credential_key_k8s, credential_key_os = fs_cache.get_credential_keys(role=role, account=account)
         self._k8s_mgr = k8s.Manager(credential_key=credential_key_k8s)
         self._os_mgr = os.Manager(credential_key=credential_key_os)
         self._cia_mgr = cia.Manager()

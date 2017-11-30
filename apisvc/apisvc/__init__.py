@@ -73,3 +73,5 @@ app.logger.setLevel(app.config['APISVC_LOG_LEVEL']) # WARNING for production, DE
 
 import routes
 import resources
+
+app.logger.info('apisvc is up and serving ...')

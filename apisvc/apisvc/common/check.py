@@ -8,48 +8,48 @@ from apisvc.common.db import etcd as etcd_db
 from apisvc.common.cache import fs as fs_cache
 
 
-def _check_account_existed_in_the_persistent_store(account):
+def _check_ring_existed_in_the_persistent_store(role, account):
     """
-        if the specified account exists in the remote persistent store
+        if the specified ring exists in the remote persistent store
         then cache it
         then return True
     """
 
-    _, key = etcd_db.get_account(account)
+    _, key = etcd_db.get_ring(role=role, account=account)
 
     if key:
-        LOGGER.debug('account {0} found in remote persistent store'.format(account))
+        LOGGER.debug('ring for role {0} account {1} found in remote persistent store'.format(role, account))
 
-        credential_k8s, _ = etcd_db.get_credential(account, 'k8s')
-        credential_os, _ = etcd_db.get_credential(account, 'os')
-        fs_cache.put_account_and_credentials(account, credential_k8s, credential_os)
+        credential_k8s, _ = etcd_db.get_credential(role=role, account=account, target='k8s')
+        credential_os, _ = etcd_db.get_credential(role=role, account=account, target='os')
+        fs_cache.put_ring_and_credentials(role=role, account=account, credential_k8s=credential_k8s, credential_os=credential_os)
 
         return True
     else:
-        LOGGER.debug('account {0} not found in remote persistent store'.format(account))
+        LOGGER.debug('ring for role {0} account {1} not found in remote persistent store'.format(role, account))
         return False
 
 
-def _check_account_existed(account):
+def _check_ring_existed(role, account):
     """
-        return True if the specified account exists in the local cache store
-        return True if the specified account exists in the remote persistent store
+        return True if the specified ring exists in the local cache store
+        return True if the specified ring exists in the remote persistent store
         return False if all checks are not passed
     """
 
-    account_key = fs_cache.get_account_key(account)
+    ring_key = fs_cache.get_ring_key(role=role, account=account)
 
-    if account_key is not None:
-        LOGGER.debug('account {0} found in local cache store'.format(account))
+    if ring_key is not None:
+        LOGGER.debug('ring for role {0} account {1} found in local cache store'.format(role, account))
         return True
     else:
-        LOGGER.debug('account {0} not found in local cache store'.format(account))
-        return _check_account_existed_in_the_persistent_store(account)
+        LOGGER.debug('ring for role {0} account {1} not found in local cache store'.format(role, account))
+        return _check_ring_existed_in_the_persistent_store(role=role, account=account)
 
 
-PERSONATE_ADMIN = 'ADMIN'
-PERSONATE_TENANT = 'TENANT'
-PERSONATE_USER = 'USER'
+PERSONATE_ADMIN = 'admin'
+PERSONATE_TENANT = 'tenant'
+PERSONATE_USER = 'user'
 
 
 def need_personate_header(role):
@@ -71,7 +71,7 @@ def need_personate_header(role):
                     LOGGER.debug('personation = {0}'.format(personation))
 
                     _, account = util.personation_to_role_account(personation)
-                    if _check_account_existed(account):
+                    if _check_ring_existed(role=role, account=account):
                         kwargs['apisvc_res_manager'] = Manager(role=role, account=account)
                         result = fn(*args, **kwargs)
                         return result

@@ -17,7 +17,7 @@ else
 fi
 
 function clean_up {
-    echo "$(date) | INFO | shutting down etcd server"
+    echo "$(date) | INFO | shutting down etcd db"
     docker stop etcd
 
     if [ $MODE == FULL ]; then
@@ -43,7 +43,7 @@ echo "$(date) | INFO | clearing lock files and log files"
 
 # =========================================================================================
 
-echo "$(date) | INFO | bringing up etcd server"
+echo "$(date) | INFO | bringing up etcd db"
 export NODE1=127.0.0.1
 
 REGISTRY=quay.io/coreos/etcd
@@ -70,7 +70,7 @@ fi
 
 echo "$(date) | INFO | loading etcd server with initial data"
 sleep 3
-bash init-etcd-for-dev.sh
+bash init-etcd-db-for-dev.sh
 
 # =========================================================================================
 

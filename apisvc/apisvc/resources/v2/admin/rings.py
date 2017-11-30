@@ -3,11 +3,11 @@ from apisvc.common.resource import RESOURCE
 from apisvc.common.profile import timeit
 from apisvc.common.audit import audit_access
 from apisvc.common import check
-from apisvc.handlers.v2.admin.keyrings import new_handler
-from apisvc.messages.v2.admin.keyrings import new_message
+from apisvc.handlers.v2.admin.rings import new_handler
+from apisvc.messages.v2.admin.rings import new_message
 
 
-class Keyring(Resource):
+class Ring(Resource):
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_get)
@@ -45,4 +45,4 @@ class Keyring(Resource):
                                     out_message=new_message().output_for_delete)
 
 
-RESOURCE.add_resource(Keyring, '/v2/admin/keyrings')
+RESOURCE.add_resource(Ring, '/v2/admin/rings')

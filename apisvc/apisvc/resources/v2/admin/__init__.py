@@ -1,3 +1,3 @@
 import nodes
-import tenants
-import keyrings
+import pools
+import rings

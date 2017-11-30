@@ -14,6 +14,6 @@ cat ../samples/controller.os.yaml | etcdctl put /apisvc/controllers/os
 etcdctl put /apisvc/nodes/comp1 ok
 etcdctl put /apisvc/nodes/comp2 ok
 
-etcdctl put /apisvc/accounts/0000-0000-0000-0000 ok
-cat ../samples/0000-0000-0000-0000.k8s.yaml | etcdctl put /apisvc/accounts/0000-0000-0000-0000/k8s
-cat ../samples/0000-0000-0000-0000.os.yaml | etcdctl put /apisvc/accounts/0000-0000-0000-0000/os
+etcdctl put /apisvc/rings/admin/0000-0000-0000-0000 ok
+cat ../samples/0000-0000-0000-0000.k8s.yaml | etcdctl put /apisvc/rings/admin/0000-0000-0000-0000/k8s
+cat ../samples/0000-0000-0000-0000.os.yaml | etcdctl put /apisvc/rings/admin/0000-0000-0000-0000/os
