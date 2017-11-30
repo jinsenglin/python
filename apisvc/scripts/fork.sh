@@ -47,7 +47,10 @@ sed -i "s/apisvc/$BRAND/g" $FILE
 
 # ==============================
 
-# TODO APISVC -> $BRANDING
+FILE=../apisvc/DEBUG
+sed -i "s/apisvc/$BRAND/g" $FILE
+
+# ==============================
 
 FOLDER=../apisvc
 find $FOLDER -type f -name "*.py" -exec sed -i "s/apisvc/$BRAND/g" {} \;
