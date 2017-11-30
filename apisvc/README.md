@@ -1,7 +1,7 @@
 # Runtime Versions
 
 * python: 2.7.11
-* others: see requirements.txt
+* others: see requirements.txt and bindep.txt
 
 # External Components
 
@@ -26,8 +26,7 @@
 # Setup Development Environment
 
 ```
-git clone https://github.com/jinsenglin/python.git
-cd python/apisvc # PROJECT_HOME
+# PROJECT_HOME = .
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 bindep
