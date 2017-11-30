@@ -48,10 +48,7 @@ sed -i "s/apisvc/$BRAND/g" $FILE
 # ==============================
 
 # TODO APISVC -> $BRANDING
-# TODO apisvc -> $BRANDING
-FILE=../apisvc/*.py
-
-# ==============================
 
 FOLDER=../apisvc
+find $FOLDER -type f -name "*.py" -exec sed -i "s/apisvc/$BRAND/g" {} \;
 mv $FOLDER ../$BRAND
