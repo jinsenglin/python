@@ -16,7 +16,8 @@ class Node(Resource):
     def get(self, id, *args, **kwargs):
         return new_handler().get(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
-                                 out_message=new_message().output_for_get)
+                                 out_message=new_message().output_for_get,
+                                 id=id)
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
@@ -25,7 +26,8 @@ class Node(Resource):
     def put(self, id, *args, **kwargs):
         return new_handler().put(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
-                                 out_message=new_message().output_for_put)
+                                 out_message=new_message().output_for_put,
+                                 id=id)
 
 
 RESOURCE.add_resource(Node, '/v2/admin/nodes/<id>')

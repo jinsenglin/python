@@ -16,7 +16,8 @@ class Ring(Resource):
     def get(self, *args, **kwargs):
         return new_handler().get(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
-                                 out_message=new_message().output_for_get)
+                                 out_message=new_message().output_for_get,
+                                 id=id)
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
@@ -25,7 +26,8 @@ class Ring(Resource):
     def put(self, *args, **kwargs):
         return new_handler().put(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
-                                 out_message=new_message().output_for_put)
+                                 out_message=new_message().output_for_put,
+                                 id=id)
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
@@ -34,7 +36,8 @@ class Ring(Resource):
     def delete(self, *args, **kwargs):
         return new_handler().delete(manager=kwargs['apisvc_res_manager'],
                                     in_message=kwargs['apisvc_in_message'],
-                                    out_message=new_message().output_for_delete)
+                                    out_message=new_message().output_for_delete,
+                                    id=id)
 
 
 RESOURCE.add_resource(Ring, '/v2/admin/rings/<id>')

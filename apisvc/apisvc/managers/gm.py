@@ -30,6 +30,14 @@ class Manager(object):
         # TODO
         return {}
 
+    def get_node(self, id):
+        # TODO
+        return {}
+
+    def update_node(self, id):
+        # TODO
+        return {}
+
     def get_pools(self):
         # TODO
         return {}
@@ -44,6 +52,18 @@ class Manager(object):
 
         return {}
 
+    def get_pool(self, id):
+        # TODO
+        return {}
+
+    def update_pool(self, id):
+        # TODO
+        return {}
+
+    def delete_pool(self, id):
+        # TODO
+        return {}
+
     def get_rings(self):
         # TODO
         return {}
@@ -55,6 +75,18 @@ class Manager(object):
 
         # TODO
 
+        return {}
+
+    def get_ring(self, id):
+        # TODO
+        return {}
+
+    def update_ring(self, id):
+        # TODO
+        return {}
+
+    def delete_ring(self, id):
+        # TODO
         return {}
 
 #    def create_namespace(self):

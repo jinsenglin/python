@@ -15,7 +15,8 @@ class Pool(Resource):
     def get(self, id, *args, **kwargs):
         return new_handler().get(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
-                                 out_message=new_message().output_for_get)
+                                 out_message=new_message().output_for_get,
+                                 id=id)
 
 
     @timeit
@@ -25,7 +26,8 @@ class Pool(Resource):
     def put(self, id, *args, **kwargs):
         return new_handler().put(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
-                                 out_message=new_message().output_for_put)
+                                 out_message=new_message().output_for_put,
+                                 id=id)
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
@@ -34,7 +36,8 @@ class Pool(Resource):
     def delete(self, id, *args, **kwargs):
         return new_handler().delete(manager=kwargs['apisvc_res_manager'],
                                     in_message=kwargs['apisvc_in_message'],
-                                    out_message=new_message().output_for_delete)
+                                    out_message=new_message().output_for_delete,
+                                    id=id)
 
 
 RESOURCE.add_resource(Pool, '/v2/admin/pools/<id>')
