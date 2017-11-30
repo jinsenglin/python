@@ -27,19 +27,19 @@ class Manager(object):
         self._la_mgr.demo()
 
     def get_nodes(self, filter):
-        # TODO
+        # TODO directly query etcd db
         return {}
 
     def get_node(self, id):
-        # TODO
+        # TODO directly query etcd db
         return {}
 
     def update_node(self, id):
-        # TODO
+        # TODO delegate to cia
         return {}
 
     def get_pools(self):
-        # TODO
+        # TODO directly query etcd db
         return {}
 
     def create_pool(self, tenant_id):
@@ -48,24 +48,24 @@ class Manager(object):
             create ring
         """
 
-        # TODO
+        # TODO delegate to k8s and os
 
         return {}
 
     def get_pool(self, id):
-        # TODO
+        # TODO delegate to k8s and os
         return {}
 
     def update_pool(self, id):
-        # TODO
+        # TODO delegate to k8s and os
         return {}
 
     def delete_pool(self, id):
-        # TODO
+        # TODO delegate to k8s and os
         return {}
 
     def get_rings(self):
-        # TODO
+        # TODO directly query etcd db
         return {}
 
     def create_ring(self, tenant_id, account_id):
@@ -73,20 +73,20 @@ class Manager(object):
             create ring
         """
 
-        # TODO
+        # TODO delegate to k8s and os
 
         return {}
 
     def get_ring(self, id):
-        # TODO
+        # TODO directly query etcd db
         return {}
 
     def update_ring(self, id):
-        # TODO
+        # TODO directly query etcd db
         return {}
 
     def delete_ring(self, id):
-        # TODO
+        # TODO delegate to k8s and os
         return {}
 
 #    def create_namespace(self):
