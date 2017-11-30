@@ -76,13 +76,13 @@ def need_personate_header(role):
                         result = fn(*args, **kwargs)
                         return result
                     else:
-                        LOGGER.debug('bad request, no or wrong account present')
+                        LOGGER.warn('aborting bad request due to no or wrong account present')
                         abort(400)
                 else:
-                    LOGGER.debug('bad request, no or wrong role present')
+                    LOGGER.warn('aborting bad request due to no or wrong role present')
                     abort(400)
             else:
-                LOGGER.debug('bad request, no X-PERSONATE header present')
+                LOGGER.warn('aborting bad request due to no X-PERSONATE header present')
                 abort(400)
         return wrapper
     return need_personate_header_decorator
@@ -109,7 +109,7 @@ def check_body_against_in_message(in_message):
                 result = fn(*args, **kwargs)
                 return result
             else:
-                LOGGER.debug('bad request, wrong body content present')
+                LOGGER.warn('aborting bad request due to wrong body content present')
                 abort(400)
 
         return wrapper
