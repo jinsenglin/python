@@ -26,6 +26,14 @@ class Manager(object):
         self._cia_mgr.demo()
         self._la_mgr.demo()
 
+    def get_nodes(self, filter):
+        # TODO
+        return {}
+
+    def get_pools(self):
+        # TODO
+        return {}
+
     def create_pool(self, tenant_id):
         """
             create pool
@@ -34,6 +42,10 @@ class Manager(object):
 
         # TODO
 
+        return {}
+
+    def get_rings(self):
+        # TODO
         return {}
 
     def create_ring(self, tenant_id, account_id):
@@ -45,43 +57,43 @@ class Manager(object):
 
         return {}
 
-    def create_namespace(self):
-        """
-            create namespace
-            create account
-            return True of False
-
-        """
-
-        LOGGER.debug('namespace created')
-
-        created = self.create_account()
-
-        if created:
-            LOGGER.debug('account created')
-            return True
-        else:
-            LOGGER.debug('account not created')
-
-        return False
-
-    def create_account(self):
-        """
-            create k8s account
-            create os account
-            return True or False
-        """
-
-        data = self._la_mgr.new_k8s_user_cert('cclin')
-
-        if data is not None:
-            LOGGER.debug('account created')
-            # TODO update db
-            # TODO update cache
-            # TODO update k8s
-            # TODO update os
-            return True
-        else:
-            LOGGER.debug('account not created')
-
-        return False
+#    def create_namespace(self):
+#        """
+#            create namespace
+#            create account
+#            return True of False
+#
+#        """
+#
+#        LOGGER.debug('namespace created')
+#
+#        created = self.create_account()
+#
+#        if created:
+#            LOGGER.debug('account created')
+#            return True
+#        else:
+#            LOGGER.debug('account not created')
+#
+#        return False
+#
+#    def create_account(self):
+#        """
+#            create k8s account
+#            create os account
+#            return True or False
+#        """
+#
+#        data = self._la_mgr.new_k8s_user_cert('cclin')
+#
+#        if data is not None:
+#            LOGGER.debug('account created')
+#            # TODO update db
+#            # TODO update cache
+#            # TODO update k8s
+#            # TODO update os
+#            return True
+#        else:
+#            LOGGER.debug('account not created')
+#
+#        return False
