@@ -12,10 +12,10 @@
 set -e
 
 if [ $# -eq 0 ]; then
-    VER=v1
+    VER=v2
     CMD=healthz
 elif [ $# -eq 1 ]; then
-    VER=v1
+    VER=v2
     CMD=$1
     shift
 else
@@ -32,36 +32,30 @@ function healthz() {
 }
 
 function apis() {
-    curl http://localhost:5000/$VER/admin/apis
-    curl http://localhost:5000/$VER/tenant/apis
-    curl http://localhost:5000/$VER/user/apis
+    curl http://localhost:5000/$VER/admin/apis | jq '.'
+    curl http://localhost:5000/$VER/tenant/apis | jq '.'
+    curl http://localhost:5000/$VER/user/apis | jq '.'
 }
 
 function nodes() {
-    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000"
+    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
+    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -d '{}'
+    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -d '{}'
+    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE -d '{}'
 }
 
 function pools() {
-    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000"
+    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
+    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -d '{}'
+    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -d '{}'
+    curl http://localhost:5000/$VER/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE -d '{}'
 }
 
 function rings() {
-    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000"
-}
-
-function tenant_quota() {
-    curl http://localhost:5000/v1/tenant/quota -H "X-PERSONATE: TENANT 0000-0000-0000-0000"
-}
-
-function admin_tenants_post() {
-    curl http://localhost:5000/v1/admin/tenants -X POST -H "X-PERSONATE: ADMIN 0000-0000-0000-0000"
-}
-
-function v2() {
-    curl http://localhost:5000/v2/admin/tenants -H "X-PERSONATE: ADMIN 0000-0000-0000-0000"
-    curl http://localhost:5000/v2/admin/tenants -H "X-PERSONATE: ADMIN 0000-0000-0000-0000" -X POST
-    curl http://localhost:5000/v2/admin/tenants -H "X-PERSONATE: ADMIN 0000-0000-0000-0000" -X PUT
-    curl http://localhost:5000/v2/admin/tenants -H "X-PERSONATE: ADMIN 0000-0000-0000-0000" -X DELETE
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -d '{}'
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -d '{}'
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE -d '{}'
 }
 
 $CMD

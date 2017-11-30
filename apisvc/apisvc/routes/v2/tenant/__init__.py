@@ -1,3 +1,4 @@
+import json
 from apisvc.common.route import ROUTE
 from apisvc.common.profile import timeit
 from apisvc.common.audit import audit_anonymous_access
@@ -14,6 +15,8 @@ def v2_tenant_healthz():
 @timeit
 @audit_anonymous_access
 def v2_tenant_apis():
-    return {'status': 200,
-            'message': [{'method': 'GET', 'path': '/healthz'},
-                        {'method': 'GET', 'path': '/apis'}]}, {'Content-Type': 'application/json'}
+    return json.dumps({'status': 200,
+                       'data': [{'method': 'GET', 'path': '/v2/tenant/healthz'},
+                                {'method': 'GET', 'path': '/v2/tenant/apis'}
+                                ]}), \
+           {'Content-Type': 'application/json'}

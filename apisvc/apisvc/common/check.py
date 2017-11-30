@@ -103,7 +103,8 @@ def check_body_against_in_message(in_message):
 
             no_missing_key = all(key in body_content for key in in_message)
 
-            in_message.update(body_content)
+            if body_content is not None:
+                in_message.update(body_content)
 
             if no_missing_key:
                 kwargs['apisvc_in_message'] = in_message
