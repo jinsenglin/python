@@ -100,13 +100,11 @@ def check_body_against_in_message(in_message):
             LOGGER.debug('checking body content ... ')
 
             body_content = request.get_json()
+            if body_content is None:
+                body_content = {}
 
-            no_missing_key = all(key in body_content for key in in_message)
-
-            if body_content is not None:
+            if all(k in body_content for k, v in in_message.iteritems() if v is None):
                 in_message.update(body_content)
-
-            if no_missing_key:
                 kwargs['apisvc_in_message'] = in_message
                 result = fn(*args, **kwargs)
                 return result

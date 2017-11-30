@@ -7,7 +7,7 @@ from apisvc.handlers.v2.admin.rings import new_handler
 from apisvc.messages.v2.admin.rings import new_message
 
 
-class Ring(Resource):
+class Rings(Resource):
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_get)
@@ -45,4 +45,4 @@ class Ring(Resource):
                                     out_message=new_message().output_for_delete)
 
 
-RESOURCE.add_resource(Ring, '/v2/admin/rings')
+RESOURCE.add_resource(Rings, '/v2/admin/rings')

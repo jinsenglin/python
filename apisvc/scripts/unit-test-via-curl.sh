@@ -39,9 +39,12 @@ function apis() {
 
 function nodes() {
     curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
-    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -d '{}'
-    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -d '{}'
-    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE -d '{}'
+    curl http://localhost:5000/$VER/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "compute"}'
+}
+
+function node() {
+    curl http://localhost:5000/$VER/admin/nodes/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET
+    curl http://localhost:5000/$VER/admin/nodes/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}'
 }
 
 function pools() {

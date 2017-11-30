@@ -7,7 +7,7 @@ from apisvc.handlers.v2.admin.pools import new_handler
 from apisvc.messages.v2.admin.pools import new_message
 
 
-class Pool(Resource):
+class Pools(Resource):
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_get)
@@ -45,4 +45,4 @@ class Pool(Resource):
                                     out_message=new_message().output_for_delete)
 
 
-RESOURCE.add_resource(Pool, '/v2/admin/pools')
+RESOURCE.add_resource(Pools, '/v2/admin/pools')

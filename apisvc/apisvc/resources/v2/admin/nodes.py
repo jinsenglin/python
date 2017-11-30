@@ -7,7 +7,8 @@ from apisvc.handlers.v2.admin.nodes import new_handler
 from apisvc.messages.v2.admin.nodes import new_message
 
 
-class Node(Resource):
+class Nodes(Resource):
+
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_get)
@@ -17,32 +18,5 @@ class Node(Resource):
                                  in_message=kwargs['apisvc_in_message'],
                                  out_message=new_message().output_for_get)
 
-    @timeit
-    @check.need_personate_header(check.PERSONATE_ADMIN)
-    @check.check_body_against_in_message(new_message().input_for_post)
-    @audit_access
-    def post(self, *args, **kwargs):
-        return new_handler().post(manager=kwargs['apisvc_res_manager'],
-                                  in_message=kwargs['apisvc_in_message'],
-                                  out_message=new_message().output_for_post)
 
-    @timeit
-    @check.need_personate_header(check.PERSONATE_ADMIN)
-    @check.check_body_against_in_message(new_message().input_for_put)
-    @audit_access
-    def put(self, *args, **kwargs):
-        return new_handler().put(manager=kwargs['apisvc_res_manager'],
-                                 in_message=kwargs['apisvc_in_message'],
-                                 out_message=new_message().output_for_put)
-
-    @timeit
-    @check.need_personate_header(check.PERSONATE_ADMIN)
-    @check.check_body_against_in_message(new_message().input_for_delete)
-    @audit_access
-    def delete(self, *args, **kwargs):
-        return new_handler().delete(manager=kwargs['apisvc_res_manager'],
-                                    in_message=kwargs['apisvc_in_message'],
-                                    out_message=new_message().output_for_delete)
-
-
-RESOURCE.add_resource(Node, '/v2/admin/nodes')
+RESOURCE.add_resource(Nodes, '/v2/admin/nodes')

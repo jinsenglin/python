@@ -1,4 +1,4 @@
-class Ring(object):
+class Rings(object):
     def get(self, manager, in_message, out_message, *args, **kwargs):
         # TODO check in_message
         # TODO use manager
@@ -25,4 +25,4 @@ class Ring(object):
 
 
 def new_handler():
-    return Ring()
+    return Rings()
