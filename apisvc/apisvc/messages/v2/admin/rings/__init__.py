@@ -4,7 +4,7 @@ class Rings(object):
         self.input_for_get = {}
         self.output_for_get = {'result': []}
 
-        self.input_for_post = {}
+        self.input_for_post = {'tenant_id': None, 'account_id': None}
         self.output_for_post = {'result': {}}
 
 
