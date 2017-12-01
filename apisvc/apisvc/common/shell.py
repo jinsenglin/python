@@ -84,14 +84,16 @@ def ls_all_os_projects(os_credential_path):
     return run_os_script(os_credential_path=os_credential_path, script_name='ls-all-os-projects.sh')
 
 
-def proxy_openstack(os_credential_path, script_args=[]):
-    # TODO
-    pass
-
-
 def proxy_kubectl(k8s_credential_path, script_args=[]):
-    # TODO
-    pass
+    return run_os_script(k8s_credential_path=k8s_credential_path,
+                         script_name='proxy-kubectl.sh',
+                         script_args=script_args)
+
+
+def proxy_openstack(os_credential_path, script_args=[]):
+    return run_os_script(os_credential_path=os_credential_path,
+                         script_name='proxy-openstack.sh',
+                         script_args=script_args)
 
 
 def new_k8s_user_cert(username, group='system:masters'):

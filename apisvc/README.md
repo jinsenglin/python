@@ -72,6 +72,8 @@ python
 >>> # for example
 >>> apisvc.common.shell.ls_all_k8s_namespaces('samples/0000-0000-0000-0000.k8s.yaml')
 >>> apisvc.common.shell.ls_all_os_projects('samples/0000-0000-0000-0000.os.yaml')
+>>> apisvc.common.shell.proxy_kubectl('samples/0000-0000-0000-0000.k8s.yaml', ['get', 'ns'])
+>>> apisvc.common.shell.proxy_openstack('samples/0000-0000-0000-0000.os.yaml', ['project', 'list'])
 ```
 
 Start development server (single thread)
