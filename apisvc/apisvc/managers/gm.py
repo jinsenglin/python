@@ -8,23 +8,28 @@ from apisvc.common.log import LOGGER
 
 class Manager(object):
     def __init__(self, role=None, account=None):
+        # init identity
         self._role = role
         self._account = account
 
-        self._credential_key_k8s, self._credential_key_os = fs_cache.get_credential_keys(role=role, account=account)
-        self._k8s_mgr = k8s.Manager(credential_key=self._credential_key_k8s)
-        self._os_mgr = os.Manager(credential_key=self._credential_key_os)
+        # init credential paths
+        self._k8s_credential_path, self._os_credential_path = fs_cache.get_credential_keys(role=role, account=account)
+
+        # init managers
+        self._k8s_mgr = k8s.Manager(credential_path=self._k8s_credential_path)
+        self._os_mgr = os.Manager(credential_path=self._os_credential_path)
         self._cia_mgr = cia.Manager()
-        self._la_mgr = la.Manager()
+        self._la_mgr = la.Manager(k8s_credential_path=self._k8s_credential_path,
+                                  os_credential_path=self._os_credential_path)
 
     def __str__(self):
         return '{0} {1}'.format(self._role, self._account)
 
-    def demo(self):
-        self._k8s_mgr.demo()
-        self._os_mgr.demo()
-        self._cia_mgr.demo()
-        self._la_mgr.demo()
+    # ===================================== #
+    #                                       #
+    # node management                       #
+    #                                       #
+    # ===================================== #
 
     def get_nodes(self, filter):
         # TODO directly query etcd db
@@ -40,8 +45,14 @@ class Manager(object):
 
     def get_pools(self):
         # TODO directly query etcd db
-        data = self._la_mgr.ls_all_os_projects(os_credential=self._credential_key_os)
+        data = self._la_mgr.ls_all_os_projects(os_credential=self._os_credential_path)
         return {'result': data}
+
+    # ===================================== #
+    #                                       #
+    # pool management                       #
+    #                                       #
+    # ===================================== #
 
     def create_pool(self, tenant_id):
         """
@@ -64,6 +75,12 @@ class Manager(object):
     def delete_pool(self, id):
         # TODO delegate to k8s and os
         return {}
+
+    # ===================================== #
+    #                                       #
+    # ring management                       #
+    #                                       #
+    # ===================================== #
 
     def get_rings(self):
         # TODO directly query etcd db
