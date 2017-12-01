@@ -20,7 +20,7 @@ def bash(script_name, script_args=[]):
 
         ptt_log_name = '{0}.{1}'.format(util.get_ptt_string(), 'log')
         ptt_log_path = '{0}/{1}'.format(_tmp_path, ptt_log_name)
-        subprocess_args = ['bash', script_path, _tmp_path, ptt_log_name] + script_args
+        subprocess_args = ['bash', script_path, _tmp_path] + script_args
 
         try:
             with open(ptt_log_path, 'w') as ptt_log:

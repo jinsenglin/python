@@ -15,21 +15,21 @@ set -e
 
 # input
 TMP=$1
-PTTLOG=$2
-export OS_REGION_NAME=$3
-export OS_AUTH_URL=$4
-export OS_USERNAME=$5
-export OS_PASSWORD=$6
-export OS_TENANT_NAME=$7
+export OS_REGION_NAME=$2
+export OS_AUTH_URL=$3
+export OS_USERNAME=$4
+export OS_PASSWORD=$5
+export OS_TENANT_NAME=$6
 
 # output
-PTTLOG_PATH=$TMP/$PTTLOG
+DATA=$TMP/data
 
 exec 3>&1
 exec 1>&2
 
-# TODO bug - this will cause exit code always 0
-openstack project list -f json | jq '.' >&3
+# main
+openstack project list -f json > $DATA
+jq '.' $DATA >&3
 
 # clean up
-# n/a
+[ -f $DATA ] && rm $DATA

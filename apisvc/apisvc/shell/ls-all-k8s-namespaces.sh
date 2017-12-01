@@ -15,17 +15,17 @@ set -e
 
 # input
 TMP=$1
-PTTLOG=$2
-KUBECONFIG=$3
+KUBECONFIG=$2
 
 # output
-PTTLOG_PATH=$TMP/$PTTLOG
+DATA=$TMP/data
 
 exec 3>&1
 exec 1>&2
 
-# TODO bug - this will cause exit code always 0
-kubectl --kubeconfig=$KUBECONFIG get ns -o json | jq '.items' >&3
+# main
+kubectl --kubeconfig=$KUBECONFIG get ns -o json > $DATA
+jq '.items' $DATA >&3
 
 # clean up
-# n/a
+[ -f $DATA ] && rm $DATA
