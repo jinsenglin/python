@@ -5,7 +5,7 @@
 
 # External Components
 
-* openstack: >= mitaka
+* openstack: >= mitaka (identity v2)
 * kubernetes: 1.8.2
 * etcd: 3.0.17
 
