@@ -10,6 +10,7 @@
 # sample output
 # []
 
+set -x
 set -e
 
 # input
@@ -24,8 +25,11 @@ export OS_TENANT_NAME=$7
 # output
 PTTLOG_PATH=$TMP/$PTTLOG
 
+exec 3>&1
+exec 1>&2
+
 # TODO bug - this will cause exit code always 0
-openstack project list -f json | jq '.'
+openstack project list -f json | jq '.' >&3
 
 # clean up
 # n/a

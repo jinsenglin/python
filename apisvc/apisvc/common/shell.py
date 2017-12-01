@@ -25,6 +25,10 @@ def bash(script_name, script_args=[]):
         try:
             with open(ptt_log_path, 'w') as ptt_log:
                 stdout = subprocess.check_output(subprocess_args, shell=False, stderr=ptt_log)
+
+            # clean up ptt log if exit code is zero
+            os.remove(ptt_log_path)
+            
         except subprocess.CalledProcessError:
             LOGGER.critical('failed to run script due to exit code is non-zero')
             LOGGER.critical('check ptt log {0}/{1} to see more error message'.format(_tmp_path, ptt_log_name))
