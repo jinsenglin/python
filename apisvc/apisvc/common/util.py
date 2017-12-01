@@ -19,7 +19,7 @@ def get_ptt_string():
 
 
 def get_process_wide_tmp_path():
-    return os.path.join(_tmp_path, os.getpid())
+    return os.path.join(_tmp_path, str(os.getpid()))
 
 
 def parse_os_credential(os_credential_path):

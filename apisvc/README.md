@@ -27,6 +27,7 @@
 
 ```
 # PROJECT_HOME = .
+cd $PROJECT_HOME
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 bindep
@@ -58,6 +59,15 @@ Start local kubernetes
 
 ```
 minikube start --kubernetes-version=v1.8.2 --bootstrapper kubeadm --cpus 4 --memory 8192
+```
+
+Start interactive shell
+
+```
+cd $PROJECT_HOME
+python
+
+>>> from apisvc import app
 ```
 
 Start development server (single thread)
