@@ -1,7 +1,16 @@
+import os
 import yaml
 import time
 import random
+from apisvc.common.config import CONFIG
 from apisvc.common.log import LOGGER
+
+
+_tmp_path = CONFIG['APISVC_TMP_PATH']
+
+
+def get_process_wide_tmp_path():
+    return os.path.join(_tmp_path, os.getpid())
 
 
 def parse_os_credential(os_credential_path):

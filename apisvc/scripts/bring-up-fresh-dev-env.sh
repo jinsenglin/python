@@ -37,13 +37,14 @@ bash clear-fs-cache.sh
 
 # =========================================================================================
 
-echo "$(date) | INFO | clearing lock files and log files"
+echo "$(date) | INFO | clearing lock files and log files and tmp files"
 [ -f /tmp/apisvc-debug.log ] && rm  /tmp/apisvc-debug.log
 [ -f /tmp/apisvc.lock ] && rm  /tmp/apisvc.lock
+for tmp in $(find /tmp/ -type d -name "apisvc-*"); do rm -rf $tmp; done
 
 # =========================================================================================
 
-echo "$(date) | INFO | bringing up etcd db"
+echo -n "$(date) | INFO | bringing up etcd db "
 export NODE1=127.0.0.1
 
 REGISTRY=quay.io/coreos/etcd
