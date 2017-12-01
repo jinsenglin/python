@@ -1,5 +1,6 @@
 import subprocess
 import json
+import os
 from apisvc.common.config import CONFIG
 from apisvc.common.log import LOGGER
 from apisvc.common import util
@@ -9,6 +10,55 @@ from apisvc.common.cache import fs as fs_cache
 
 _shell_path = CONFIG['APISVC_SHELL_PATH']
 _tmp_path = util.get_process_wide_tmp_path()
+
+
+def bash(script_name, script_args=[]):
+    stdout = None
+
+    script_path = '{0}/{1}'.format(_shell_path, script_name)
+    if os.path.isfile(script_name):
+
+        ptt_log = '{0}.{1}'.format(util.get_ptt_string(), '.log')
+        subprocess_args = ['bash', script_path, _tmp_path, ptt_log] + script_args
+
+        try:
+            stdout = subprocess.check_output(subprocess_args, shell=False)
+        except subprocess.CalledProcessError:
+            LOGGER.critical('failed to run script due to exit code is non-zero')
+            LOGGER.critical('check ptt log {0}/{1} to see more error message'.format(_tmp_path, ptt_log))
+
+    else:
+        LOGGER.error('failed to run script due to script file not found')
+
+    return stdout
+
+
+def run_os_script(os_credential_path, script, script_args=[]):
+    data = None
+
+    stdout = bash(script_name=script, script_args=script_args)
+
+    if stdout is not None:
+        try:
+            data = json.loads(stdout)
+        except ValueError:
+            LOGGER.critical('failed to run os script due to invalid json format')
+
+    return data
+
+
+def run_k8s_script(k8s_credential_path, script, script_args=[]):
+    data = None
+
+    stdout = bash(script_name=script, script_args=script_args)
+
+    if stdout is not None:
+        try:
+            data = json.loads(stdout)
+        except ValueError:
+            LOGGER.critical('failed to run k8s script due to invalid json format')
+
+    return data
 
 
 def ls_all_k8s_namespaces(k8s_credential_path):
@@ -22,7 +72,7 @@ def ls_all_k8s_namespaces(k8s_credential_path):
         LOGGER.debug('data = {0}'.format(data))
         return data
 
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         LOGGER.critical('failed to list k8s namespaces')
         return None
 
@@ -47,10 +97,10 @@ def ls_all_os_projects(os_credential_path):
             LOGGER.debug('data = {0}'.format(data))
             return data
 
-        except subprocess.CalledProcessError as e:
+        except subprocess.CalledProcessError:
             LOGGER.critical('failed to list os projects')
             return None
-        
+
     else:
         LOGGER.error('failed to list os projects')
 
@@ -96,6 +146,6 @@ def new_k8s_user_cert(username, group='system:masters'):
         LOGGER.debug('crt = {0}'.format(data['crt']))
         return data
 
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         LOGGER.critical('failed to make k8s user client certificate data')
         return None

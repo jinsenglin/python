@@ -1,5 +1,7 @@
 import os
+import threading
 import yaml
+import calendar
 import time
 import random
 from apisvc.common.config import CONFIG
@@ -7,6 +9,13 @@ from apisvc.common.log import LOGGER
 
 
 _tmp_path = CONFIG['APISVC_TMP_PATH']
+
+
+def get_ptt_string():
+    """
+        ptt is short for process-thread-timestamp
+    """
+    return '{0}-{1}-{2}'.format(os.getpid(), threading.get_ident(), calendar.timegm(time.gmtime()))
 
 
 def get_process_wide_tmp_path():
