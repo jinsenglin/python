@@ -14,8 +14,8 @@ set -e
 
 # input
 TMP=$1
-export OS_AUTH_URL=$2
-export OS_REGION_NAME=$3
+export OS_REGION_NAME=$2
+export OS_AUTH_URL=$3
 export OS_USERNAME=$4
 export OS_PASSWORD=$5
 export OS_TENANT_NAME=$6

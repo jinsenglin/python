@@ -33,24 +33,33 @@ def bash(script_name, script_args=[]):
     return stdout
 
 
-def run_os_script(os_credential_path, script, script_args=[]):
+def run_os_script(os_credential_path, script_name, script_args=[]):
     data = None
 
-    stdout = bash(script_name=script, script_args=script_args)
+    region_name, auth_url, username, password, project_name = util.parse_os_credential()
 
-    if stdout is not None:
-        try:
-            data = json.loads(stdout)
-        except ValueError:
-            LOGGER.critical('failed to run os script due to invalid json format')
+    if all(v is not None for v in (region_name, auth_url, username, password, project_name)):
+
+        extended_script_args = [region_name, auth_url, username, password, project_name] + script_args
+        stdout = bash(script_name=script_name, script_args=extended_script_args)
+
+        if stdout is not None:
+            try:
+                data = json.loads(stdout)
+            except ValueError:
+                LOGGER.critical('failed to run os script due to returned data of invalid json format')
+
+    else:
+        LOGGER.error('failed to run os script due to invalid credential present')
 
     return data
 
 
-def run_k8s_script(k8s_credential_path, script, script_args=[]):
+def run_k8s_script(k8s_credential_path, script_name, script_args=[]):
     data = None
 
-    stdout = bash(script_name=script, script_args=script_args)
+    extended_script_args = [k8s_credential_path] + script_args
+    stdout = bash(script_name=script_name, script_args=extended_script_args)
 
     if stdout is not None:
         try:
@@ -62,47 +71,11 @@ def run_k8s_script(k8s_credential_path, script, script_args=[]):
 
 
 def ls_all_k8s_namespaces(k8s_credential_path):
-    try:
-        stdout = subprocess.check_output(['bash',
-                                          '{0}/{1}'.format(_shell_path, 'ls-all-k8s-namespaces.sh'),
-                                          _tmp_path,
-                                          k8s_credential_path], shell=False)
-
-        data = json.loads(stdout)
-        LOGGER.debug('data = {0}'.format(data))
-        return data
-
-    except subprocess.CalledProcessError:
-        LOGGER.critical('failed to list k8s namespaces')
-        return None
+    return run_k8s_script(k8s_credential_path=k8s_credential_path, script_name='ls-all-k8s-namespaces.sh')
 
 
 def ls_all_os_projects(os_credential_path):
-
-    region_name, auth_url, username, password, project_name = util.parse_os_credential()
-
-    if auth_url is None:
-
-        try:
-            stdout = subprocess.check_output(['bash',
-                                              '{0}/{1}'.format(_shell_path, 'ls-all-os-projects.sh'),
-                                              _tmp_path,
-                                              auth_url,
-                                              region_name,
-                                              username,
-                                              password,
-                                              project_name], shell=False)
-
-            data = json.loads(stdout)
-            LOGGER.debug('data = {0}'.format(data))
-            return data
-
-        except subprocess.CalledProcessError:
-            LOGGER.critical('failed to list os projects')
-            return None
-
-    else:
-        LOGGER.error('failed to list os projects')
+    return run_os_script(os_credential_path==os_credential_path, script_name='ls-all-os-projects.sh')
 
 
 def new_k8s_user_cert(username, group='system:masters'):
