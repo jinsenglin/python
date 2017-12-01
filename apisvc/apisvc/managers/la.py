@@ -15,6 +15,13 @@ class Manager(object):
         return shell.new_k8s_user_cert(username=username, group=group)
 
 
+    def ls_all_os_projects(self, os_credential):
+        """
+            return a list object
+        """
+        return shell.ls_all_os_projects(os_credential=os_credential)
+
+
     def demo(self):
         output = ''
 

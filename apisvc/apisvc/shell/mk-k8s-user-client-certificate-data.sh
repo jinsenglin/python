@@ -32,6 +32,7 @@ jq -n "{
     \"key\": \"$(base64 $KEY)\"
 }"
 
+# clean up
 [ -f $KEY ] && rm $KEY
 [ -f $CSR ] && rm $CSR
 [ -f $CRT ] && rm $CRT

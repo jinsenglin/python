@@ -4,33 +4,25 @@
 # - openstack
 
 # sample usage
-# bash $0 /tmp ../../samples/ca.crt ../../samples/ca.key user1 role1
-# bash $0 /tmp ../../samples/ca.crt ../../samples/ca.key cclin system:masters
+# bash $0 /tmp http://192.168.228.31:5000/v2.0/ RegionOne jimlin jimlin jimlin
+
+# sample output
+# []
 
 set -e
 
 # input
 TMP=$1
-CA_CRT=$2
-CA_KEY=$3
-CN=$4
-O=$5
+export OS_AUTH_URL=$2
+export OS_REGION_NAME=$3
+export OS_USERNAME=$4
+export OS_PASSWORD=$5
+export OS_TENANT_NAME=$6
 
 # output
-KEY=$TMP/server.key
-CSR=$TMP/server.csr
-CRT=$TMP/server.crt
-LOG=$TMP/$(basename $0).log
+# n/a
 
-openssl req -new -sha256 -keyout $KEY -out $CSR -days 3650 -newkey rsa:2048 -nodes -subj "/O=$O/CN=$CN" > $LOG 2>&1
-openssl x509 -req -days 3650 -sha1 -CA $CA_CRT  -CAkey $CA_KEY -CAcreateserial -in $CSR -out $CRT > $LOG 2>&1
+openstack project list -f json
 
-jq -n "{
-    \"crt\": \"$(base64 $CRT)\",
-    \"key\": \"$(base64 $KEY)\"
-}"
-
-[ -f $KEY ] && rm $KEY
-[ -f $CSR ] && rm $CSR
-[ -f $CRT ] && rm $CRT
-[ -f $LOG ] && rm $LOG
+# clean up
+# n/a

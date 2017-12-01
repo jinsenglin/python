@@ -10,6 +10,26 @@ _shell_path = CONFIG['APISVC_SHELL_PATH']
 _tmp_path = CONFIG['APISVC_TMP_PATH']
 
 
+def ls_all_os_projects(os_credential):
+    try:
+        stdout = subprocess.check_output(['bash',
+                                          '{0}/{1}'.format(_shell_path, 'ls-all-os-projects.sh'),
+                                          _tmp_path,
+                                          'http://192.168.228.31:5000/v2.0/',
+                                          'RegionOne',
+                                          'jimlin',
+                                          'jimlin',
+                                          'jimlin'], shell=False)
+
+        data = json.loads(stdout)
+        LOGGER.debug('data = {0}'.format(data))
+        return data
+
+    except subprocess.CalledProcessError as e:
+        LOGGER.critical('failed to list os projects')
+        return None
+
+
 def new_k8s_user_cert(username, group='system:masters'):
     """
         return None if ca not found

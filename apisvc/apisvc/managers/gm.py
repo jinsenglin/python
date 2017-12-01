@@ -11,9 +11,9 @@ class Manager(object):
         self._role = role
         self._account = account
 
-        credential_key_k8s, credential_key_os = fs_cache.get_credential_keys(role=role, account=account)
-        self._k8s_mgr = k8s.Manager(credential_key=credential_key_k8s)
-        self._os_mgr = os.Manager(credential_key=credential_key_os)
+        self._credential_key_k8s, self._credential_key_os = fs_cache.get_credential_keys(role=role, account=account)
+        self._k8s_mgr = k8s.Manager(credential_key=self._credential_key_k8s)
+        self._os_mgr = os.Manager(credential_key=self._credential_key_os)
         self._cia_mgr = cia.Manager()
         self._la_mgr = la.Manager()
 
@@ -40,7 +40,8 @@ class Manager(object):
 
     def get_pools(self):
         # TODO directly query etcd db
-        return {}
+        data = self._la_mgr.ls_all_os_projects(os_credential=self._credential_key_os)
+        return {'result': data}
 
     def create_pool(self, tenant_id):
         """
