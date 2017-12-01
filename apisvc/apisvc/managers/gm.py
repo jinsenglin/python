@@ -43,16 +43,17 @@ class Manager(object):
         # TODO delegate to cia
         return {}
 
-    def get_pools(self):
-        # TODO directly query etcd db
-        data = self._la_mgr.ls_all_os_projects()
-        return {'result': data}
-
     # ===================================== #
     #                                       #
     # pool management                       #
     #                                       #
     # ===================================== #
+
+    def get_pools(self):
+        # TODO directly query etcd db
+        data = self._la_mgr.ls_all_os_projects()
+        data = self._la_mgr.ls_all_k8s_namespaces()
+        return {'result': data}
 
     def create_pool(self, tenant_id):
         """

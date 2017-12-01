@@ -15,11 +15,7 @@ def ls_all_k8s_namespaces(k8s_credential_path):
         stdout = subprocess.check_output(['bash',
                                           '{0}/{1}'.format(_shell_path, 'ls-all-k8s-namespaces.sh'),
                                           _tmp_path,
-                                          'http://192.168.228.31:5000/v2.0/',
-                                          'RegionOne',
-                                          'jimlin',
-                                          'jimlin',
-                                          'jimlin'], shell=False)
+                                          k8s_credential_path], shell=False)
 
         data = json.loads(stdout)
         LOGGER.debug('data = {0}'.format(data))

@@ -2,6 +2,7 @@
 
 # package dependency
 # - openstack
+# - jq
 
 # sample usage
 # bash $0 /tmp http://192.168.228.31:5000/v2.0/ RegionOne jimlin jimlin jimlin
@@ -22,7 +23,7 @@ export OS_TENANT_NAME=$6
 # output
 # n/a
 
-openstack project list -f json
+openstack project list -f json | jq '.'
 
 # clean up
 # n/a
