@@ -28,10 +28,10 @@ def bash(script_name, script_args=[]):
 
             # clean up ptt log if exit code is zero
             os.remove(ptt_log_path)
-            
+
         except subprocess.CalledProcessError:
             LOGGER.critical('failed to run script due to exit code is non-zero')
-            LOGGER.critical('check ptt log {0}/{1} to see more error message'.format(_tmp_path, ptt_log_name))
+            LOGGER.critical('check ptt log {0} to see more error message'.format(ptt_log_path))
 
     else:
         LOGGER.error('failed to run script due to script file {0} not found'.format(script_path))
