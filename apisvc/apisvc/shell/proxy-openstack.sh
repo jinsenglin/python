@@ -31,7 +31,7 @@ exec 3>&1
 exec 1>&2
 
 # main
-openstack project list -f json > $DATA
+openstack $@ -f json > $DATA
 jq '.' $DATA >&3
 
 # clean up

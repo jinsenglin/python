@@ -39,6 +39,16 @@ def bash(script_name, script_args=[]):
     return stdout
 
 
+def proxy_openstack(os_credential_path, script_args=[]):
+    # TODO
+    pass
+
+
+def proxy_kubectl(k8s_credential_path, script_args=[]):
+    # TODO
+    pass
+
+
 def run_os_script(os_credential_path, script_name, script_args=[]):
     data = None
 

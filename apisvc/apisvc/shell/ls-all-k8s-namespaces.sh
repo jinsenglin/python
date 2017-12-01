@@ -5,17 +5,16 @@
 # - jq
 
 # sample usage
-# bash $0 /tmp ptt.log ../../samples/0000-0000-0000-0000.k8s.yaml
-
-# sample output
-# []
+# bash $0 /tmp ../../samples/0000-0000-0000-0000.k8s.yaml
 
 set -x
 set -e
 
 # input
 TMP=$1
-KUBECONFIG=$2
+shift
+KUBECONFIG=$1
+shift
 
 # output
 DATA=$TMP/data
