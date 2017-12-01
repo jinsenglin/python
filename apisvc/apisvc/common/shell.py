@@ -16,7 +16,7 @@ def bash(script_name, script_args=[]):
     stdout = None
 
     script_path = '{0}/{1}'.format(_shell_path, script_name)
-    if os.path.isfile(script_name):
+    if os.path.isfile(script_path):
 
         ptt_log = '{0}.{1}'.format(util.get_ptt_string(), '.log')
         subprocess_args = ['bash', script_path, _tmp_path, ptt_log] + script_args
@@ -28,7 +28,7 @@ def bash(script_name, script_args=[]):
             LOGGER.critical('check ptt log {0}/{1} to see more error message'.format(_tmp_path, ptt_log))
 
     else:
-        LOGGER.error('failed to run script due to script file not found')
+        LOGGER.error('failed to run script due to script file {0} not found'.format(script_path))
 
     return stdout
 
@@ -75,7 +75,7 @@ def ls_all_k8s_namespaces(k8s_credential_path):
 
 
 def ls_all_os_projects(os_credential_path):
-    return run_os_script(os_credential_path==os_credential_path, script_name='ls-all-os-projects.sh')
+    return run_os_script(os_credential_path=os_credential_path, script_name='ls-all-os-projects.sh')
 
 
 def new_k8s_user_cert(username, group='system:masters'):

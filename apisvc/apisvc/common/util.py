@@ -1,5 +1,5 @@
 import os
-import threading
+import thread
 import yaml
 import calendar
 import time
@@ -15,7 +15,7 @@ def get_ptt_string():
     """
         ptt is short for process-thread-timestamp
     """
-    return '{0}-{1}-{2}'.format(os.getpid(), threading.get_ident(), calendar.timegm(time.gmtime()))
+    return '{0}-{1}-{2}'.format(os.getpid(), thread.get_ident(), calendar.timegm(time.gmtime()))
 
 
 def get_process_wide_tmp_path():

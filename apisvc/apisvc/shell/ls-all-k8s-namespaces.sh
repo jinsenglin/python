@@ -5,7 +5,7 @@
 # - jq
 
 # sample usage
-# bash $0 /tmp ../../samples/0000-0000-0000-0000.k8s.yaml
+# bash $0 /tmp ptt.log ../../samples/0000-0000-0000-0000.k8s.yaml
 
 # sample output
 # []
@@ -14,10 +14,11 @@ set -e
 
 # input
 TMP=$1
-KUBECONFIG=$2
+PTTLOG=$2
+KUBECONFIG=$3
 
 # output
-# n/a
+PTTLOG_PATH=$TMP/$PTTLOG
 
 kubectl --kubeconfig=$KUBECONFIG get ns -o json | jq '.items'
 

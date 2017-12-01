@@ -65,12 +65,13 @@ Start interactive shell
 
 ```
 cd $PROJECT_HOME
+export APISVC_MODE=DEBUG # optional
 python
 
->>> from apisvc import app
+>>> import apisvc
 >>> # for example
->>> apisvc.common.shell.ls_all_k8s_namespaces('../samples/0000-0000-0000-0000.k8s.yaml')
->>> apisvc.common.shell.ls_all_os_projects('../samples/0000-0000-0000-0000.os.yaml')
+>>> apisvc.common.shell.ls_all_k8s_namespaces('samples/0000-0000-0000-0000.k8s.yaml')
+>>> apisvc.common.shell.ls_all_os_projects('samples/0000-0000-0000-0000.os.yaml')
 ```
 
 Start development server (single thread)
