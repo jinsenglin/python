@@ -36,7 +36,7 @@ def bash(script_name, script_args=[]):
 def run_os_script(os_credential_path, script_name, script_args=[]):
     data = None
 
-    region_name, auth_url, username, password, project_name = util.parse_os_credential()
+    region_name, auth_url, username, password, project_name = util.parse_os_credential(os_credential_path)
 
     if all(v is not None for v in (region_name, auth_url, username, password, project_name)):
 
