@@ -45,7 +45,7 @@ class Manager(object):
 
     def get_pools(self):
         # TODO directly query etcd db
-        data = self._la_mgr.ls_all_os_projects(os_credential=self._os_credential_path)
+        data = self._la_mgr.ls_all_os_projects()
         return {'result': data}
 
     # ===================================== #

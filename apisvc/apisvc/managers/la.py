@@ -15,20 +15,14 @@ class Manager(object):
         """
         return shell.new_k8s_user_cert(username=username, group=group)
 
-    def ls_all_os_projects(self, os_credential):
+    def ls_all_os_projects(self):
         """
             return a list object
         """
-        return shell.ls_all_os_projects(os_credential=os_credential)
+        return shell.ls_all_os_projects(os_credential_path=self._os_credential_path)
 
-    def demo(self):
-        output = ''
-
-        try:
-            output = subprocess.check_output('ls -l ../ | cat', shell=True)
-            output = subprocess.check_output(['ls', '-l', '../'], shell=False)
-        except subprocess.CalledProcessError:
-            # TODO
-            pass
-
-        print(output)
+    def ls_all_k8s_namespaces(self):
+        """
+            return a list object
+        """
+        return shell.ls_all_k8s_namespaces(k8s_credential_path=self._k8s_credential_path)
