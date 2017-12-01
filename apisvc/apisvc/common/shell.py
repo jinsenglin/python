@@ -18,7 +18,7 @@ def bash(script_name, script_args=[]):
     script_path = '{0}/{1}'.format(_shell_path, script_name)
     if os.path.isfile(script_path):
 
-        ptt_log = '{0}.{1}'.format(util.get_ptt_string(), '.log')
+        ptt_log = '{0}.{1}'.format(util.get_ptt_string(), 'log')
         subprocess_args = ['bash', script_path, _tmp_path, ptt_log] + script_args
 
         try:
