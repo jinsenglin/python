@@ -2,12 +2,13 @@ import subprocess
 import json
 from apisvc.common.config import CONFIG
 from apisvc.common.log import LOGGER
+from apisvc.common import util
 from apisvc.common.db import etcd as etcd_db
 from apisvc.common.cache import fs as fs_cache
 
 
 _shell_path = CONFIG['APISVC_SHELL_PATH']
-_tmp_path = CONFIG['APISVC_TMP_PATH']
+_tmp_path = util.get_process_wide_tmp_path()
 
 
 def ls_all_k8s_namespaces(k8s_credential_path):
@@ -27,23 +28,31 @@ def ls_all_k8s_namespaces(k8s_credential_path):
 
 
 def ls_all_os_projects(os_credential_path):
-    try:
-        stdout = subprocess.check_output(['bash',
-                                          '{0}/{1}'.format(_shell_path, 'ls-all-os-projects.sh'),
-                                          _tmp_path,
-                                          'http://192.168.228.31:5000/v2.0/',
-                                          'RegionOne',
-                                          'jimlin',
-                                          'jimlin',
-                                          'jimlin'], shell=False)
 
-        data = json.loads(stdout)
-        LOGGER.debug('data = {0}'.format(data))
-        return data
+    region_name, auth_url, username, password, project_name = util.parse_os_credential()
 
-    except subprocess.CalledProcessError as e:
-        LOGGER.critical('failed to list os projects')
-        return None
+    if auth_url is None:
+
+        try:
+            stdout = subprocess.check_output(['bash',
+                                              '{0}/{1}'.format(_shell_path, 'ls-all-os-projects.sh'),
+                                              _tmp_path,
+                                              auth_url,
+                                              region_name,
+                                              username,
+                                              password,
+                                              project_name], shell=False)
+
+            data = json.loads(stdout)
+            LOGGER.debug('data = {0}'.format(data))
+            return data
+
+        except subprocess.CalledProcessError as e:
+            LOGGER.critical('failed to list os projects')
+            return None
+        
+    else:
+        LOGGER.error('failed to list os projects')
 
 
 def new_k8s_user_cert(username, group='system:masters'):
