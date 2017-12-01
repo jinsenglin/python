@@ -24,6 +24,7 @@ export OS_TENANT_NAME=$7
 # output
 PTTLOG_PATH=$TMP/$PTTLOG
 
+# TODO bug - this will cause exit code always 0
 openstack project list -f json | jq '.'
 
 # clean up

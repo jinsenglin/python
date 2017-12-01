@@ -20,6 +20,7 @@ KUBECONFIG=$3
 # output
 PTTLOG_PATH=$TMP/$PTTLOG
 
+# TODO bug - this will cause exit code always 0
 kubectl --kubeconfig=$KUBECONFIG get ns -o json | jq '.items'
 
 # clean up
