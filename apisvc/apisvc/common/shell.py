@@ -39,16 +39,6 @@ def bash(script_name, script_args=[]):
     return stdout
 
 
-def proxy_openstack(os_credential_path, script_args=[]):
-    # TODO
-    pass
-
-
-def proxy_kubectl(k8s_credential_path, script_args=[]):
-    # TODO
-    pass
-
-
 def run_os_script(os_credential_path, script_name, script_args=[]):
     data = None
 
@@ -92,6 +82,16 @@ def ls_all_k8s_namespaces(k8s_credential_path):
 
 def ls_all_os_projects(os_credential_path):
     return run_os_script(os_credential_path=os_credential_path, script_name='ls-all-os-projects.sh')
+
+
+def proxy_openstack(os_credential_path, script_args=[]):
+    # TODO
+    pass
+
+
+def proxy_kubectl(k8s_credential_path, script_args=[]):
+    # TODO
+    pass
 
 
 def new_k8s_user_cert(username, group='system:masters'):
