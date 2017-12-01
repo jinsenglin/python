@@ -25,6 +25,7 @@ app.config.update(dict(
     APISVC_TMP_PATH=os.path.join('/tmp'),                               #
     APISVC_MANAGERS=['cia', 'k8s', 'os'],                               #
 ))
+app.config['APISVC_TMP_PATH_PROC_WIDE'] = os.path.join(app.config['APISVC_TMP_PATH'], '{0}-{1}'.format('apisvc', os.getpid()))
 
 app.config.from_envvar('APISVC_MODE', silent=True)
 
@@ -47,10 +48,8 @@ app.logger.setLevel(app.config['APISVC_LOG_LEVEL']) # WARNING for production, DE
 #                       #
 # ===================== #
 
-_process_wide_tmp_path = os.path.join(app.config['APISVC_TMP_PATH'], '{0}-{1}'.format('apisvc', os.getpid()))
-
-if not os.path.isdir(_process_wide_tmp_path):
-    os.makedirs(_process_wide_tmp_path)
+if not os.path.isdir(app.config['APISVC_TMP_PATH_PROC_WIDE']):
+    os.makedirs(app.config['APISVC_TMP_PATH_PROC_WIDE'])
 
 # ===================== #
 #                       #

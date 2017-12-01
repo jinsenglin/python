@@ -18,10 +18,6 @@ def get_ptt_string():
     return '{0}-{1}-{2}'.format(os.getpid(), thread.get_ident(), calendar.timegm(time.gmtime()))
 
 
-def get_process_wide_tmp_path():
-    return os.path.join(_tmp_path, str(os.getpid()))
-
-
 def parse_os_credential(os_credential_path):
     region_name = None
     auth_url = None
