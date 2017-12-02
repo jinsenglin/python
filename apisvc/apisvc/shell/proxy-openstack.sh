@@ -24,6 +24,11 @@ shift
 export OS_TENANT_NAME=$1
 shift
 
+unset OS_REGION_NAME
+export OS_PROJECT_DOMAIN_NAME=default
+export OS_USER_DOMAIN_NAME=default
+export OS_IDENTITY_API_VERSION=3
+
 # output
 DATA=$TMP/data
 
