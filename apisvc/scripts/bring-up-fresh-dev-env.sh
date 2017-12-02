@@ -19,6 +19,9 @@ fi
 function clean_up {
     echo "$(date) | INFO | shutting down etcd db"
     docker stop etcd
+    
+    echo "$(date) | INFO | shutting down openstack keystone"
+    docker stop os-keystone
 
     if [ $MODE == FULL ]; then
         echo "$(date) | INFO | shutting down minikube"
@@ -44,7 +47,7 @@ for tmp in $(find /tmp/ -type d -name "apisvc-*"); do rm -rf $tmp; done
 
 # =========================================================================================
 
-echo -n "$(date) | INFO | bringing up etcd db "
+echo -n "$(date) | INFO | bringing up etcd db v3.0.17 "
 export NODE1=127.0.0.1
 
 REGISTRY=quay.io/coreos/etcd
@@ -62,8 +65,14 @@ docker run \
 
 # =========================================================================================
 
+echo -n "$(date) | INFO | bringing up openstack keystone v9.1.0 (identity v3) "
+
+docker run --rm -d -p 5000:5000 -p 35357:35357 --name os-keystone -e HOSTNAME=127.0.0.1 stephenhsu/keystone:9.1.0
+
+# =========================================================================================
+
 if [ $MODE == FULL ]; then
-    echo "$(date) | INFO | bringing up minikube"
+    echo "$(date) | INFO | bringing up minikube (kubernetes v1.8.0)"
     minikube start --kubernetes-version=v1.8.0 --bootstrapper kubeadm --cpus 2 --memory 4096
 fi
 
