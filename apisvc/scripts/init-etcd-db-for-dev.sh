@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# package dependency
+# - etcdctl
+
 set -e
 
 export ETCDCTL_API=3

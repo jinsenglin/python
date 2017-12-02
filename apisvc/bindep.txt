@@ -1,3 +1,9 @@
+# requirements
 jq
 base64
 openssl
+
+# requirements-dev
+etcdctl
+docker
+minikube

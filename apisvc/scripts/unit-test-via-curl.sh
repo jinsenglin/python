@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# package dependency
+# - curl
+# - jq
+
 # Usage
 #
 # $0
