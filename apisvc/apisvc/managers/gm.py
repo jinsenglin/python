@@ -33,14 +33,13 @@ class Manager(object):
     #                                       #
     # ===================================== #
 
-    def get_nodes(self, node_filter='all'):
+    def get_nodes(self, node_filter):
         return self._fbi_mgr.get_nodes(node_filter=node_filter)
 
-    def get_node(self, node_id):
-        # TODO directly query etcd db
-        return {}
+    def get_node(self, node_id, node_roles):
+        return self._fbi_mgr.get_node(node_id=node_id, node_roles=node_roles)
 
-    def update_node(self, node_id):
+    def update_node(self, node_id, node_role):
         # TODO delegate to cia
         return {}
 
@@ -51,7 +50,7 @@ class Manager(object):
     # ===================================== #
 
     def get_pools(self):
-        # TODO directly query etcd db
+        # TODO delegate to fbi
         data = self._ninja_mgr.ls_all_os_projects()
         data = self._ninja_mgr.ls_all_k8s_namespaces()
         return {'result': data}

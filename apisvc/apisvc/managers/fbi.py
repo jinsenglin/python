@@ -14,3 +14,12 @@ class Manager(object):
             nodes.append(k.key)
 
         return {'result': nodes}
+
+    def get_node(self, node_id, node_roles):
+        node = {}
+
+        for role in node_roles:
+            v, k = etcd_db.get_node(node_id=node_id, node_role=role)
+            node[role] = v
+
+        return {'result': node}

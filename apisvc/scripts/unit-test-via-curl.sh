@@ -47,8 +47,8 @@ function nodes() {
 }
 
 function node() {
-    curl http://localhost:5000/$VER/admin/nodes/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
-    curl http://localhost:5000/$VER/admin/nodes/0 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}' | jq '.'
+    curl http://localhost:5000/$VER/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"roles": ["compute"]}' | jq '.'
+    curl http://localhost:5000/$VER/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}' | jq '.'
 }
 
 function pools() {
