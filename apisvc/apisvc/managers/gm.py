@@ -1,8 +1,9 @@
 from apisvc.common.cache import fs as fs_cache
 from apisvc.managers import k8s
 from apisvc.managers import os
+from apisvc.managers import fbi
 from apisvc.managers import cia
-from apisvc.managers import la
+from apisvc.managers import ninja
 from apisvc.common.log import LOGGER
 
 
@@ -18,9 +19,10 @@ class Manager(object):
         # init managers
         self._k8s_mgr = k8s.Manager(credential_path=self._k8s_credential_path)
         self._os_mgr = os.Manager(credential_path=self._os_credential_path)
+        self._fbi_mgr = fbi.Manager()
         self._cia_mgr = cia.Manager()
-        self._la_mgr = la.Manager(k8s_credential_path=self._k8s_credential_path,
-                                  os_credential_path=self._os_credential_path)
+        self._ninja_mgr = ninja.Manager(k8s_credential_path=self._k8s_credential_path,
+                                        os_credential_path=self._os_credential_path)
 
     def __str__(self):
         return '{0} {1}'.format(self._role, self._account)
@@ -51,8 +53,8 @@ class Manager(object):
 
     def get_pools(self):
         # TODO directly query etcd db
-        data = self._la_mgr.ls_all_os_projects()
-        data = self._la_mgr.ls_all_k8s_namespaces()
+        data = self._ninja_mgr.ls_all_os_projects()
+        data = self._ninja_mgr.ls_all_k8s_namespaces()
         return {'result': data}
 
     def create_pool(self, tenant_id):
