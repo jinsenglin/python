@@ -16,6 +16,11 @@ else
     MODE=$1 # PART or FULL
 fi
 
+function warning() {
+    echo "$(date) | WARNING | unexpected exceptions. You need manually clean up the created fixtures."
+}
+trap warning ERR
+
 function clean_up {
     echo -n "$(date) | INFO | shutting down etcd db "
     docker stop etcd
