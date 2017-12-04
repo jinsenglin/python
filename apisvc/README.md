@@ -21,6 +21,8 @@
 # Logs
 
 * file: /tmp/apisvc.log
+* file: /tmp/apisvc-debug.log
+* file: /tmp/apisvc-PID/PID-TID-TS.log
 * default log level: WARNING (CHANGE it to DEBUG in development site)
 
 # Setup Development Environment
@@ -55,6 +57,12 @@ cd $PROJECT_HOME/scripts && bash init-etcd-for-dev.sh # optional
 cd $PROJECT_HOME/scripts && bash init-fs-cache-for-dev.sh # optional
 ```
 
+Start local openstack keystone
+
+```
+docker run --rm -d -p 5000:5000 -p 35357:35357 --name os-keystone -e HOSTNAME=127.0.0.1 stephenhsu/keystone:9.1.0
+```
+
 Start local kubernetes
 
 ```
@@ -64,16 +72,23 @@ minikube start --kubernetes-version=v1.8.2 --bootstrapper kubeadm --cpus 4 --mem
 Start interactive shell
 
 ```
+cd $PROJECT_HOME/scripts/
+bash init-etcd-db-for-dev.sh # optional
+bash init-fs-cache-for-dev.sh # optional
+
 cd $PROJECT_HOME
 export APISVC_MODE=DEBUG # optional
 python
 
 >>> import apisvc
->>> # for example
+>>> # Example 1
 >>> apisvc.common.shell.ls_all_k8s_namespaces('samples/0000-0000-0000-0000.k8s.yaml')
 >>> apisvc.common.shell.ls_all_os_projects('samples/0000-0000-0000-0000.os.yaml')
 >>> apisvc.common.shell.proxy_kubectl('samples/0000-0000-0000-0000.k8s.yaml', ['get', 'ns'])
 >>> apisvc.common.shell.proxy_openstack('samples/0000-0000-0000-0000.os.yaml', ['project', 'list'])
+>>> # Example 2
+>>> gm = apisvc.managers.gm.Manager(role='admin', account='0000-0000-0000-0000')
+>>> gm.get_nodes()
 ```
 
 Start development server (single thread)
