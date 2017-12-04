@@ -1,5 +1,9 @@
 clouds:
   os:
+    auth:
+      auth_url: http://127.0.0.1:35357/v3/
+      identity_api_version: 3
+  os-v2:
     region_name: RegionOne
     auth:
       auth_url: http://192.168.228.31:5000/v2.0/
