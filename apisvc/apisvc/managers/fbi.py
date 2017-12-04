@@ -23,3 +23,12 @@ class Manager(object):
             node[role] = v
 
         return {'result': node}
+
+    def get_rings(self, ring_filter):
+        ring_generator = etcd_db.get_rings(ring_filter=ring_filter)
+
+        rings = []
+        for v, k in ring_generator:
+            rings.append(k.key)
+
+        return {'result': rings}

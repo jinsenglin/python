@@ -6,6 +6,17 @@ _host = host = CONFIG['APISVC_DB_HOST']
 _client = etcd3.client(host=_host)
 
 
+def get_rings(ring_filter):
+    ring_generator = None
+
+    if ring_filter == 'all':
+        ring_generator = _client.get_prefix('/apisvc/rings/')
+    else:
+        ring_generator = _client.get_prefix('/apisvc/rings/{0}/'.format(ring_filter))
+
+    return ring_generator
+
+
 def get_node(node_id, node_role):
     value, key = _client.get('/apisvc/nodes/{0}/{1}'.format(node_role, node_id))
     return value, key

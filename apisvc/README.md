@@ -103,7 +103,9 @@ python
 
 >>> import apisvc
 >>> gm = apisvc.managers.gm.Manager(role='admin', account='0000-0000-0000-0000')
->>> gm.get_nodes()
+>>> gm.get_nodes(node_filter='all')
+>>> gm.get_pools()
+>>> gm.get_rings(ring_filter='all')
 ```
 
 Start development server (single thread)

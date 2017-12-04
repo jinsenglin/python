@@ -57,10 +57,7 @@ class Manager(object):
     # ===================================== #
 
     def get_pools(self):
-        # TODO delegate to fbi
-        data = self._ninja_mgr.ls_all_os_projects()
-        data = self._ninja_mgr.ls_all_k8s_namespaces()
-        return {'result': data}
+        return self._fbi_mgr.get_rings('tenant')
 
     def create_pool(self, tenant_id):
         """
