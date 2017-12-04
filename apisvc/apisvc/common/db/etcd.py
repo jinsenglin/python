@@ -6,6 +6,17 @@ _host = host = CONFIG['APISVC_DB_HOST']
 _client = etcd3.client(host=_host)
 
 
+def get_nodes(node_filter):
+    node_generator = None
+
+    if node_filter == 'all':
+        node_generator = _client.get_prefix('/apisvc/nodes/')
+    else:
+        node_generator = _client.get_prefix('/apisvc/nodes/{0}/'.format(node_filter))
+
+    return node_generator
+
+
 def get_ca():
     value, key = _client.get('/apisvc/ca/'.format())
     return value, key

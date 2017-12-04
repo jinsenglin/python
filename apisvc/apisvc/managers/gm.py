@@ -33,9 +33,8 @@ class Manager(object):
     #                                       #
     # ===================================== #
 
-    def get_nodes(self, node_filter):
-        # TODO directly query etcd db
-        return {'result': []}
+    def get_nodes(self, node_filter='all'):
+        return self._fbi_mgr.get_nodes(node_filter=node_filter)
 
     def get_node(self, node_id):
         # TODO directly query etcd db
