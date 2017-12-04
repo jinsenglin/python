@@ -1,8 +1,11 @@
 class Rings(object):
 
     def get(self, manager, in_message, out_message, *args, **kwargs):
+        # process in_message
+        ring_filter = in_message['filter']
+
         # delegate to manager
-        result = manager.get_rings()
+        result = manager.get_rings(ring_filter=ring_filter)
 
         # TODO may process result
 

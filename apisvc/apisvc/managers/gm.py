@@ -57,7 +57,7 @@ class Manager(object):
     # ===================================== #
 
     def get_pools(self):
-        return self._fbi_mgr.get_rings('tenant')
+        return self._fbi_mgr.get_rings(ring_filter='tenant')
 
     def create_pool(self, tenant_id):
         """
@@ -87,9 +87,8 @@ class Manager(object):
     #                                       #
     # ===================================== #
 
-    def get_rings(self):
-        # TODO directly query etcd db
-        return {}
+    def get_rings(self, ring_filter):
+        return self._fbi_mgr.get_rings(ring_filter=ring_filter)
 
     def create_ring(self, tenant_id, account_id):
         """

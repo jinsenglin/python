@@ -65,6 +65,9 @@ function pool() {
 
 function rings() {
     curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "admin"}' | jq '.'
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "tenant"}' | jq '.'
+    curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "user"}' | jq '.'
     curl http://localhost:5000/$VER/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -H "Content-Type: application/json" -d '{"tenant_id": "0", "account_id": "0"}' | jq '.'
 }
 

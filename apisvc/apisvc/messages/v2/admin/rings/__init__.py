@@ -1,7 +1,7 @@
 class Rings(object):
 
     def __init__(self):
-        self.input_for_get = {}
+        self.input_for_get = {'filter': 'all'}
         self.output_for_get = {'result': []}
 
         self.input_for_post = {'tenant_id': None, 'account_id': None}
