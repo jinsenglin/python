@@ -7,7 +7,7 @@ _client = etcd3.client(host=_host)
 
 
 def get_ca():
-    value, key = _client.get('/apisvc/ca'.format())
+    value, key = _client.get('/apisvc/ca/'.format())
     return value, key
 
 
