@@ -66,27 +66,42 @@ docker run --rm -d -p 5000:5000 -p 35357:35357 --name os-keystone -e HOSTNAME=12
 Start local kubernetes
 
 ```
-minikube start --kubernetes-version=v1.8.2 --bootstrapper kubeadm --cpus 4 --memory 8192
+minikube start --kubernetes-version=v1.8.0 --bootstrapper kubeadm
 ```
 
 Start interactive shell
 
 ```
+export APISVC_MODE=DEBUG # optional
+
+# Example 1 - debug shell
+
+# start local openstack keystone
+# start local kubernetes
+
+cd $PROJECT_HOME
+python
+
+>>> import apisvc
+>>> apisvc.common.shell.ls_all_k8s_namespaces('samples/0000-0000-0000-0000.k8s.yaml')
+>>> apisvc.common.shell.ls_all_os_projects('samples/0000-0000-0000-0000.os.yaml')
+>>> apisvc.common.shell.proxy_kubectl('samples/0000-0000-0000-0000.k8s.yaml', ['get', 'ns'])
+>>> apisvc.common.shell.proxy_openstack('samples/0000-0000-0000-0000.os.yaml', ['project', 'list'])
+
+# Example 2 - debug gm
+
+# start local etcd
+# start local openstack keystone
+# start local kubernetes
+
 cd $PROJECT_HOME/scripts/
 bash init-etcd-db-for-dev.sh # optional
 bash init-fs-cache-for-dev.sh # optional
 
 cd $PROJECT_HOME
-export APISVC_MODE=DEBUG # optional
 python
 
 >>> import apisvc
->>> # Example 1
->>> apisvc.common.shell.ls_all_k8s_namespaces('samples/0000-0000-0000-0000.k8s.yaml')
->>> apisvc.common.shell.ls_all_os_projects('samples/0000-0000-0000-0000.os.yaml')
->>> apisvc.common.shell.proxy_kubectl('samples/0000-0000-0000-0000.k8s.yaml', ['get', 'ns'])
->>> apisvc.common.shell.proxy_openstack('samples/0000-0000-0000-0000.os.yaml', ['project', 'list'])
->>> # Example 2
 >>> gm = apisvc.managers.gm.Manager(role='admin', account='0000-0000-0000-0000')
 >>> gm.get_nodes()
 ```
