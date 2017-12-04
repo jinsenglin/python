@@ -87,7 +87,7 @@ class Manager(object):
         return self._fbi_mgr.get_rings(ring_filter=ring_filter)
 
     def create_ring(self, tenant_id, account_id, ring_type):
-        self._fbi_mgr.create_ring(ring_type=ring_type, account_id=tenant_id)
+        self._fbi_mgr.create_ring(ring_type=ring_type, account_id=account_id)
         self._os_mgr.create_user(tenant_id=tenant_id, account_id=account_id)
         return {'result': {}}
 
