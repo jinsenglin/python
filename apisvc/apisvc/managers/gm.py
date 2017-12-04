@@ -40,7 +40,15 @@ class Manager(object):
         return self._fbi_mgr.get_node(node_id=node_id, node_roles=node_roles)
 
     def update_node(self, node_id, node_role, node_action):
-        return self._cia_mgr.update_node(node_id=node_id, node_role=node_role, node_action=node_action)
+        if node_role == 'compute' and node_action in ['from_os_to_k8s', 'from_k8s_to_os']:
+            node = self._fbi_mgr.get_node(node_id=node_id, node_roles=['compute'])
+            if node_action == 'from_os_to_k8s':
+                return self._cia_mgr.switch_compute_node_from_os_to_k8s(node=node)
+            else:
+                # i.e. node_action == 'from_k8s_to_os':
+                return self._cia_mgr.switch_compute_node_from_k8s_to_os(node=node)
+
+        return {'result': {}}
 
     # ===================================== #
     #                                       #
