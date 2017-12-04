@@ -22,16 +22,20 @@ def bash(script_name, script_args=[]):
         ptt_log_path = '{0}/{1}'.format(_tmp_path, ptt_log_name)
         subprocess_args = ['bash', script_path, _tmp_path] + script_args
 
-        try:
-            with open(ptt_log_path, 'w') as ptt_log:
+        keep_ptt_log = True
+        with open(ptt_log_path, 'w') as ptt_log:
+            try:
                 stdout = subprocess.check_output(subprocess_args, shell=False, stderr=ptt_log)
 
-            # clean up ptt log if exit code is zero
-            os.remove(ptt_log_path)
+                # clean up ptt log if exit code is zero
+                keep_ptt_log = False
 
-        except subprocess.CalledProcessError:
-            LOGGER.critical('failed to run script due to exit code is non-zero')
-            LOGGER.critical('check ptt log {0} to see more error message'.format(ptt_log_path))
+            except subprocess.CalledProcessError:
+                LOGGER.critical('failed to run script due to exit code is non-zero')
+                LOGGER.critical('check ptt log {0} to see more error message'.format(ptt_log_path))
+
+        if not keep_ptt_log:
+            os.remove(ptt_log_path)
 
     else:
         LOGGER.error('failed to run script due to script file {0} not found'.format(script_path))
@@ -42,11 +46,11 @@ def bash(script_name, script_args=[]):
 def run_os_script(os_credential_path, script_name, script_args=[]):
     data = None
 
-    region_name, auth_url, username, password, project_name = util.parse_os_credential(os_credential_path)
+    auth_url, username, password, project_name, project_domain_name, user_domain_name, identity_api_version = util.parse_os_credential_v3(os_credential_path)
 
-    if all(v is not None for v in (region_name, auth_url, username, password, project_name)):
+    if all(v is not None for v in (auth_url, username, password, project_name, project_domain_name, user_domain_name, identity_api_version)):
 
-        extended_script_args = [region_name, auth_url, username, password, project_name] + script_args
+        extended_script_args = [auth_url, username, password, project_name, project_domain_name, user_domain_name, identity_api_version] + script_args
         stdout = bash(script_name=script_name, script_args=extended_script_args)
 
         if stdout is not None:

@@ -5,15 +5,13 @@
 # - jq
 
 # sample usage
-# bash $0 /tmp http://192.168.228.31:5000/v2.0/ RegionOne jimlin jimlin jimlin
+# bash $0 /tmp http://127.0.0.1:35357/v3/ admin passw0rd admin default default 3
 
 set -x
 set -e
 
 # input
 TMP=$1
-shift
-export OS_REGION_NAME=$1
 shift
 export OS_AUTH_URL=$1
 shift
@@ -23,11 +21,12 @@ export OS_PASSWORD=$1
 shift
 export OS_TENANT_NAME=$1
 shift
-
-unset OS_REGION_NAME
-export OS_PROJECT_DOMAIN_NAME=default
-export OS_USER_DOMAIN_NAME=default
-export OS_IDENTITY_API_VERSION=3
+export OS_PROJECT_DOMAIN_NAME=$1
+shift
+export OS_USER_DOMAIN_NAME=$1
+shift
+export OS_IDENTITY_API_VERSION=$1
+shift
 
 # output
 DATA=$TMP/data

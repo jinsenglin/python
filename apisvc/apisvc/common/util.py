@@ -18,7 +18,7 @@ def get_ptt_string():
     return '{0}-{1}-{2}'.format(os.getpid(), thread.get_ident(), calendar.timegm(time.gmtime()))
 
 
-def parse_os_credential(os_credential_path):
+def parse_os_credential_v2(os_credential_path):
     region_name = None
     auth_url = None
     username = None
@@ -37,6 +37,31 @@ def parse_os_credential(os_credential_path):
             LOGGER.critical('failed to parse os credential')
 
     return region_name, auth_url, username, password, project_name
+
+
+def parse_os_credential_v3(os_credential_path):
+    auth_url = None
+    username = None
+    password = None
+    project_name = None
+    project_domain_name = None
+    user_domain_name = None
+    identity_api_version = None
+
+    with open(os_credential_path, 'r') as stream:
+        try:
+            data = yaml.load(stream)
+            auth_url = data['clouds']['os']['auth']['auth_url']
+            username = data['clouds']['os']['auth']['username']
+            password = data['clouds']['os']['auth']['password']
+            project_name = data['clouds']['os']['auth']['project_name']
+            project_domain_name = data['clouds']['os']['auth']['project_domain_name']
+            user_domain_name = data['clouds']['os']['auth']['user_domain_name']
+            identity_api_version = str(data['clouds']['os']['auth']['identity_api_version'])
+        except yaml.YAMLError:
+            LOGGER.critical('failed to parse os credential')
+
+    return auth_url, username, password, project_name, project_domain_name, user_domain_name, identity_api_version
 
 def personation_to_role_account(personation):
     return tuple(personation.split(' '))
