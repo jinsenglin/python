@@ -60,26 +60,22 @@ class Manager(object):
         return self._fbi_mgr.get_rings(ring_filter='tenant')
 
     def create_pool(self, tenant_id):
-        """
-            create pool
-            create ring
-        """
-
-        # TODO delegate to k8s and os
-
-        return {}
+        self._k8s_mgr.create_namespace(tenant_id=tenant_id)
+        self._os_mgr.create_project(tenant_id=tenant_id)
+        self.create_ring(tenant_id=tenant_id, account_id=tenant_id, ring_type='tenant')
+        return {'result': {}}
 
     def get_pool(self, pool_id):
         # TODO delegate to k8s and os
-        return {}
+        return {'result': {}}
 
     def update_pool(self, pool_id):
         # TODO delegate to k8s and os
-        return {}
+        return {'result': {}}
 
     def delete_pool(self, pool_id):
         # TODO delegate to k8s and os
-        return {}
+        return {'result': {}}
 
     # ===================================== #
     #                                       #
@@ -90,26 +86,22 @@ class Manager(object):
     def get_rings(self, ring_filter):
         return self._fbi_mgr.get_rings(ring_filter=ring_filter)
 
-    def create_ring(self, tenant_id, account_id):
-        """
-            create ring
-        """
-
-        # TODO delegate to k8s and os
-
-        return {}
+    def create_ring(self, tenant_id, account_id, ring_type):
+        self._fbi_mgr.create_ring(ring_type=ring_type, account_id=tenant_id)
+        self._os_mgr.create_user(tenant_id=tenant_id, account_id=account_id)
+        return {'result': {}}
 
     def get_ring(self, ring_id):
         # TODO directly query etcd db
-        return {}
+        return {'result': {}}
 
     def update_ring(self, ring_id):
         # TODO directly query etcd db
-        return {}
+        return {'result': {}}
 
     def delete_ring(self, ring_id):
         # TODO delegate to k8s and os
-        return {}
+        return {'result': {}}
 
 #    def create_namespace(self):
 #        """

@@ -14,15 +14,3 @@ class Manager(object):
             return a dict object
         """
         return shell.new_k8s_user_cert(username=username, group=group)
-
-    def ls_all_os_projects(self):
-        """
-            return a list object
-        """
-        return shell.ls_all_os_projects(os_credential_path=self._os_credential_path)
-
-    def ls_all_k8s_namespaces(self):
-        """
-            return a list object
-        """
-        return shell.ls_all_k8s_namespaces(k8s_credential_path=self._k8s_credential_path)

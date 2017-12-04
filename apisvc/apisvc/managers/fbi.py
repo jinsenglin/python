@@ -32,3 +32,6 @@ class Manager(object):
             rings.append(k.key)
 
         return {'result': rings}
+
+    def create_ring(self, ring_type, account_id):
+        pass
