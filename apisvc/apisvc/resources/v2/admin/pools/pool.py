@@ -12,32 +12,32 @@ class Pool(Resource):
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_get)
     @audit_access
-    def get(self, id, *args, **kwargs):
+    def get(self, pool_id, *args, **kwargs):
         return new_handler().get(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
                                  out_message=new_message().output_for_get,
-                                 id=id)
+                                 pool_id=pool_id)
 
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_put)
     @audit_access
-    def put(self, id, *args, **kwargs):
+    def put(self, pool_id, *args, **kwargs):
         return new_handler().put(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
                                  out_message=new_message().output_for_put,
-                                 id=id)
+                                 node_id=pool_id)
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_delete)
     @audit_access
-    def delete(self, id, *args, **kwargs):
+    def delete(self, pool_id, *args, **kwargs):
         return new_handler().delete(manager=kwargs['apisvc_res_manager'],
                                     in_message=kwargs['apisvc_in_message'],
                                     out_message=new_message().output_for_delete,
-                                    id=id)
+                                    pool_id=pool_id)
 
 
-RESOURCE.add_resource(Pool, '/v2/admin/pools/<id>')
+RESOURCE.add_resource(Pool, '/v2/admin/pools/<pool_id>')

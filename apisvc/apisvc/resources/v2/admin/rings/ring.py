@@ -13,31 +13,31 @@ class Ring(Resource):
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_get)
     @audit_access
-    def get(self, *args, **kwargs):
+    def get(self, ring_id, *args, **kwargs):
         return new_handler().get(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
                                  out_message=new_message().output_for_get,
-                                 id=id)
+                                 ring_id=ring_id)
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_put)
     @audit_access
-    def put(self, *args, **kwargs):
+    def put(self, ring_id, *args, **kwargs):
         return new_handler().put(manager=kwargs['apisvc_res_manager'],
                                  in_message=kwargs['apisvc_in_message'],
                                  out_message=new_message().output_for_put,
-                                 id=id)
+                                 ring_id=ring_id)
 
     @timeit
     @check.need_personate_header(check.PERSONATE_ADMIN)
     @check.check_body_against_in_message(new_message().input_for_delete)
     @audit_access
-    def delete(self, *args, **kwargs):
+    def delete(self, ring_id, *args, **kwargs):
         return new_handler().delete(manager=kwargs['apisvc_res_manager'],
                                     in_message=kwargs['apisvc_in_message'],
                                     out_message=new_message().output_for_delete,
-                                    id=id)
+                                    ring_id=ring_id)
 
 
-RESOURCE.add_resource(Ring, '/v2/admin/rings/<id>')
+RESOURCE.add_resource(Ring, '/v2/admin/rings/<ring_id>')

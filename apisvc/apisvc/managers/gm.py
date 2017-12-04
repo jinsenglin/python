@@ -31,15 +31,15 @@ class Manager(object):
     #                                       #
     # ===================================== #
 
-    def get_nodes(self, filter):
+    def get_nodes(self, node_filter):
+        # TODO directly query etcd db
+        return {'result': []}
+
+    def get_node(self, node_id):
         # TODO directly query etcd db
         return {}
 
-    def get_node(self, id):
-        # TODO directly query etcd db
-        return {}
-
-    def update_node(self, id):
+    def update_node(self, node_id):
         # TODO delegate to cia
         return {}
 
@@ -65,15 +65,15 @@ class Manager(object):
 
         return {}
 
-    def get_pool(self, id):
+    def get_pool(self, pool_id):
         # TODO delegate to k8s and os
         return {}
 
-    def update_pool(self, id):
+    def update_pool(self, pool_id):
         # TODO delegate to k8s and os
         return {}
 
-    def delete_pool(self, id):
+    def delete_pool(self, pool_id):
         # TODO delegate to k8s and os
         return {}
 
@@ -96,15 +96,15 @@ class Manager(object):
 
         return {}
 
-    def get_ring(self, id):
+    def get_ring(self, ring_id):
         # TODO directly query etcd db
         return {}
 
-    def update_ring(self, id):
+    def update_ring(self, ring_id):
         # TODO directly query etcd db
         return {}
 
-    def delete_ring(self, id):
+    def delete_ring(self, ring_id):
         # TODO delegate to k8s and os
         return {}
 

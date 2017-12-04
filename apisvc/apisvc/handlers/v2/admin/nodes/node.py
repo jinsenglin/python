@@ -1,8 +1,8 @@
 class Node(object):
 
-    def get(self, manager, in_message, out_message, id, *args, **kwargs):
+    def get(self, manager, in_message, out_message, node_id, *args, **kwargs):
         # delegate to manager
-        result = manager.get_node(id=id)
+        result = manager.get_node(node_id=node_id)
 
         # TODO may process result
 
@@ -11,9 +11,9 @@ class Node(object):
 
         return out_message, {'Content-Type': 'application/json'}
 
-    def put(self, manager, in_message, out_message, id, *args, **kwargs):
+    def put(self, manager, in_message, out_message, node_id, *args, **kwargs):
         # delegate to manager
-        result = manager.update_node(id=id)
+        result = manager.update_node(node_id=node_id)
 
         # TODO may process result
 

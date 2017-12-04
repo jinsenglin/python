@@ -5,7 +5,7 @@ class Nodes(object):
         filter = in_message['filter']
 
         # delegate to manager
-        result = manager.get_nodes(filter=filter)
+        result = manager.get_nodes(node_filter=filter)
 
         # TODO may process result
 
