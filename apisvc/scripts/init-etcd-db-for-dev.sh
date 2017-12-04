@@ -37,12 +37,6 @@ cat ../samples/controller.os.yaml | etcdctl put /apisvc/controllers/os
 echo -n "$(date) | INFO | put /apisvc/nodes/compute "
 etcdctl put /apisvc/nodes/compute ok
 
-echo -n "$(date) | INFO | put /apisvc/ca/key "
-cat ../samples/ca.key | etcdctl put /apisvc/ca/key
-
-echo -n "$(date) | INFO | put /apisvc/ca/crt "
-cat ../samples/ca.crt | etcdctl put /apisvc/ca/crt
-
 echo -n "$(date) | INFO | put /apisvc/rings/admin "
 etcdctl put /apisvc/rings/admin ok
 
@@ -51,6 +45,12 @@ etcdctl put /apisvc/rings/tenant ok
 
 echo -n "$(date) | INFO | put /apisvc/rings/user "
 etcdctl put /apisvc/rings/user ok
+
+echo -n "$(date) | INFO | put /apisvc/ca/key "
+cat ../samples/ca.key | etcdctl put /apisvc/ca/key
+
+echo -n "$(date) | INFO | put /apisvc/ca/crt "
+cat ../samples/ca.crt | etcdctl put /apisvc/ca/crt
 
 # ================== level 4 ======================
 

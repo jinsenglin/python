@@ -17,10 +17,10 @@ else
 fi
 
 function clean_up {
-    echo "$(date) | INFO | shutting down etcd db"
+    echo -n "$(date) | INFO | shutting down etcd db "
     docker stop etcd
     
-    echo "$(date) | INFO | shutting down openstack keystone"
+    echo -n "$(date) | INFO | shutting down openstack keystone "
     docker stop os-keystone
 
     if [ $MODE == FULL ]; then
