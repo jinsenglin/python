@@ -4,7 +4,7 @@ class Node(object):
         self.input_for_get = {'roles': None}
         self.output_for_get = {'result': {}}
 
-        self.input_for_put = {'role': None}
+        self.input_for_put = {'role': None, 'action': None}
         self.output_for_put = {'result': {}}
 
 

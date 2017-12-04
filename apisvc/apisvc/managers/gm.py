@@ -39,9 +39,8 @@ class Manager(object):
     def get_node(self, node_id, node_roles):
         return self._fbi_mgr.get_node(node_id=node_id, node_roles=node_roles)
 
-    def update_node(self, node_id, node_role):
-        # TODO delegate to cia
-        return {}
+    def update_node(self, node_id, node_role, node_action):
+        return self._cia_mgr.update_node(node_id=node_id, node_role=node_role, node_action=node_action)
 
     # ===================================== #
     #                                       #

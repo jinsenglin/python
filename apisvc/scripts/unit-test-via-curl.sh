@@ -48,7 +48,8 @@ function nodes() {
 
 function node() {
     curl http://localhost:5000/$VER/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"roles": ["compute"]}' | jq '.'
-    curl http://localhost:5000/$VER/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}' | jq '.'
+    curl http://localhost:5000/$VER/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"role": "compute", action: "from_os_to_k8s"}' | jq '.'
+    curl http://localhost:5000/$VER/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"role": "compute", action: "from_k8s_to_os"}' | jq '.'
 }
 
 function pools() {

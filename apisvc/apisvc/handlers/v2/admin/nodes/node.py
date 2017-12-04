@@ -17,9 +17,10 @@ class Node(object):
     def put(self, manager, in_message, out_message, node_id, *args, **kwargs):
         # process in_message
         role = in_message['role']
+        action = in_message['action']
 
         # delegate to manager
-        result = manager.update_node(node_id=node_id, node_role=role)
+        result = manager.update_node(node_id=node_id, node_role=role, node_action=action)
 
         # TODO may process result
 
