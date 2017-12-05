@@ -1,6 +1,6 @@
 # Runtime Versions
 
-* python: 2.7.11
+* python: 2.7.x (My Version: 2.7.11)
 * others: see requirements.txt and bindep.txt
 
 # External Components
