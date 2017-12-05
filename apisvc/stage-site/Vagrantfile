@@ -66,8 +66,8 @@ Vagrant.configure("2") do |config|
   #   pip install /vagrant/data/apisvc-1.0.0.tar.gz
   #
   #   # flask http server (option 1)
-  #   cp /vagrant/data/apisvc.service /etc/systemd/system/
-  #   chmod 664 /etc/systemd/system/apisvc.service
+  #   cp /vagrant/data/apisvc.service /usr/lib/systemd/system/
+  #   chmod 664 /usr/lib/systemd/system/apisvc.service
   #   systemctl daemon-reload
   #   systemctl enable apisvc
   #   systemctl start apisvc
