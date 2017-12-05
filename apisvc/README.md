@@ -188,6 +188,9 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 # Build source distribution
 
 ```
+cd $PROJECT_HOME/scripts
+bash clear-fs-cache.sh
+
 cd $PROJECT_HOME
 python setup.py sdist --formats=gztar
 ```
