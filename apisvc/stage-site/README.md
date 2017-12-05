@@ -1,3 +1,8 @@
+# Environment
+
+- Operating System: CentOS 7.2
+- Python: 2.7.5
+
 # Vagrant machine
 
 ```
