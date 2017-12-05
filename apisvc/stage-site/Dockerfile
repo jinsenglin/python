@@ -1,5 +1,6 @@
 FROM centos:7.2.1511
 
+# systemd
 ENV container docker
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
 systemd-tmpfiles-setup.service ] || rm -f $i; done); \
@@ -11,4 +12,9 @@ rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 VOLUME [ "/sys/fs/cgroup" ]
+
+# example - httpd
+RUN yum -y install httpd; yum clean all; systemctl enable httpd.service
+EXPOSE 80
+
 CMD ["/usr/sbin/init"]

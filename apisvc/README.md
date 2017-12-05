@@ -188,7 +188,17 @@ gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 # Build source distribution
 
 ```
+cd $PROJECT_HOME
 python setup.py sdist --formats=gztar
+```
+
+# Build and run container
+
+```
+cd $PROJECT_HOME/stage-site
+docker build --rm -t local/apisvc .
+docker run --privileged -dti -p 80:80 --name apisvc local/apisvc
+docker run --privileged -dti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 --name apisvc local/apisvc
 ```
 
 # PyCharm
