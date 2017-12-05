@@ -185,6 +185,12 @@ cd $ANY_DIRECTORY
 gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
 ```
 
+# Build source distribution
+
+```
+python setup.py sdist --formats=gztar
+```
+
 # PyCharm
 
 1. Open PyCharm
