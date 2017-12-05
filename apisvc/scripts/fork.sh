@@ -27,6 +27,11 @@ sed -i "s/apisvc/$BRAND/g" $FILE
 
 # ==============================
 
+FILE=../MANIFEST.in
+sed -i "s/apisvc/$BRAND/g" $FILE
+
+# ==============================
+
 FILE=./bring-up-fresh-dev-env.sh
 sed -i "s/apisvc/$BRAND/g" $FILE
 
