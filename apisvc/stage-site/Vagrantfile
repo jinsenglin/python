@@ -56,7 +56,12 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   # config.vm.provision "shell", inline: <<-SHELL
   #   yum -y update # (optional)
+  #
   #   yum -y install epel-release-7-9.noarch
   #   yum -y install python2-pip-8.1.2-5.el7.noarch
+  #
+  #   pip install -r /vagrant/data/requirements.txt
+  #
+  #   yum -y install jq-1.5-1.el7.x86_64 # skip `openssl` and `base64` due to pre-installed
   # SHELL
 end

@@ -32,7 +32,7 @@
 cd $PROJECT_HOME
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
-bindep
+LANG=C bindep -f bindep.txt
 ```
 
 Start local etcd
