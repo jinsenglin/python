@@ -1,0 +1,7 @@
+[Unit]
+Description=apisvc
+
+[Service]
+Environment=FLASK_APP=/usr/lib/python2.7/site-packages/apisvc/main.py
+ExecStart=/bin/flask run -h 0.0.0.0 -p 5000 --no-reload --no-debugger --eager-loading --without-threads
+Restart=always
