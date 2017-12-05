@@ -8,6 +8,7 @@
 ```
 bash sync-data.sh
 vagrant up
+curl http://192.168.33.10:5000/v2/admin/healthz
 ```
 
 # Docker container
