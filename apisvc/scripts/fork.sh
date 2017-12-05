@@ -52,6 +52,27 @@ sed -i "s/apisvc/$BRAND/g" $FILE
 
 # ==============================
 
+FILE=../stage-site/README.md
+sed -i "s/apisvc/$BRAND/g" $FILE
+
+# ==============================
+
+FILE=../stage-site/Vagrantfile
+sed -i "s/apisvc/$BRAND/g" $FILE
+
+# ==============================
+
+FILE=../stage-site/apisvc.service
+sed -i "s/apisvc/$BRAND/g" $FILE
+mv $FILE ../stage-site/$BRAND.service
+
+# ==============================
+
+FILE=../stage-site/sync-data.sh
+sed -i "s/apisvc/$BRAND/g" $FILE
+
+# ==============================
+
 FILE=../apisvc/DEBUG
 sed -i "s/apisvc/$BRAND/g" $FILE
 
