@@ -10,3 +10,5 @@ cp ../requirements.txt data/
 # (optional)
 cp ../scripts/bring-up-local-etcd.sh data/
 cp ../scripts/bring-up-local-os-keystone.sh data/
+cp ../scripts/init-etcd-db-for-dev.sh data/
+cp -r ../samples data/
