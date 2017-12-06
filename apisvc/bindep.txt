@@ -2,6 +2,8 @@ etcdctl [dev]
 docker [dev]
 minikube [dev]
 
+kubectl
+
 jq [platform:rpm]
 coreutils [platform:rpm]
 openssl [platform:rpm]

@@ -1,6 +1,7 @@
 flask == 0.12.2
 flask-restful == 0.3.6
 openstacksdk == 0.9.19
+python-openstackclient == 3.11.0
 kubernetes == 4.0.0b1
 etcd3 == 0.7.0
 requests == 2.18.4
