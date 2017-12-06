@@ -17,12 +17,12 @@ app.config.update(dict(
     APISVC_LOG='/tmp/apisvc.log',                                       # or /var/log/apisvc/apisvc.log
     APISVC_LOG_LEVEL=logging.INFO,                                      # INFO for production, DEBUG for development
     APISVC_CACHE='file-system',                                         # or python-object
-    APISVC_CACHE_PATH=os.path.join(app.root_path, 'cache'),             # or /var/cache/apisvc/accounts
+    APISVC_CACHE_PATH=os.path.join(app.root_path, 'cache'),             # or /var/cache/apisvc/
     APISVC_CACHE_LOCK='/tmp/apisvc.lock',                               # or /var/lock/apisvc/apisvc.lock
     APISVC_DB='etcd',                                                   #
     APISVC_DB_HOST='localhost',                                         #
     APISVC_SHELL_PATH=os.path.join(app.root_path, 'shell'),             #
-    APISVC_TMP_PATH=os.path.join('/tmp'),                               #
+    APISVC_TMP_PATH=os.path.join('/tmp'),                               # or /tmp/apisvc/
     APISVC_MANAGERS=['cia', 'k8s', 'os'],                               #
 ))
 app.config['APISVC_TMP_PATH_PROC_WIDE'] = os.path.join(app.config['APISVC_TMP_PATH'], '{0}-{1}'.format('apisvc', os.getpid()))

@@ -56,23 +56,35 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "bootstrap", type: "shell", inline: <<-SHELL
   #   yum -y update # (optional)
-  # 
+  
+      # install pip
       yum -y install epel-release-7-9.noarch
       yum -y install python2-pip-8.1.2-5.el7.noarch
-   
+
+      # install apisvc dependency   
       pip install -r /vagrant/data/requirements.txt
       yum -y install jq-1.5-1.el7.x86_64 # skip `openssl` and `base64` due to pre-installed
-   
+
+      # install apisvc  
       pip install /vagrant/data/apisvc-1.0.0.tar.gz
+
+      # install apisvc cache dir
+      cp -r /usr/lib/python2.7/site-packages/apisvc/cache /var/cache/apisvc
+
+      # install apisvc log dir
+      mkdir -p /var/log/apisvc
+
+      # install apisvc tmp dir
+      mkdir -p /tmp/apisvc
    
-      # flask http server (option 1)
+      # install apisvc systemd service unit (http server option 1)
       cp /vagrant/data/apisvc.service /usr/lib/systemd/system/
       chmod 664 /usr/lib/systemd/system/apisvc.service
       systemctl daemon-reload
       systemctl enable apisvc
       systemctl start apisvc
-  #
-  #   # apache http server (option 2)
+  
+  #   # install apache and its systemd service unit (http server option 2)
   #   yum -y install httpd-2.4.6-67.el7.centos.6.x86_64
   #   systemctl enable httpd
   #   systemctl start httpd
@@ -82,5 +94,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "poweron", type: "shell", inline: <<-SHELL
       # bring up enp0s8 (workaround)
       ifconfig enp0s8 192.168.33.10
+
+      # install apisvc lock dir (workaround)
+      mkdir -p /var/lock/apisvc
   SHELL
 end
