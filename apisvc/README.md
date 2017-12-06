@@ -21,9 +21,7 @@
 # Logs
 
 * file: /tmp/apisvc.log
-* file: /tmp/apisvc-debug.log
 * file: /tmp/apisvc-PID/PID-TID-TS.log
-* default log level: INFO (CHANGE it to DEBUG in development site)
 
 # Setup Development Environment
 

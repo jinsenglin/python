@@ -1,6 +1,7 @@
 import logging
 
 APISVC_LOG = '/var/log/apisvc/apisvc.log'
+APISVC_LOG_LEVEL = logging.INFO
 APISVC_CACHE_PATH = '/var/cache/apisvc'
 APISVC_CACHE_LOCK = '/var/lock/apisvc/apisvc.lock'
 APISVC_TMP_PATH = '/tmp/apisvc'
