@@ -6,8 +6,15 @@
 # Vagrant machine
 
 ```
+# bootstrap
 bash sync-data.sh
 vagrant up
+
+# restart
+vagrant halt
+vagrant up --provision-with poweron
+
+# access
 curl http://192.168.33.10:5000/v2/admin/healthz
 ```
 
