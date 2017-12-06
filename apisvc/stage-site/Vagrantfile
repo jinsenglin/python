@@ -81,7 +81,10 @@ Vagrant.configure("2") do |config|
 
       # install apisvc tmp dir
       mkdir -p /tmp/apisvc
-   
+
+      # install apisvc lock dir
+      mkdir -p /var/lock/apisvc
+  
       # install apisvc systemd service unit (http server option 1)
       cp /vagrant/data/apisvc.service /usr/lib/systemd/system/
       chmod 664 /usr/lib/systemd/system/apisvc.service
@@ -108,12 +111,13 @@ Vagrant.configure("2") do |config|
       # bring up enp0s8 (workaround)
       ifconfig enp0s8 192.168.33.10
 
-      # install apisvc lock dir (workaround)
+      # re-install apisvc lock dir (workaround)
       mkdir -p /var/lock/apisvc
 
       # bring up local etcd and os-keystone (optional)
       bash /vagrant/data/bring-up-local-etcd.sh
       bash /vagrant/data/bring-up-local-os-keystone.sh
+      echo 'waiting etcd ready'; sleep 3
       APISVC_SAMPLES_DIR=/vagrant/data/samples bash /vagrant/data/init-etcd-db-for-dev.sh
   SHELL
 end
