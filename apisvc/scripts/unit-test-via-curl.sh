@@ -14,7 +14,7 @@
 set -e
 
 APISVC_UT_VERSION=${APISVC_UT_VERSION:-"v2"}
-APISVC_UT_ENDPOINT=${APISVC_UT_ENDPOINT:-"localhost:5000"}
+APISVC_UT_ENDPOINT=${APISVC_UT_ENDPOINT:-"localhost:5080"}
 
 if [ $# -eq 0 ]; then
     CMD=healthz

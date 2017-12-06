@@ -125,7 +125,7 @@ Start development server (two threads)
 
 ```
 cd $PROJECT_HOME/apisvc
-gunicorn --workers=2 -b 127.0.0.1:5000 main_dev:app
+gunicorn --workers=2 -b 127.0.0.1:5080 main_dev:app
 ```
 
 Start development server (single thread, production, option1, recommended)
@@ -164,14 +164,14 @@ Start development server (single thread, production, option4)
 cd $PROJECT_HOME
 python setup.py install
 cd apisvc
-gunicorn --workers=1 -b 127.0.0.1:5000 main:app
+gunicorn --workers=1 -b 127.0.0.1:5080 main:app
 ```
 
 Start development server (single thread, production, option5)
 
 ```
 cd $PROJECT_HOME
-gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
+gunicorn --workers=1 -b 127.0.0.1:5080 apisvc:app
 ```
 
 Start development server (single thread, production, option6)
@@ -180,7 +180,7 @@ Start development server (single thread, production, option6)
 cd $PROJECT_HOME
 python setup.py install
 cd $ANY_DIRECTORY
-gunicorn --workers=1 -b 127.0.0.1:5000 apisvc:app
+gunicorn --workers=1 -b 127.0.0.1:5080 apisvc:app
 ```
 
 # Build source distribution

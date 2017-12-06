@@ -15,7 +15,7 @@ vagrant halt
 vagrant up --provision-with poweron
 
 # access
-curl http://192.168.33.10:5000/v2/admin/healthz
+curl http://192.168.33.10:5080/v2/admin/healthz
 ```
 
 # Docker container
