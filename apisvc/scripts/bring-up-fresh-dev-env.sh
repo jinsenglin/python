@@ -67,8 +67,10 @@ fi
 
 # =========================================================================================
 
-echo "$(date) | INFO | loading etcd server with initial data"
+echo "$(date) | INFO | waiting etcd server ready"
 sleep 3
+
+echo "$(date) | INFO | loading etcd server with initial data"
 bash init-etcd-db-for-dev.sh
 
 # =========================================================================================
