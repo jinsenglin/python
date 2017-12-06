@@ -94,7 +94,7 @@ Vagrant.configure("2") do |config|
   #   systemctl enable httpd
   #   systemctl start httpd
   
-      # install docker for local etcd, keystone (optional)
+      # install docker for local etcd and os-keystone (optional)
       yum -y install yum-utils device-mapper-persistent-data lvm2
       yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
       yum -y install docker-ce
@@ -110,5 +110,9 @@ Vagrant.configure("2") do |config|
 
       # install apisvc lock dir (workaround)
       mkdir -p /var/lock/apisvc
+
+      # bring up local etcd and os-keystone (optional)
+      bash /vagrant/data/bring-up-local-etcd.sh
+      bsah /vagrant/data/bring-up-local-os-keystone.sh
   SHELL
 end
