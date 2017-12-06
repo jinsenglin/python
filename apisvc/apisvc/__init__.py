@@ -20,7 +20,7 @@ app.config.update(dict(
     APISVC_CACHE_PATH=os.path.join(app.root_path, 'cache'),             # or /var/cache/apisvc/
     APISVC_CACHE_LOCK='/tmp/apisvc.lock',                               # or /var/lock/apisvc/apisvc.lock
     APISVC_DB='etcd',                                                   #
-    APISVC_DB_HOST='localhost',                                         #
+    APISVC_DB_HOST=os.environ.get('APISVC_DB_HOST', 'localhost'),       #
     APISVC_SHELL_PATH=os.path.join(app.root_path, 'shell'),             #
     APISVC_TMP_PATH=os.path.join('/tmp'),                               # or /tmp/apisvc/
     APISVC_MANAGERS=['cia', 'k8s', 'os'],                               #
