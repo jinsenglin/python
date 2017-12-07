@@ -19,6 +19,6 @@ def timeit(fn):
         ts = time.time()
         result = fn(*args, **kwargs)
         te = time.time()
-        LOGGER.debug('api {0} ({1}, {2}) finished of execution time = {3:.6f} sec'.format(fn.__name__, args, kwargs, te - ts))
+        LOGGER.info('api {0} ({1}, {2}) finished of execution time = {3:.6f} sec'.format(fn.__name__, args, kwargs, te - ts))
         return result
     return wrapper
