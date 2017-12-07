@@ -34,7 +34,7 @@ def get_nodes(node_filter):
 
 
 def get_ca():
-    value, key = _client.get('/apisvc/ca/'.format())
+    value, key = _client.get('/apisvc/ca/')
     return value, key
 
 

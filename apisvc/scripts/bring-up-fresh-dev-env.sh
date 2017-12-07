@@ -76,6 +76,6 @@ bash init-etcd-db-for-dev.sh
 
 echo "$(date) | INFO | bringing up http server"
 export APISVC_MODE=DEBUG
-cd ../ && gunicorn --workers=5 -b 127.0.0.1:5080 apisvc:app
+cd ../ && gunicorn --workers=1 -b 127.0.0.1:5080 apisvc:app
 
 # =========================================================================================

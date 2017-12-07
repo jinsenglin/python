@@ -20,7 +20,7 @@ class Rings(object):
         account_id = in_message['account_id']
 
         # delegate to manager
-        result = manager.create_ring(tenant_id=tenant_id, account_id=account_id)
+        result = manager.create_ring(tenant_id=tenant_id, account_id=account_id, ring_type='user')
 
         # TODO may process result
 
