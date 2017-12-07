@@ -62,7 +62,7 @@ class Manager(object):
     def create_pool(self, tenant_id):
 
         k8s_namespace = self._ninja_mgr.create_k8s_namespace(tenant_id=tenant_id)
-        os_project = self._ninja_mgr.create_os_project()(tenant_id=tenant_id)
+        os_project = self._ninja_mgr.create_os_project(tenant_id=tenant_id)
 
         #self._k8s_mgr.create_namespace(tenant_id=tenant_id)
         #self._os_mgr.create_project(tenant_id=tenant_id)

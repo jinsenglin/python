@@ -70,8 +70,6 @@ minikube start --kubernetes-version=v1.8.0 --bootstrapper kubeadm
 Start interactive shell
 
 ```
-export APISVC_MODE=DEBUG # optional
-
 # Example 1 - debug shell
 
 # start local openstack keystone
@@ -91,10 +89,8 @@ python
 # start local etcd
 # start local openstack keystone
 # start local kubernetes
-
-cd $PROJECT_HOME/scripts/
-bash init-etcd-db-for-dev.sh # optional
-bash init-fs-cache-for-dev.sh # optional
+# init local etcd
+# init cache
 
 cd $PROJECT_HOME
 python
