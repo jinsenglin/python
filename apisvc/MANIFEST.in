@@ -3,4 +3,4 @@ include apisvc/cache/rings/tenant/.gitkeep
 include apisvc/cache/rings/user/.gitkeep
 include apisvc/shell/*.sh
 include apisvc/DEBUG
-include apisvc/PROD
+include apisvc/STAGE
