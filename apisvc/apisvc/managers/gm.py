@@ -1,4 +1,4 @@
-from apisvc.common.cache import fs as fs_cache
+from apisvc.common.cache import fs as CACHE
 from apisvc.managers import k8s
 from apisvc.managers import os
 from apisvc.managers import fbi
@@ -14,7 +14,7 @@ class Manager(object):
         self._account = account
 
         # init credential paths
-        self._k8s_credential_path, self._os_credential_path = fs_cache.get_credential_keys(role=role, account=account)
+        self._k8s_credential_path, self._os_credential_path = CACHE.get_credential_keys(role=role, account=account)
 
         # init managers
         self._k8s_mgr = k8s.Manager(credential_path=self._k8s_credential_path)
