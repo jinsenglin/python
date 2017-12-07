@@ -52,8 +52,8 @@ function nodes() {
     echo "$(date) | INFO | GET /$APISVC_UT_VERSION/admin/nodes | all nodes"
     curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
 
-    echo "$(date) | INFO | GET /$APISVC_UT_VERSION/admin/nodes | compute nodes"
-    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "compute"}' | jq '.'
+#    echo "$(date) | INFO | GET /$APISVC_UT_VERSION/admin/nodes | compute nodes"
+#    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "compute"}' | jq '.'
 }
 
 function node() {

@@ -6,6 +6,7 @@ from apisvc.common.log import LOGGER
 
 
 _cache_path = CONFIG['APISVC_CACHE_PATH']
+_lock_file = CONFIG['APISVC_LOCK_FILE']
 
 
 def _get_ca_key():
@@ -51,12 +52,11 @@ def get_ca_pem_keys():
     return ca_crt_pem_key, ca_key_pem_key
 
 
-@fasteners.interprocess_locked(CONFIG['APISVC_LOCK_FILE'])
+@fasteners.interprocess_locked(_lock_file)
 def put_ca_pems(ca_crt_pem, ca_key_pem):
-    ca_key = get_ca_key()
+    ca_key = _get_ca_key()
 
-    if ca_key is None:
-        ca_key = _get_ca_key()
+    if not os.path.isdir(ca_key):
         os.makedirs(ca_key)
         LOGGER.debug('ca saved'.format())
 
@@ -99,7 +99,7 @@ def _check_ring_existed_in_the_persistent_store(role, account):
 
         credential_k8s, _ = DB.get_credential(role=role, account=account, target='k8s')
         credential_os, _ = DB.get_credential(role=role, account=account, target='os')
-        put_ring_and_credentials(role=role, account=account, credential_k8s=credential_k8s, credential_os=credential_os)
+        _put_ring_and_credentials(role=role, account=account, credential_k8s=credential_k8s, credential_os=credential_os)
 
         return True
     else:
@@ -112,17 +112,16 @@ def get_credential_keys(role, account):
     return credential_key_k8s, credential_key_os
 
 
-@fasteners.interprocess_locked(CONFIG['APISVC_LOCK_FILE'])
-def put_ring_and_credentials(role, account, credential_k8s, credential_os):
+@fasteners.interprocess_locked(_lock_file)
+def _put_ring_and_credentials(role, account, credential_k8s, credential_os):
     """
     from apisvc.common import util
     util.simulate_time_consuming_op()
     """
 
-    ring_key = get_ring_key(role=role, account=account)
+    ring_key = _get_ring_key(role=role, account=account)
 
-    if ring_key is None:
-        ring_key = _get_ring_key(role=role, account=account)
+    if not os.path.isdir(ring_key):
         os.makedirs(ring_key)
         LOGGER.debug('ring for role {0} account {1} saved'.format(role, account))
 
