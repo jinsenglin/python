@@ -40,7 +40,7 @@ def get_ca_pem_keys():
     return ca_crt_pem_key, ca_key_pem_key
 
 
-@fasteners.interprocess_locked(CONFIG['APISVC_CACHE_LOCK'])
+@fasteners.interprocess_locked(CONFIG['APISVC_LOCK_FILE'])
 def put_ca_pems(ca_crt_pem, ca_key_pem):
     ca_key = get_ca_key()
 
@@ -75,7 +75,7 @@ def get_credential_keys(role, account):
     return credential_key_k8s, credential_key_os
 
 
-@fasteners.interprocess_locked(CONFIG['APISVC_CACHE_LOCK'])
+@fasteners.interprocess_locked(CONFIG['APISVC_LOCK_FILE'])
 def put_ring_and_credentials(role, account, credential_k8s, credential_os):
     """
     from apisvc.common import util
