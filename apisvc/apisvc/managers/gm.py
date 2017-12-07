@@ -93,9 +93,13 @@ class Manager(object):
         return self._fbi_mgr.get_rings(ring_filter=ring_filter)
 
     def create_ring(self, tenant_id, account_id, ring_type):
-        self._fbi_mgr.create_ring(ring_type=ring_type, account_id=account_id)
-        self._os_mgr.create_user(tenant_id=tenant_id, account_id=account_id)
-        return {'result': {}}
+        os_user = self._ninja_mgr.create_os_user(tenant_id=tenant_id, account_id=account_id)
+        k8s_user = self._ninja_mgr.create_k8s_user(tenant_id=tenant_id, account_id=account_id)
+        ring = self._fbi_mgr.create_ring(ring_type=ring_type,
+                                         account_id=account_id,
+                                         k8s_credential=k8s_user,
+                                         os_credential=os_user)
+        return {'result': {'os_user': os_user, 'k8s_user': k8s_user}}
 
     def get_ring(self, ring_id):
         # TODO directly query etcd db
