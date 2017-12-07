@@ -10,6 +10,7 @@ from apisvc.common.cache import fs as fs_cache
 
 _shell_path = CONFIG['APISVC_SHELL_PATH']
 _tmp_path = CONFIG['APISVC_TMP_PATH_PROC_WIDE']
+_log_path = CONFIG['APISVC_LOG_PATH']
 
 
 def bash(script_name, script_args=[]):
@@ -18,7 +19,7 @@ def bash(script_name, script_args=[]):
     script_path = '{0}/{1}'.format(_shell_path, script_name)
     if os.path.isfile(script_path):
 
-        ptt_log_name = '{0}.{1}'.format(util.get_ptt_string(), 'log')
+        ptt_log_name = '{0}.log'.format(util.get_ptt_string())
         ptt_log_path = '{0}/{1}'.format(_tmp_path, ptt_log_name)
         subprocess_args = ['bash', script_path, _tmp_path] + script_args
 
@@ -34,7 +35,9 @@ def bash(script_name, script_args=[]):
                 LOGGER.critical('failed to run script due to exit code is non-zero')
                 LOGGER.critical('check ptt log {0} to see more error message'.format(ptt_log_path))
 
-        if not keep_ptt_log:
+        if keep_ptt_log:
+            os.rename(ptt_log_path, '{0}/{1}'.format(_log_path, ptt_log_name))
+        else:
             os.remove(ptt_log_path)
 
     else:
