@@ -59,23 +59,28 @@ Vagrant.configure("2") do |config|
   
       # install pip
       # for installing dependency
+      echo "$(date) | INFO | installing pip"
       yum -y install epel-release-7-9.noarch
       yum -y install python2-pip-8.1.2-5.el7.noarch
 
       # install gcc and python-devel
       # for installing dependency
+      echo "$(date) | INFO | installing gcc and python-devel"
       yum -y group install "Development Tools"
       yum -y install python-devel
 
       # install apisvc dependency   
+      echo "$(date) | INFO | installing apisvc dependency"
       pip install -r /vagrant/data/requirements.txt
       yum -y install jq-1.5-1.el7.x86_64 # skip `openssl` and `base64` due to pre-installed
       curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/bin
 
       # install apisvc  
+      echo "$(date) | INFO | installing apisvc"
       pip install /vagrant/data/apisvc-1.0.0.tar.gz
   
       # install apisvc systemd service unit (http server option 1)
+      echo "$(date) | INFO | installing apisvc systemd service"
       cp /vagrant/data/apisvc.service /usr/lib/systemd/system/
       chmod 664 /usr/lib/systemd/system/apisvc.service
       systemctl daemon-reload
@@ -89,6 +94,7 @@ Vagrant.configure("2") do |config|
   
       # install docker (only for stage)
       # for bringing up local etcd and os-keystone
+      echo "$(date) | INFO | installing docker"
       yum -y install yum-utils device-mapper-persistent-data lvm2
       yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
       yum -y install docker-ce
@@ -99,11 +105,13 @@ Vagrant.configure("2") do |config|
 
       # install etcdctl (only for stage)
       # for initing local etcd
+      echo "$(date) | INFO | installing etcdctl"
       curl -LO https://github.com/coreos/etcd/releases/download/v3.2.9/etcd-v3.2.9-linux-amd64.tar.gz && tar -zxf etcd-v3.2.9-linux-amd64.tar.gz && mv etcd-v3.2.9-linux-amd64/etcdctl /usr/bin
   SHELL
 
   config.vm.provision "poweron", type: "shell", inline: <<-SHELL
       # bring up enp0s8 (workaround)
+      echo "$(date) | INFO | bringing up enp0s8"
       ifconfig enp0s8 192.168.33.10
 
       # bring up local etcd and os-keystone (only for stage)
@@ -111,18 +119,22 @@ Vagrant.configure("2") do |config|
       bash /vagrant/data/bring-up-local-os-keystone.sh
 
       # init local etcd (only for stage)
-      echo 'waiting etcd ready'; sleep 3
+      echo "$(date) | INFO | waiting local etcd to ready"
+      sleep 3
       APISVC_SAMPLES_DIR=/vagrant/data/samples bash /vagrant/data/init-etcd-db-for-dev.sh
   SHELL
 
   config.vm.provision "upgrade", type: "shell", inline: <<-SHELL
       # stop
+      echo "$(date) | INFO | stoppping apisvc "
       systemctl stop apisvc
 
       # upgrade
+      echo "$(date) | INFO | upgrading apisvc "
       pip install -U /vagrant/data/apisvc-1.0.0.tar.gz
 
       # start
+      echo "$(date) | INFO | starting apisvc "
       systemctl start apisvc
   SHELL
 end
