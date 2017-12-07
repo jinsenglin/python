@@ -32,10 +32,10 @@ def bash(script_name, script_args=[]):
 
             except subprocess.CalledProcessError:
                 LOGGER.critical('failed to run script due to exit code is non-zero')
-                LOGGER.critical('check ptt log {0} to see more error message'.format(ptt_log_path))
 
         if keep_ptt_log:
             os.rename(ptt_log_path, '{0}/{1}'.format(_log_path, ptt_log_name))
+            LOGGER.critical('check ptt log {0}/{1} to see more error message'.format(_log_path, ptt_log_name))
         else:
             os.remove(ptt_log_path)
 
