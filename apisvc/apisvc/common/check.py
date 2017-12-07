@@ -4,30 +4,7 @@ from flask import request, abort
 from apisvc.managers.gm import Manager
 from apisvc.common import util
 from apisvc.common.log import LOGGER
-from apisvc.common.db import etcd as etcd_db
 from apisvc.common.cache import fs as fs_cache
-
-
-def _check_ring_existed_in_the_persistent_store(role, account):
-    """
-        if the specified ring exists in the remote persistent store
-        then cache it
-        then return True
-    """
-
-    _, key = etcd_db.get_ring(role=role, account=account)
-
-    if key:
-        LOGGER.debug('ring for role {0} account {1} found in remote persistent store'.format(role, account))
-
-        credential_k8s, _ = etcd_db.get_credential(role=role, account=account, target='k8s')
-        credential_os, _ = etcd_db.get_credential(role=role, account=account, target='os')
-        fs_cache.put_ring_and_credentials(role=role, account=account, credential_k8s=credential_k8s, credential_os=credential_os)
-
-        return True
-    else:
-        LOGGER.debug('ring for role {0} account {1} not found in remote persistent store'.format(role, account))
-        return False
 
 
 def _check_ring_existed(role, account):
@@ -40,11 +17,11 @@ def _check_ring_existed(role, account):
     ring_key = fs_cache.get_ring_key(role=role, account=account)
 
     if ring_key is not None:
-        LOGGER.debug('ring for role {0} account {1} found in local cache store'.format(role, account))
+        LOGGER.debug('ring for role {0} account {1} found'.format(role, account))
         return True
     else:
-        LOGGER.debug('ring for role {0} account {1} not found in local cache store'.format(role, account))
-        return _check_ring_existed_in_the_persistent_store(role=role, account=account)
+        LOGGER.debug('ring for role {0} account {1} not found'.format(role, account))
+        return False
 
 
 PERSONATE_ADMIN = 'admin'

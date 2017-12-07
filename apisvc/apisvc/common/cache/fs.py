@@ -1,5 +1,6 @@
 import os
 import fasteners
+from apisvc.common.db import etcd as DB
 from apisvc.common.config import CONFIG
 from apisvc.common.log import LOGGER
 
@@ -12,8 +13,8 @@ def _get_ca_key():
 
 
 def _get_ca_pem_keys():
-    return '{0}/ca/crt'.format(_cache_path),\
-           '{0}/ca/key'.format(_cache_path)
+    return '{0}/ca/crt.pem'.format(_cache_path),\
+           '{0}/ca/key.pem'.format(_cache_path)
 
 
 def _get_ring_key(role, account):
@@ -32,7 +33,17 @@ def get_ca_key():
         return ca_key
     else:
         LOGGER.debug('ca not found')
-        return None
+        _, key = DB.get_ca()
+        if key:
+            LOGGER.debug('ca found')
+            ca_pem_crt, _ = DB.get_ca_pem('crt')
+            ca_pem_key, _ = DB.get_ca_pem('key')
+            put_ca_pems(ca_pem_crt, ca_pem_key)
+            return ca_key
+        else:
+            LOGGER.debug('ca not found')
+            LOGGER.error('interrupting new_k8s_user_cert due to ca not found in remote persistent store'.format())
+            return None
 
 
 def get_ca_pem_keys():
@@ -67,7 +78,33 @@ def get_ring_key(role, account):
         return ring_key
     else:
         LOGGER.debug('ring for role {0} account {1} not found'.format(role, account))
-        return None
+
+        if _check_ring_existed_in_the_persistent_store(role=role, account=account):
+            return ring_key
+        else:
+            return None
+
+
+def _check_ring_existed_in_the_persistent_store(role, account):
+    """
+        if the specified ring exists in the remote persistent store
+        then cache it
+        then return True
+    """
+
+    _, key = DB.get_ring(role=role, account=account)
+
+    if key:
+        LOGGER.debug('ring for role {0} account {1} found in remote persistent store'.format(role, account))
+
+        credential_k8s, _ = DB.get_credential(role=role, account=account, target='k8s')
+        credential_os, _ = DB.get_credential(role=role, account=account, target='os')
+        put_ring_and_credentials(role=role, account=account, credential_k8s=credential_k8s, credential_os=credential_os)
+
+        return True
+    else:
+        LOGGER.debug('ring for role {0} account {1} not found in remote persistent store'.format(role, account))
+        return False
 
 
 def get_credential_keys(role, account):

@@ -4,8 +4,7 @@ import os
 from apisvc.common.config import CONFIG
 from apisvc.common.log import LOGGER
 from apisvc.common import util
-from apisvc.common.db import etcd as etcd_db
-from apisvc.common.cache import fs as fs_cache
+from apisvc.common.cache import fs as CACHE
 
 
 _shell_path = CONFIG['APISVC_SHELL_PATH']
@@ -110,25 +109,15 @@ def new_k8s_user_cert(username, group='system:masters'):
         return a dict object if subprocess exit code is zero
     """
 
-    ca_key = fs_cache.get_ca_key()
+    ca_key = CACHE.get_ca_key()
 
     if ca_key is not None:
-        LOGGER.debug('ca found in local cache store'.format())
+        LOGGER.debug('ca found')
     else:
-        LOGGER.debug('ca not found in local cache store'.format())
+        LOGGER.debug('ca not found')
+        return None
 
-        _, key = etcd_db.get_ca()
-        if key:
-            LOGGER.debug('ca found in remote persistent store'.format())
-            ca_pem_crt, _ = etcd_db.get_ca_pem('crt')
-            ca_pem_key, _ = etcd_db.get_ca_pem('key')
-            fs_cache.put_ca_pems(ca_pem_crt, ca_pem_key)
-        else:
-            LOGGER.debug('ca not found in remote persistent store'.format())
-            LOGGER.error('interrupting new_k8s_user_cert due to ca not found in remote persistent store'.format())
-            return None
-
-    ca_crt_pem_key, ca_key_pem_key = fs_cache.get_ca_pem_keys()
+    ca_crt_pem_key, ca_key_pem_key = CACHE.get_ca_pem_keys()
 
     try:
         stdout = subprocess.check_output(['bash',
