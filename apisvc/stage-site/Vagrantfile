@@ -58,10 +58,12 @@ Vagrant.configure("2") do |config|
   #   yum -y update # (optional)
   
       # install pip
+      # for installing dependency
       yum -y install epel-release-7-9.noarch
       yum -y install python2-pip-8.1.2-5.el7.noarch
 
       # install gcc and python-devel
+      # for installing dependency
       yum -y group install "Development Tools"
       yum -y install python-devel
 
@@ -72,18 +74,6 @@ Vagrant.configure("2") do |config|
 
       # install apisvc  
       pip install /vagrant/data/apisvc-1.0.0.tar.gz
-
-      # install apisvc cache dir
-      cp -r /usr/lib/python2.7/site-packages/apisvc/cache /var/cache/apisvc
-
-      # install apisvc log dir
-      mkdir -p /var/log/apisvc
-
-      # install apisvc tmp dir
-      mkdir -p /tmp/apisvc
-
-      # install apisvc lock dir
-      mkdir -p /var/lock/apisvc
   
       # install apisvc systemd service unit (http server option 1)
       cp /vagrant/data/apisvc.service /usr/lib/systemd/system/
@@ -97,7 +87,8 @@ Vagrant.configure("2") do |config|
   #   systemctl enable httpd
   #   systemctl start httpd
   
-      # install docker for local etcd and os-keystone (optional)
+      # install docker (only for stage)
+      # for bringing up local etcd and os-keystone
       yum -y install yum-utils device-mapper-persistent-data lvm2
       yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
       yum -y install docker-ce
@@ -106,20 +97,20 @@ Vagrant.configure("2") do |config|
       docker pull quay.io/coreos/etcd:v3.0.17
       docker pull stephenhsu/keystone:9.1.0
 
-      # install etcdctl (optional)
-      # TODO
+      # install etcdctl (only for stage)
+      # for initing local etcd
+      curl -LO https://github.com/coreos/etcd/releases/download/v3.2.9/etcd-v3.2.9-linux-amd64.tar.gz && tar -zxf etcd-v3.2.9-linux-amd64.tar.gz && mv etcd-v3.2.9-linux-amd64/etcdctl /usr/bin
   SHELL
 
   config.vm.provision "poweron", type: "shell", inline: <<-SHELL
       # bring up enp0s8 (workaround)
       ifconfig enp0s8 192.168.33.10
 
-      # re-install apisvc lock dir (workaround)
-      mkdir -p /var/lock/apisvc
-
-      # bring up local etcd and os-keystone (optional)
+      # bring up local etcd and os-keystone (only for stage)
       bash /vagrant/data/bring-up-local-etcd.sh
       bash /vagrant/data/bring-up-local-os-keystone.sh
+
+      # init local etcd (only for stage)
       echo 'waiting etcd ready'; sleep 3
       APISVC_SAMPLES_DIR=/vagrant/data/samples bash /vagrant/data/init-etcd-db-for-dev.sh
   SHELL
