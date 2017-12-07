@@ -16,7 +16,7 @@ vagrant up --provision-with poweron
 
 # upgrade
 vagrant halt
-vagrant up --provision-with poweron, upgrade
+vagrant up --provision-with poweron,upgrade
 
 # access
 curl http://192.168.33.10:5080/v2/admin/healthz
