@@ -10,6 +10,8 @@
 
 set -e
 
+APISVC_DEV_WORKERS=${APISVC_DEV_WORKERS:-"1"}
+
 if [ $# -eq 0 ]; then
     MODE=PART
 else
@@ -74,8 +76,9 @@ bash init-etcd-db-for-dev.sh
 
 # =========================================================================================
 
-echo "$(date) | INFO | bringing up http server"
-export APISVC_MODE=DEBUG
-cd ../ && gunicorn --workers=1 -b 127.0.0.1:5080 apisvc:app
+if [ $APISVC_DEV_WORKERS -gt 0 ]; then
+    echo "$(date) | INFO | bringing up http server"
+    cd ../ && gunicorn --workers=$APISVC_DEV_WORKERS -b 127.0.0.1:5080 apisvc:app
+fi
 
 # =========================================================================================
