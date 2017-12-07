@@ -72,13 +72,13 @@ function pools() {
     curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
 
     echo "$(date) | INFO | POST /$APISVC_UT_VERSION/admin/pools"
-    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -H "Content-Type: application/json" -d '{"tenant_id": "1111"}' | jq '.'
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -H "Content-Type: application/json" -d '{"tenant_id": "t01"}' | jq '.'
 }
 
 function pool() {
-    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools/1111 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
-    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools/1111 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}' | jq '.'
-    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools/1111 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE | jq '.'
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools/t01 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET | jq '.'
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools/t01 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{}' | jq '.'
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/pools/t01 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X DELETE | jq '.'
 }
 
 function rings() {
@@ -95,7 +95,7 @@ function rings() {
     curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"filter": "user"}' | jq '.'
 
     echo "$(date) | INFO | POST /$APISVC_UT_VERSION/admin/rings"
-    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -H "Content-Type: application/json" -d '{"tenant_id": "1111", "account_id": "2222"}' | jq '.'
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -H "Content-Type: application/json" -d '{"tenant_id": "t01", "account_id": "u02"}' | jq '.'
 }
 
 function ring() {
