@@ -5,7 +5,7 @@ Description=apisvc
 Environment=APISVC_MODE=STAGE
 Environment=APISVC_DB_HOST=127.0.0.1
 Environment=FLASK_APP=/usr/lib/python2.7/site-packages/apisvc/main.py
-ExecStart=/vagrant/data/start.sh
+ExecStart=/bin/bash /vagrant/data/start.sh
 Restart=always
 
 [Install]
