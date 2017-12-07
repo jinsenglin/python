@@ -9,6 +9,13 @@ _cache_path = CONFIG['APISVC_CACHE_PATH']
 _lock_file = CONFIG['APISVC_LOCK_FILE']
 
 
+# ===================================== #
+#                                       #
+# ca management                         #
+#                                       #
+# ===================================== #
+
+
 def _get_ca_key():
     return '{0}/ca'.format(_cache_path)
 
@@ -16,15 +23,6 @@ def _get_ca_key():
 def _get_ca_pem_keys():
     return '{0}/ca/crt.pem'.format(_cache_path),\
            '{0}/ca/key.pem'.format(_cache_path)
-
-
-def _get_ring_key(role, account):
-    return '{0}/rings/{1}/{2}'.format(_cache_path, role, account)
-
-
-def _get_credential_keys(role, account):
-    return '{0}/rings/{1}/{2}/k8s.yaml'.format(_cache_path, role, account),\
-           '{0}/rings/{1}/{2}/os.yaml'.format(_cache_path, role, account)
 
 
 def get_ca_key():
@@ -71,18 +69,20 @@ def put_ca_pems(ca_crt_pem, ca_key_pem):
         LOGGER.debug('pem {0} saved'.format(ca_key_pem_key))
 
 
-def get_ring_key(role, account):
-    ring_key = _get_ring_key(role=role, account=account)
-    if os.path.isdir(ring_key):
-        LOGGER.debug('ring for role {0} account {1} found'.format(role, account))
-        return ring_key
-    else:
-        LOGGER.debug('ring for role {0} account {1} not found'.format(role, account))
+# ===================================== #
+#                                       #
+# ring management                       #
+#                                       #
+# ===================================== #
 
-        if _check_ring_existed_in_the_persistent_store(role=role, account=account):
-            return ring_key
-        else:
-            return None
+
+def _get_ring_key(role, account):
+    return '{0}/rings/{1}/{2}'.format(_cache_path, role, account)
+
+
+def _get_credential_keys(role, account):
+    return '{0}/rings/{1}/{2}/k8s.yaml'.format(_cache_path, role, account),\
+           '{0}/rings/{1}/{2}/os.yaml'.format(_cache_path, role, account)
 
 
 def _check_ring_existed_in_the_persistent_store(role, account):
@@ -107,11 +107,6 @@ def _check_ring_existed_in_the_persistent_store(role, account):
         return False
 
 
-def get_credential_keys(role, account):
-    credential_key_k8s, credential_key_os = _get_credential_keys(role=role, account=account)
-    return credential_key_k8s, credential_key_os
-
-
 @fasteners.interprocess_locked(_lock_file)
 def _put_ring_and_credentials(role, account, credential_k8s, credential_os):
     """
@@ -134,3 +129,22 @@ def _put_ring_and_credentials(role, account, credential_k8s, credential_os):
     with open(credential_key_os, 'w') as file_os:
         file_os.write(credential_os)
         LOGGER.debug('credential {0} saved'.format(credential_key_os))
+
+
+def get_ring_key(role, account):
+    ring_key = _get_ring_key(role=role, account=account)
+    if os.path.isdir(ring_key):
+        LOGGER.debug('ring for role {0} account {1} found'.format(role, account))
+        return ring_key
+    else:
+        LOGGER.debug('ring for role {0} account {1} not found'.format(role, account))
+
+        if _check_ring_existed_in_the_persistent_store(role=role, account=account):
+            return ring_key
+        else:
+            return None
+
+
+def get_credential_keys(role, account):
+    credential_key_k8s, credential_key_os = _get_credential_keys(role=role, account=account)
+    return credential_key_k8s, credential_key_os
