@@ -7,7 +7,6 @@ clouds:
       project_name: admin
       project_domain_name: default
       user_domain_name: default
-      identity_api_version: 3
   os-v2:
     region_name: RegionOne
     auth:

@@ -46,7 +46,6 @@ def parse_os_credential_v3(os_credential_path):
     project_name = None
     project_domain_name = None
     user_domain_name = None
-    identity_api_version = None
 
     with open(os_credential_path, 'r') as stream:
         try:
@@ -57,11 +56,10 @@ def parse_os_credential_v3(os_credential_path):
             project_name = data['clouds']['os']['auth']['project_name']
             project_domain_name = data['clouds']['os']['auth']['project_domain_name']
             user_domain_name = data['clouds']['os']['auth']['user_domain_name']
-            identity_api_version = str(data['clouds']['os']['auth']['identity_api_version'])
         except yaml.YAMLError:
             LOGGER.critical('failed to parse os credential')
 
-    return auth_url, username, password, project_name, project_domain_name, user_domain_name, identity_api_version
+    return auth_url, username, password, project_name, project_domain_name, user_domain_name
 
 def personation_to_role_account(personation):
     return tuple(personation.split(' '))

@@ -60,9 +60,10 @@ class Manager(object):
         return self._fbi_mgr.get_rings(ring_filter='tenant')
 
     def create_pool(self, tenant_id):
-        self._k8s_mgr.create_namespace(tenant_id=tenant_id)
-        self._os_mgr.create_project(tenant_id=tenant_id)
-        self.create_ring(tenant_id=tenant_id, account_id=tenant_id, ring_type='tenant')
+        
+        #self._k8s_mgr.create_namespace(tenant_id=tenant_id)
+        #self._os_mgr.create_project(tenant_id=tenant_id)
+        #self.create_ring(tenant_id=tenant_id, account_id=tenant_id, ring_type='tenant')
         return {'result': {}}
 
     def get_pool(self, pool_id):

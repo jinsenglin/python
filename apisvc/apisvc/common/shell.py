@@ -46,11 +46,11 @@ def bash(script_name, script_args=[]):
 def run_os_script(os_credential_path, script_name, script_args=[]):
     data = None
 
-    auth_url, username, password, project_name, project_domain_name, user_domain_name, identity_api_version = util.parse_os_credential_v3(os_credential_path)
+    auth_url, username, password, project_name, project_domain_name, user_domain_name = util.parse_os_credential_v3(os_credential_path)
 
-    if all(v is not None for v in (auth_url, username, password, project_name, project_domain_name, user_domain_name, identity_api_version)):
+    if all(v is not None for v in (auth_url, username, password, project_name, project_domain_name, user_domain_name)):
 
-        extended_script_args = [auth_url, username, password, project_name, project_domain_name, user_domain_name, identity_api_version] + script_args
+        extended_script_args = [auth_url, username, password, project_name, project_domain_name, user_domain_name] + script_args
         stdout = bash(script_name=script_name, script_args=extended_script_args)
 
         if stdout is not None:
