@@ -60,11 +60,16 @@ class Manager(object):
         return self._fbi_mgr.get_rings(ring_filter='tenant')
 
     def create_pool(self, tenant_id):
-        
+
+        k8s_namespace = self._ninja_mgr.create_k8s_namespace(tenant_id=tenant_id)
+        os_project = self._ninja_mgr.create_os_project()(tenant_id=tenant_id)
+
         #self._k8s_mgr.create_namespace(tenant_id=tenant_id)
         #self._os_mgr.create_project(tenant_id=tenant_id)
         #self.create_ring(tenant_id=tenant_id, account_id=tenant_id, ring_type='tenant')
-        return {'result': {}}
+
+        return {'result': {'k8s_namespace': k8s_namespace,
+                           'os_project': os_project}}
 
     def get_pool(self, pool_id):
         # TODO delegate to k8s and os
