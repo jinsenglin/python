@@ -114,4 +114,15 @@ Vagrant.configure("2") do |config|
       echo 'waiting etcd ready'; sleep 3
       APISVC_SAMPLES_DIR=/vagrant/data/samples bash /vagrant/data/init-etcd-db-for-dev.sh
   SHELL
+
+  config.vm.provision "upgrade", type: "shell", inline: <<-SHELL
+      # stop
+      systemctl stop apisvc
+
+      # upgrade
+      pip install -U /vagrant/data/apisvc-1.0.0.tar.gz
+
+      # start
+      systemctl start apisvc
+  SHELL
 end

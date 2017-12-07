@@ -14,8 +14,16 @@ vagrant up
 vagrant halt
 vagrant up --provision-with poweron
 
+# upgrade
+vagrant halt
+vagrant up --provision-with poweron, upgrade
+
 # access
 curl http://192.168.33.10:5080/v2/admin/healthz
+
+# runt tests
+export APISVC_UT_ENDPOINT=192.168.33.10:5080
+bash ../scripts/unit-test-via-curl.sh
 ```
 
 # Docker container
