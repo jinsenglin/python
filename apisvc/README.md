@@ -100,6 +100,7 @@ python
 >>> gm.get_nodes(node_filter='all')
 >>> gm.get_pools()
 >>> gm.get_rings(ring_filter='all')
+>>> gm.create_pool(tenant_id='t1')
 ```
 
 Start development server (single thread)
