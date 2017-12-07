@@ -34,4 +34,5 @@ class Manager(object):
         return {'result': rings}
 
     def create_ring(self, ring_type, account_id, k8s_credential, os_credential):
-        pass
+        # TODO
+        return {}

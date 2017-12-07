@@ -18,13 +18,11 @@ class Manager(object):
                                      script_args=['project', 'create', tenant_id])
 
     def create_os_user(self, tenant_id, account_id):
-        pass
+        return shell.proxy_openstack(os_credential_path=self._os_credential_path,
+                                     script_args=['user', 'create', '--project', tenant_id, account_id])
 
     def create_k8s_user(self, tenant_id, account_id):
-        pass
+        return self.new_k8s_user_cert(username=account_id)
 
     def new_k8s_user_cert(self, username, group='system:masters'):
-        """
-            return a dict object
-        """
         return shell.new_k8s_user_cert(username=username, group=group)
