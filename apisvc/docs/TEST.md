@@ -77,3 +77,16 @@ cd $PROJECT_HOME
 
 python -m unittest tests.managers.gm.test_create_ring
 ```
+
+to test `apisvc.managers.fbi.create_ring` function
+
+```
+# prerequisites
+# start local etcd
+
+# PROJECT_HOME = .
+
+cd $PROJECT_HOME
+
+python -m unittest tests.managers.fbi.test_create_ring
+```
