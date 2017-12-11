@@ -39,3 +39,6 @@ class Manager(object):
                                     credential_k8s=k8s_credential,
                                     credential_os=os_credential)
         return {'result': 'ok'}
+
+    def get_controller(self, target):
+        return DB.get_controller(target=target)

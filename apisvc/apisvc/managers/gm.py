@@ -1,3 +1,4 @@
+from apisvc.common import util
 from apisvc.common.cache import fs as CACHE
 from apisvc.managers import k8s
 from apisvc.managers import os
@@ -104,11 +105,19 @@ class Manager(object):
     def create_ring(self, tenant_id, account_id, ring_type):
         os_user = self._ninja_mgr.create_os_user(tenant_id=tenant_id, account_id=account_id)
         k8s_user = self._ninja_mgr.create_k8s_user(tenant_id=tenant_id, account_id=account_id)
+
+        k8s_controller = self._fbi_mgr.get_controller('k8s')
+        os_controller = self._fbi_mgr.get_controller('os')
+
+        k8s_credential = util.native_k8s_user_object_to_ring_credential(k8s_controller=k8s_controller, k8s_user=k8s_user)
+        os_credential = util.native_os_user_object_to_ring_credential(os_controller=os_controller, os_user=os_user)
+
         ring = self._fbi_mgr.create_ring(ring_type=ring_type,
                                          account_id=account_id,
-                                         k8s_credential=k8s_user,
-                                         os_credential=os_user)
-        return {'result': {'os_user': os_user, 'k8s_user': k8s_user}}
+                                         k8s_credential=k8s_credential,
+                                         os_credential=os_credential)
+
+        return {'result': {'os_user': os_user, 'k8s_user': k8s_user, 'ring': ring}}
 
     def get_ring(self, ring_id):
         # TODO directly query etcd db

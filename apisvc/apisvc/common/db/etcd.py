@@ -47,6 +47,18 @@ def get_node(node_id, node_role):
 
 # ===================================== #
 #                                       #
+# controller management                 #
+#                                       #
+# ===================================== #
+
+
+def get_controller(target):
+    value, key = _client.get('/apisvc/controllers/{0}'.format(target))
+    return value, key
+
+
+# ===================================== #
+#                                       #
 # ring management                       #
 #                                       #
 # ===================================== #
