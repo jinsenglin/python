@@ -109,7 +109,7 @@ class Manager(object):
         k8s_controller = self._fbi_mgr.get_controller('k8s')
         os_controller = self._fbi_mgr.get_controller('os')
 
-        k8s_credential = util.native_k8s_user_object_to_ring_credential(k8s_controller=k8s_controller, k8s_user=k8s_user)
+        k8s_credential = util.native_k8s_user_object_to_ring_credential(k8s_controller=k8s_controller, k8s_user=k8s_user, k8s_ns=tenant_id)
         os_credential = util.native_os_user_object_to_ring_credential(os_controller=os_controller, os_user=os_user)
 
         ring = self._fbi_mgr.create_ring(ring_type=ring_type,

@@ -19,7 +19,9 @@ class Manager(object):
 
     def create_os_user(self, tenant_id, account_id):
         return shell.proxy_openstack(os_credential_path=self._os_credential_path,
-                                     script_args=['user', 'create', '--project', tenant_id, account_id])
+                                     script_args=['user', 'create',
+                                                  '--project', tenant_id,
+                                                  '--password', 'pass', account_id])
 
     def create_k8s_user(self, tenant_id, account_id):
         return self.new_k8s_user_cert(username=account_id)

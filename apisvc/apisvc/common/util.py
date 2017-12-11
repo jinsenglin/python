@@ -11,12 +11,13 @@ from apisvc.common.log import LOGGER
 _tmp_path = CONFIG['APISVC_TMP_PATH']
 
 
-def native_k8s_user_object_to_ring_credential(k8s_controller, k8s_user):
+def native_k8s_user_object_to_ring_credential(k8s_controller, k8s_user, k8s_ns):
     LOGGER.debug('k8s_controller = {0}'.format(k8s_controller))
     LOGGER.debug('k8s_user = {0}'.format(k8s_user))
+    LOGGER.debug('k8s_ns = {0}'.format(k8s_ns))
 
     k8s_controller_yaml = yaml.load(k8s_controller['result'])
-    k8s_controller_yaml['contexts'][0]['context']['namespace'] = 'TODO' # TODO
+    k8s_controller_yaml['contexts'][0]['context']['namespace'] = k8s_ns
     k8s_controller_yaml['users'][0]['user']['client-certificate-data'] = k8s_user['crt'].encode("utf8")
     k8s_controller_yaml['users'][0]['user']['client-key-data'] = k8s_user['key'].encode("utf8")
 
@@ -32,7 +33,7 @@ def native_os_user_object_to_ring_credential(os_controller, os_user):
 
     os_controller_yaml = yaml.load(os_controller['result'])
     os_controller_yaml['clouds']['os']['auth']['username'] = os_user['name'].encode("utf8")
-    os_controller_yaml['clouds']['os']['auth']['password'] = 'TODO' # TODO
+    os_controller_yaml['clouds']['os']['auth']['password'] = 'pass'
     os_controller_yaml['clouds']['os']['auth']['project_name'] = os_user['default_project_id'].encode("utf8")
     os_controller_yaml['clouds']['os']['auth']['project_domain_name'] = os_user['domain_id'].encode("utf8")
     os_controller_yaml['clouds']['os']['auth']['user_domain_name'] = os_user['domain_id'].encode("utf8")
