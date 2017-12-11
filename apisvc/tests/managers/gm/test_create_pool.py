@@ -5,6 +5,10 @@ class TestGmMethods(unittest.TestCase):
     def setUp(self):
         import apisvc
 
+    def tearDown(self):
+        # TODO
+        pass
+
     def test_create_pool(self):
         from apisvc.managers.gm import Manager
         gm = Manager(role='admin', account='0000-0000-0000-0000')

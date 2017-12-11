@@ -5,6 +5,10 @@ class TestFbiMethods(unittest.TestCase):
     def setUp(self):
         import apisvc
 
+    def tearDown(self):
+        # TODO
+        pass
+
     def test_create_ring(self):
         from apisvc.managers.fbi import Manager
         fbi = Manager()
