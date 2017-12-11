@@ -1,27 +1,18 @@
-# Runtime Versions
-
-* python: 2.7.x (My Version: 2.7.11)
-* others: see requirements.txt and bindep.txt
-
-# External Components
-
-* etcd: 3.0.17
-* openstack: keystone v9.1.0 identity v3
-* kubernetes: 1.8.0
-
-# Sources
+# Source
 
 * src home: apisvc
 * entrypoints:
   * `__main__.py`
   * `main.py`
-  * `main_dev.py`
-* chain of responsibility: see SOURCE.md
+* chain of responsibility: see docs/SOURCE.md
 
-# Logs
+# Dependency
 
-* file: /tmp/apisvc.log
-* file: /tmp/apisvc-PID/PID-TID-TS.log
+see docs/DEPENDENCY.md
+
+# Log
+
+see docs/LOG.md
 
 # Setup Development Environment
 
@@ -102,6 +93,7 @@ Start interactive shell
 # start local openstack keystone
 # start local kubernetes
 
+# PROJECT_HOME = .
 cd $PROJECT_HOME
 python
 
@@ -120,6 +112,7 @@ python
 # init local etcd
 # init cache
 
+# PROJECT_HOME = .
 cd $PROJECT_HOME
 python
 
@@ -134,6 +127,7 @@ python
 Start development server (single thread)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME/apisvc
 python main_dev.py
 ``` 
@@ -141,6 +135,7 @@ python main_dev.py
 Start development server (single thread, watch)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME/apisvc
 export FLASK_DEBUG=1
 python main_dev.py
@@ -149,6 +144,7 @@ python main_dev.py
 Start development server (two threads)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME/apisvc
 gunicorn --workers=2 -b 127.0.0.1:5080 main_dev:app
 ```
@@ -156,6 +152,7 @@ gunicorn --workers=2 -b 127.0.0.1:5080 main_dev:app
 Start development server (single thread, production, option1, recommended)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME
 export APISVC_MODE=DEBUG # optional
 python -m apisvc
@@ -164,6 +161,7 @@ python -m apisvc
 Start development server (single thread, production, option2)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME
 python setup.py install
 cd $ANY_DIRECTORY
@@ -177,6 +175,7 @@ python -m apisvc
 Start development server (single thread, production, option3)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME
 python setup.py install
 cd apisvc
@@ -186,6 +185,7 @@ python main.py
 Start development server (single thread, production, option4)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME
 python setup.py install
 cd apisvc
@@ -195,6 +195,7 @@ gunicorn --workers=1 -b 127.0.0.1:5080 main:app
 Start development server (single thread, production, option5)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME
 gunicorn --workers=1 -b 127.0.0.1:5080 apisvc:app
 ```
@@ -202,15 +203,22 @@ gunicorn --workers=1 -b 127.0.0.1:5080 apisvc:app
 Start development server (single thread, production, option6)
 
 ```
+# PROJECT_HOME = .
 cd $PROJECT_HOME
 python setup.py install
 cd $ANY_DIRECTORY
 gunicorn --workers=1 -b 127.0.0.1:5080 apisvc:app
 ```
 
-# Build source distribution
+# Test
+
+see docs/TEST.md
+
+# Build source distribution tarball
 
 ```
+# PROJECT_HOME = .
+
 cd $PROJECT_HOME/scripts
 bash clear-fs-cache.sh
 
@@ -218,48 +226,11 @@ cd $PROJECT_HOME
 python setup.py sdist --formats=gztar
 ```
 
-# PyCharm
+# Setup PyCharm
 
-1. Open PyCharm
-2. Create New Project
-3. Location: apisvc (NOTE not apisvc/apisvc)
-4. Interpreter :: Add Local: apisvc/venv/bin/python2.7
-5. Create :: Yes
+see docs/PyCharm.md
 
-# API References and Examples
 
-* https://python-etcd3.readthedocs.io/en/latest/usage.html#api
-* https://github.com/kubernetes-incubator/client-python/
-* https://github.com/kubernetes-incubator/client-python/blob/master/kubernetes/README.md
-* https://github.com/kubernetes-client/python-base/blob/b7a9f4a07eb39c41e7f813147a419ed0bfecbbd9/config/kube_config.py#L331
-* https://developer.openstack.org/sdks/python/openstacksdk/users/index.html
+# Reference
 
-# Addiontional Resources
-
-* https://github.com/pallets/flask/tree/master/examples/patterns/largerapp
-* https://medium.com/@timburks/openapi-and-grpc-side-by-side-b6afb08f75ed
-* https://www.zopyx.com/andreas-jung/contents/a-python-decorator-for-measuring-the-execution-time-of-methods
-* https://medium.com/pythonhive/python-decorator-to-measure-the-execution-time-of-methods-fa04cb6bb36d
-* http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
-* https://docs.python.org/2/library/logging.html#logging-levels
-* http://flask.pocoo.org/docs/0.12/errorhandling/#logging-to-a-file
-* http://trytofix.github.io/2016/05/05/Flask%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98AssertionError-View-function-mapping-is-overwriting-an-existing-endpoint-function/
-* http://ot-note.logdown.com/posts/67571/-decorator-with-without-arguments-in-function-class-form
-* https://www.thecodeship.com/patterns/guide-to-python-function-decorators/
-* http://flask.pocoo.org/docs/dev/logging/#basic-configuration
-* http://flask.pocoo.org/docs/dev/logging/#removing-the-default-handler
-* http://flask.pocoo.org/docs/0.12/tutorial/setup/
-* https://spacewander.github.io/explore-flask-zh/5-configuration.html
-* http://blog.luisrei.com/articles/flaskrest.html
-* http://codingpy.com/article/customizing-the-flask-response-class/
-* https://docs.python.org/2/library/multiprocessing.html#synchronization-between-processes
-* http://www.bogotobogo.com/python/Multithread/python_multithreading_Synchronization_Lock_Objects_Acquire_Release.php
-* https://pyformat.info/
-* https://pypi.python.org/pypi/fasteners
-* https://redis.io/topics/distlock
-* https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html
-* http://www.infoq.com/cn/articles/how-to-implement-active-high-availability
-* https://github.com/coreos/etcd/blob/master/Documentation/demo.md#distributed-locks
-* flask-swagger vs. flasgger vs. flask-restful-swagger-2 vs. flask-restplus
-* https://blog.aweimeow.tw/2016/09/09/python-subprocess-%E5%90%84%E5%87%BD%E5%BC%8F%E7%9A%84%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F/
-* https://pymotw.com/2/threading/
+see docs/REFERENCE.md
