@@ -13,6 +13,12 @@ CBRAND=$2
 
 # ==============================
 
+for f in MANIFEST.in README.md setup.py
+do
+    sed -i "s/apisvc/$BRAND/g" $f
+    sed -i "s/APISVC/$CBRAND/g" $f
+done
+
 for d in apisvc docs scripts stage-site tests
 do
     find $d -type f ! -path scripts/fork.sh -exec sed -i "s/apisvc/$BRAND/g" '{}' \;
