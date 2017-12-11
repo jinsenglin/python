@@ -2,15 +2,17 @@ import unittest
 
 
 class TestEtcdMethods(unittest.TestCase):
-    def test_get_ca_pem(self):
+    def setUp(self):
         import apisvc
+
+    def test_get_ca_pem(self):
         from apisvc.common.db import etcd as DB
         v, k = DB.get_ca_pem(target='crt')
-        print(v)
-        print(k)
+        self.assertIsNotNone(v)
+
         v, k = DB.get_ca_pem(target='key')
-        print(v)
-        print(k)
+        self.assertIsNotNone(v)
+
 
 if __name__ == '__main__':
     unittest.main()

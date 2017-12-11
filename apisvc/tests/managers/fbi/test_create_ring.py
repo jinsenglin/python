@@ -2,11 +2,14 @@ import unittest
 
 
 class TestFbiMethods(unittest.TestCase):
-    def test_create_ring(self):
+    def setUp(self):
         import apisvc
-        fbi = apisvc.managers.fbi.Manager()
+
+    def test_create_ring(self):
+        from apisvc.managers.fbi import Manager
+        fbi = Manager()
         result = fbi.create_ring(ring_type='tenant', account_id='t01', k8s_credential='dummy', os_credential='dummy')
-        print(result)
+        self.assertIsNotNone(result)
 
 
 if __name__ == '__main__':
