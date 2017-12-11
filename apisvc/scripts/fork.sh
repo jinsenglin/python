@@ -4,7 +4,7 @@ set -e
 
 # Usage: $0 <new name> # e.g., XYZ
 
-if [ $# -lt 1 ]; then
+if [ $# -lt 2 ]; then
     echo "Usage: $0 <new name> <capital new name> # e.g., xyz XYZ"
     exit 1
 fi
