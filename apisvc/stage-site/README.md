@@ -26,7 +26,7 @@ export APISVC_UT_ENDPOINT=192.168.33.10:5080
 bash ../scripts/unit-test-via-curl.sh
 ```
 
-# Docker container
+# Docker container (WIP)
 
 ```
 bash sync-data.sh

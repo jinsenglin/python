@@ -1,6 +1,7 @@
 etcdctl [dev]
 docker [dev]
 minikube [dev]
+vagrant [stage]
 
 kubectl
 
