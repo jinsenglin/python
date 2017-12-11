@@ -111,3 +111,19 @@ More about relations among packages `routes`, `responses`, `handlers`
 2. If the returned message is of JSON format,
   * message keys are specified in the corresponding response object
   * message values are updated by the corresponding handler object
+
+---
+
+```
+1 gm       /---------------/
+2 cache   /---------------/
+
+1 gm       /---------------/
+2 ninja   /---------------/
+3 shell  /---------------/
+4 .sh   /---------------/
+
+1 gm       /---------------/
+2 fbi     /---------------/
+3 db     /---------------/
+```
