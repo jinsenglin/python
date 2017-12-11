@@ -12,17 +12,32 @@ _tmp_path = CONFIG['APISVC_TMP_PATH']
 
 
 def native_k8s_user_object_to_ring_credential(k8s_controller, k8s_user):
-    # TODO
     LOGGER.debug('k8s_controller = {0}'.format(k8s_controller))
     LOGGER.debug('k8s_user = {0}'.format(k8s_user))
-    return k8s_user
+
+    k8s_controller_yaml = yaml.load(k8s_controller)
+    k8s_controller_yaml['users'][0]['user']['client-certificate-data'] = k8s_user['crt']
+    k8s_controller_yaml['users'][0]['user']['client-key-data'] = k8s_user['key']
+
+    ring_credential = yaml.dump(k8s_controller_yaml)
+
+    return ring_credential
 
 
 def native_os_user_object_to_ring_credential(os_controller, os_user):
-    # TODO
     LOGGER.debug('os_controller = {0}'.format(os_controller))
     LOGGER.debug('os_user = {0}'.format(os_user))
-    return os_user
+
+    os_controller_yaml = yaml.load(os_controller)
+    os_controller_yaml['clouds']['os']['auth']['username'] = os_user['name']
+    os_controller_yaml['clouds']['os']['auth']['password'] = 'TODO' # TODO
+    os_controller_yaml['clouds']['os']['auth']['project_name'] = os_user['default_project_id']
+    os_controller_yaml['clouds']['os']['auth']['project_domain_name'] = os_user['default']
+    os_controller_yaml['clouds']['os']['auth']['user_domain_name'] = os_user['default']
+
+    ring_credential = yaml.dump(os_controller_yaml)
+
+    return ring_credential
 
 
 def get_ptt_string():

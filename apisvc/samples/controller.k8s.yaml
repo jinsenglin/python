@@ -14,5 +14,4 @@ kind: Config
 preferences: {}
 users:
 - name: minikube
-  user:
-    client-key: /Users/cclin/.minikube/client.key
+  user: {}
