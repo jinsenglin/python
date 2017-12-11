@@ -102,37 +102,22 @@ def proxy_openstack(os_credential_path, script_args=[]):
                          script_args=script_args)
 
 
-def new_k8s_user_cert(username, group='system:masters'):
+def new_k8s_user_cert(ca_crt_path, ca_key_path, username, group='system:masters'):
     """
         return None if ca not found
         return None if subprocess exit code is non-zero
         return a dict object if subprocess exit code is zero
     """
 
-    ca_key = CACHE.get_ca_key()
+    data = None
 
-    if ca_key is not None:
-        LOGGER.debug('ca found')
-    else:
-        LOGGER.debug('ca not found')
-        return None
+    script_args = [ca_crt_path, ca_key_path, username, group]
+    stdout = bash(script_name='mk-k8s-user-client-certificate-data.sh', script_args=script_args)
 
-    ca_crt_pem_key, ca_key_pem_key = CACHE.get_ca_pem_keys()
+    if stdout is not None:
+        try:
+            data = json.loads(stdout)
+        except ValueError:
+            LOGGER.critical('failed to run mk-k8s-user-client-certificate-data.sh script due to returned data of invalid json format')
 
-    try:
-        stdout = subprocess.check_output(['bash',
-                                          '{0}/{1}'.format(_shell_path, 'mk-k8s-user-client-certificate-data.sh'),
-                                          _tmp_path,
-                                          ca_crt_pem_key,
-                                          ca_key_pem_key,
-                                          username,
-                                          group], shell=False)
-
-        data = json.loads(stdout)
-        LOGGER.debug('key = {0}'.format(data['key']))
-        LOGGER.debug('crt = {0}'.format(data['crt']))
-        return data
-
-    except subprocess.CalledProcessError:
-        LOGGER.critical('failed to make k8s user client certificate data')
-        return None
+    return data

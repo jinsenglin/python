@@ -16,13 +16,25 @@ class Manager(object):
         # init credential paths
         self._k8s_credential_path, self._os_credential_path = CACHE.get_credential_keys(role=role, account=account)
 
+        # init ca file paths
+        ca_key = CACHE.get_ca_key()
+
+        if ca_key is None:
+            self._ca_crt_path = None
+            self._ca_key_path = None
+            LOGGER.warning('ca not found. some actions can not work properly.')
+        else:
+            self._ca_crt_path, self._ca_key_path = CACHE.get_ca_pem_keys()
+
         # init managers
         self._k8s_mgr = k8s.Manager(credential_path=self._k8s_credential_path)
         self._os_mgr = os.Manager(credential_path=self._os_credential_path)
         self._fbi_mgr = fbi.Manager()
         self._cia_mgr = cia.Manager()
         self._ninja_mgr = ninja.Manager(k8s_credential_path=self._k8s_credential_path,
-                                        os_credential_path=self._os_credential_path)
+                                        os_credential_path=self._os_credential_path,
+                                        ca_crt_path=self._ca_crt_path,
+                                        ca_key_path=self._ca_key_path)
 
     def __str__(self):
         return '{0} {1}'.format(self._role, self._account)
