@@ -48,24 +48,32 @@ to test `apisvc.managers.gm.create_pool` function
 
 ```
 # prerequisites
-# start full fresh development server
+# start local etcd
+# start local openstack keystone
+# start local kubernetes
+# init local etcd
+# init cache
 
 # PROJECT_HOME = .
 
 cd $PROJECT_HOME
 
-python -m unittest tests.managers.gm.create_pool
+python -m unittest tests.managers.gm.test_create_pool
 ```
 
 to test `apisvc.managers.gm.create_ring` function
 
 ```
 # prerequisites
-# start full fresh development server
+# start local etcd
+# start local openstack keystone
+# start local kubernetes
+# init local etcd
+# init cache
 
 # PROJECT_HOME = .
 
 cd $PROJECT_HOME
 
-python -m unittest tests.managers.gm.create_ring
+python -m unittest tests.managers.gm.test_create_ring
 ```

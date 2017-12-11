@@ -15,7 +15,7 @@ def get_ptt_string():
     """
         ptt is short for process-thread-timestamp
     """
-    return '{0}-{1}-{2}'.format(os.getpid(), thread.get_ident(), calendar.timegm(time.gmtime()))
+    return 'apisvc-{0}-{1}-{2}'.format(os.getpid(), thread.get_ident(), calendar.timegm(time.gmtime()))
 
 
 def parse_os_credential_v2(os_credential_path):

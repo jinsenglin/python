@@ -47,4 +47,3 @@ jq -n "{
 [ -f $KEY ] && rm $KEY
 [ -f $CSR ] && rm $CSR
 [ -f $CRT ] && rm $CRT
-[ -f $LOG ] && rm $LOG
