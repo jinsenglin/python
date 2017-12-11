@@ -2,13 +2,24 @@
 
 set -e
 
-# Usage: $0 <new name>
+# Usage: $0 <new name> # e.g., XYZ
 
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <new name>"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <new name> <capital new name> # e.g., xyz XYZ"
     exit 1
 fi
 BRAND=$1
+CBRAND=$2
+
+# ==============================
+
+for d in apisvc docs scripts stage-site tests
+do
+    find $d -type f ! -path scripts/fork.sh -exec sed -i "s/apisvc/$BRAND/g" '{}' \;
+    find $d -type f ! -path scripts/fork.sh -exec sed -i "s/APISVC/$CBRAND/g" '{}' \;
+done
+
+exit 1
 
 # ==============================
 
