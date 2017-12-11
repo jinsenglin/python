@@ -1,7 +1,7 @@
 import unittest
 
 
-class TestStringMethods(unittest.TestCase):
+class TestEtcdMethods(unittest.TestCase):
     def test_get_ca(self):
         import apisvc
         from apisvc.common.db import etcd as DB
