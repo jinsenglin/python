@@ -17,8 +17,8 @@ def native_k8s_user_object_to_ring_credential(k8s_controller, k8s_user):
 
     k8s_controller_yaml = yaml.load(k8s_controller['result'])
     k8s_controller_yaml['contexts'][0]['context']['namespace'] = 'TODO' # TODO
-    k8s_controller_yaml['users'][0]['user']['client-certificate-data'] = k8s_user['crt']
-    k8s_controller_yaml['users'][0]['user']['client-key-data'] = k8s_user['key']
+    k8s_controller_yaml['users'][0]['user']['client-certificate-data'] = k8s_user['crt'].encode("utf8")
+    k8s_controller_yaml['users'][0]['user']['client-key-data'] = k8s_user['key'].encode("utf8")
 
     ring_credential = yaml.dump(k8s_controller_yaml)
     LOGGER.debug('ring_credential = {0}'.format(ring_credential))
@@ -31,11 +31,11 @@ def native_os_user_object_to_ring_credential(os_controller, os_user):
     LOGGER.debug('os_user = {0}'.format(os_user))
 
     os_controller_yaml = yaml.load(os_controller['result'])
-    os_controller_yaml['clouds']['os']['auth']['username'] = os_user['name']
+    os_controller_yaml['clouds']['os']['auth']['username'] = os_user['name'].encode("utf8")
     os_controller_yaml['clouds']['os']['auth']['password'] = 'TODO' # TODO
-    os_controller_yaml['clouds']['os']['auth']['project_name'] = os_user['default_project_id']
-    os_controller_yaml['clouds']['os']['auth']['project_domain_name'] = os_user['domain_id']
-    os_controller_yaml['clouds']['os']['auth']['user_domain_name'] = os_user['domain_id']
+    os_controller_yaml['clouds']['os']['auth']['project_name'] = os_user['default_project_id'].encode("utf8")
+    os_controller_yaml['clouds']['os']['auth']['project_domain_name'] = os_user['domain_id'].encode("utf8")
+    os_controller_yaml['clouds']['os']['auth']['user_domain_name'] = os_user['domain_id'].encode("utf8")
 
     ring_credential = yaml.dump(os_controller_yaml)
     LOGGER.debug('ring_credential = {0}'.format(ring_credential))
