@@ -53,4 +53,7 @@ print_section requirements.txt
 check pip
 check gcc
 
+print_section stage-site
+check vagrant
+
 print_foot

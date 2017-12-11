@@ -11,3 +11,22 @@
 * python: 2.7.x (my version: 2.7.11)
 * others: see requirements.txt, requirements-dev.txt and bindep.txt
 
+## Check dependency (via bindep.txt)
+
+```
+# PROJECT_HOME = .
+
+cd $PROJECT_HOME
+
+LANG=C bindep -f bindep.txt
+```
+
+## Check dependency (via check-bindep.sh)
+
+```
+# PROJECT_HOME = .
+
+cd $PROJECT_HOME/scripts
+
+bash check-bindep.sh
+```
