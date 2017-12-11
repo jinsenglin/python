@@ -43,3 +43,29 @@ cd $PROJECT_HOME
 
 python -m unittest tests.common.db.etcd.test_get_ca
 ```
+
+to test `apisvc.managers.gm.create_pool` function
+
+```
+# prerequisites
+# start full fresh development server
+
+# PROJECT_HOME = .
+
+cd $PROJECT_HOME
+
+python -m unittest tests.managers.gm.create_pool
+```
+
+to test `apisvc.managers.gm.create_ring` function
+
+```
+# prerequisites
+# start full fresh development server
+
+# PROJECT_HOME = .
+
+cd $PROJECT_HOME
+
+python -m unittest tests.managers.gm.create_ring
+```
