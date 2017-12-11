@@ -34,5 +34,8 @@ class Manager(object):
         return {'result': rings}
 
     def create_ring(self, ring_type, account_id, k8s_credential, os_credential):
-        # TODO
-        return {}
+        DB.put_ring_and_credentials(role=ring_type,
+                                    account=account_id,
+                                    credential_k8s=k8s_credential,
+                                    credential_os=os_credential)
+        return {'result': 'ok'}
