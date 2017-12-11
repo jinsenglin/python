@@ -19,6 +19,9 @@ do
     find $d -type f ! -path scripts/fork.sh -exec sed -i "s/APISVC/$CBRAND/g" '{}' \;
 done
 
+mv stage-site/apisvc.service stage-site/$BRAND.service
+mv apisvc $BRAND
+
 exit 1
 
 # ==============================
