@@ -21,6 +21,7 @@ def native_k8s_user_object_to_ring_credential(k8s_controller, k8s_user):
     k8s_controller_yaml['users'][0]['user']['client-key-data'] = k8s_user['key']
 
     ring_credential = yaml.dump(k8s_controller_yaml)
+    LOGGER.debug('ring_credential = {0}'.format(ring_credential))
 
     return ring_credential
 
@@ -37,6 +38,7 @@ def native_os_user_object_to_ring_credential(os_controller, os_user):
     os_controller_yaml['clouds']['os']['auth']['user_domain_name'] = os_user['domain_id']
 
     ring_credential = yaml.dump(os_controller_yaml)
+    LOGGER.debug('ring_credential = {0}'.format(ring_credential))
 
     return ring_credential
 
