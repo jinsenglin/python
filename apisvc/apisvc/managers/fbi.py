@@ -41,4 +41,5 @@ class Manager(object):
         return {'result': 'ok'}
 
     def get_controller(self, target):
-        return DB.get_controller(target=target)
+        controller, _ = DB.get_controller(target=target)
+        return {'result': controller}
