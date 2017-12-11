@@ -6,7 +6,7 @@
 # External Components
 
 * etcd: 3.0.17
-* openstack: >= mitaka (keystone v9.1.0 identity v3)
+* openstack: keystone v9.1.0 identity v3
 * kubernetes: 1.8.0
 
 # Sources
@@ -25,46 +25,72 @@
 
 # Setup Development Environment
 
+Install dependency
+
 ```
 # PROJECT_HOME = .
 cd $PROJECT_HOME
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
+```
+
+Check dependency (via bindep.txt)
+
+```
+# PROJECT_HOME = .
+cd $PROJECT_HOME
 LANG=C bindep -f bindep.txt
 ```
 
-Start local etcd
+Check dependency (via check-bindep.sh)
 
 ```
-export NODE1=127.0.0.1
-
-REGISTRY=quay.io/coreos/etcd
-
-docker run \
-  --rm -d \
-  -p 2379:2379 \
-  -p 2380:2380 \
-  --name etcd ${REGISTRY}:v3.0.17 \
-  /usr/local/bin/etcd \
-  --data-dir=/etcd-data --name node1 \
-  --initial-advertise-peer-urls http://${NODE1}:2380 --listen-peer-urls http://0.0.0.0:2380 \
-  --advertise-client-urls http://${NODE1}:2379 --listen-client-urls http://0.0.0.0:2379 \
-  --initial-cluster node1=http://${NODE1}:2380
-
-cd $PROJECT_HOME/scripts && bash init-etcd-for-dev.sh # optional
-cd $PROJECT_HOME/scripts && bash init-fs-cache-for-dev.sh # optional
+# PROJECT_HOME = .
+cd $PROJECT_HOME/scripts
+bash check-bindep.sh
 ```
 
-Start local openstack keystone
+
+Start local etcd (via docker)
 
 ```
-docker run --rm -d -p 5000:5000 -p 35357:35357 --name os-keystone -e HOSTNAME=127.0.0.1 stephenhsu/keystone:9.1.0
+# PROJECT_HOME = .
+cd $PROJECT_HOME/scripts
+bash bring-up-local-etcd.sh
 ```
 
-Start local kubernetes
+Init local etcd
 
 ```
-minikube start --kubernetes-version=v1.8.0 --bootstrapper kubeadm
+# PROJECT_HOME = .
+cd $PROJECT_HOME/scripts
+bash init-etcd-db-for-dev.sh
+```
+
+Init cache
+
+```
+# PROJECT_HOME = .
+cd $PROJECT_HOME/scripts
+bash clear-fs-cache.sh
+bash init-fs-cache-for-dev.sh
+```
+
+
+Start local openstack keystone (via docker)
+
+```
+# PROJECT_HOME = .
+cd $PROJECT_HOME/scripts
+bash bring-up-local-os-keystone.sh
+```
+
+Start local kubernetes (via minikube)
+
+```
+# PROJECT_HOME = .
+cd $PROJECT_HOME/scripts
+bash bring-up-local-k8s.sh
 ```
 
 Start interactive shell
@@ -72,6 +98,7 @@ Start interactive shell
 ```
 # Example 1 - debug shell
 
+# prerequisites
 # start local openstack keystone
 # start local kubernetes
 
@@ -86,6 +113,7 @@ python
 
 # Example 2 - debug gm
 
+# prerequisites
 # start local etcd
 # start local openstack keystone
 # start local kubernetes
