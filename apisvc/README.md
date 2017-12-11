@@ -41,7 +41,6 @@ cd $PROJECT_HOME/scripts
 bash check-bindep.sh
 ```
 
-
 Start local etcd (via docker)
 
 ```
@@ -67,7 +66,6 @@ bash clear-fs-cache.sh
 bash init-fs-cache-for-dev.sh
 ```
 
-
 Start local openstack keystone (via docker)
 
 ```
@@ -82,46 +80,6 @@ Start local kubernetes (via minikube)
 # PROJECT_HOME = .
 cd $PROJECT_HOME/scripts
 bash bring-up-local-k8s.sh
-```
-
-Start interactive shell
-
-```
-# Example 1 - debug shell
-
-# prerequisites
-# start local openstack keystone
-# start local kubernetes
-
-# PROJECT_HOME = .
-cd $PROJECT_HOME
-python
-
->>> import apisvc
->>> apisvc.common.shell.ls_all_k8s_namespaces('samples/0000-0000-0000-0000.k8s.yaml')
->>> apisvc.common.shell.ls_all_os_projects('samples/0000-0000-0000-0000.os.yaml')
->>> apisvc.common.shell.proxy_kubectl('samples/0000-0000-0000-0000.k8s.yaml', ['get', 'ns'])
->>> apisvc.common.shell.proxy_openstack('samples/0000-0000-0000-0000.os.yaml', ['project', 'list'])
-
-# Example 2 - debug gm
-
-# prerequisites
-# start local etcd
-# start local openstack keystone
-# start local kubernetes
-# init local etcd
-# init cache
-
-# PROJECT_HOME = .
-cd $PROJECT_HOME
-python
-
->>> import apisvc
->>> gm = apisvc.managers.gm.Manager(role='admin', account='0000-0000-0000-0000')
->>> gm.get_nodes(node_filter='all')
->>> gm.get_pools()
->>> gm.get_rings(ring_filter='all')
->>> gm.create_pool(tenant_id='t1')
 ```
 
 Start development server (single thread)
@@ -213,6 +171,10 @@ gunicorn --workers=1 -b 127.0.0.1:5080 apisvc:app
 # Test
 
 see docs/TEST.md
+
+# Debug
+
+see docs/DEBUG.md
 
 # Build source distribution tarball
 
