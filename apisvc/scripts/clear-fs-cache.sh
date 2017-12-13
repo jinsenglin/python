@@ -3,13 +3,13 @@
 set -e
 
 echo "$(date) | INFO | clearing ../apisvc/cache/ca "
-rm -rf ../apisvc/cache/ca              # do not keep ca/
+[ -d ../apisvc/cache/ca ] && rm -rf ../apisvc/cache/ca              # do not keep ca/
 
 echo "$(date) | INFO | clearing ../apisvc/cache/rings/admin/* "
-rm -rf ../apisvc/cache/rings/admin/*   # keep rings/admin/
+find ../apisvc/cache/rings/admin -type d -maxdepth 1 -mindepth 1 -exec rm -rf {} \; # keep rings/admin/
 
 echo "$(date) | INFO | clearing ../apisvc/cache/rings/tenant/* "
-rm -rf ../apisvc/cache/rings/tenant/*  # keep rings/tenant/
+find ../apisvc/cache/rings/tenant -type d -maxdepth 1 -mindepth 1 -exec rm -rf {} \; # keep rings/tenant/
 
 echo "$(date) | INFO | clearing ../apisvc/cache/rings/user/* "
-rm -rf ../apisvc/cache/rings/user/*    # keep rings/user/
+find ../apisvc/cache/rings/user -type d -maxdepth 1 -mindepth 1 -exec rm -rf {} \; # keep rings/user/

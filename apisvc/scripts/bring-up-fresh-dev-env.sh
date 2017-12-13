@@ -11,6 +11,7 @@
 set -e
 
 APISVC_DEV_WORKERS=${APISVC_DEV_WORKERS:-"1"}
+SCRIPT_HOME=$PWD
 
 if [ $# -eq 0 ]; then
     MODE=PART
@@ -34,6 +35,15 @@ function clean_up {
         echo "$(date) | INFO | shutting down minikube"
         minikube delete
     fi
+
+    echo "$(date) | INFO | clearing file-system cache"
+    cd $SCRIPT_HOME
+    bash clear-fs-cache.sh
+
+    echo "$(date) | INFO | clearing lock files and log files and tmp files"
+    [ -f /tmp/apisvc.log ] && rm  /tmp/apisvc.log
+    [ -f /tmp/apisvc.lock ] && rm  /tmp/apisvc.lock
+    for tmp in $(find /tmp/ -type d -name "apisvc-*"); do rm -rf $tmp; done
 
     echo "$(date) | INFO | cleaned"
     exit
