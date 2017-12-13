@@ -26,12 +26,12 @@ export APISVC_UT_ENDPOINT=192.168.33.10:5080
 bash ../scripts/unit-test-via-curl.sh
 ```
 
-# Docker container (WIP)
+# Docker container
 
 ```
 bash sync-data.sh
 docker build --rm -t local/apisvc .
-docker run --privileged -dti -p 80:80 --name apisvc local/apisvc
-docker run --privileged -dti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 --name apisvc local/apisvc
+docker run --rm --privileged -dti -p 5080:5080 --name apisvc local/apisvc
 
+# docker run --rm --privileged -dti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 -p 5080:5080 --name apisvc local/apisvc
 ```
