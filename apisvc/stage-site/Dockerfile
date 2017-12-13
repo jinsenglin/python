@@ -34,7 +34,7 @@ RUN pip install -r /vagrant/data/requirements.txt && \
     curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/bin
 
 # copy apisvc release
-COPY data/* /vagrant/data/*
+COPY data/* /vagrant/data/
 
 # install apisvc
 # install apisvc systemd service unit
