@@ -34,15 +34,17 @@ bash sync-data.sh
 docker build --rm -t local/apisvc .
 
 # boostrap
-docker run --rm --privileged -dti -p 5080:5080 --name apisvc local/apisvc
+docker network create --subnet=172.18.0.0/16 mynet
+
+export APISVC_DB_HOST=172.18.0.11
+bash ../scripts/bring-up-local-etcd.sh
+
+export APISVC_OS_HOST=172.18.0.12
+bash ../scripts/bring-up-local-os-keystone.sh
+
+docker run --rm --privileged -dti -p 5080:5080 --name apisvc --net mynet --link etcd:etcd --link os-keystone:os-keystone local/apisvc
 
 # runt tests
-export APISVC_OS_HOST=172.17.0.1
-bash ../scripts/bring-up-local-os-keystone.sh
-
-export APISVC_DB_HOST=172.17.0.1
-bash ../scripts/bring-up-local-os-keystone.sh
-
 bash ../scripts/unit-test-via-curl.sh
 
 # docker run --rm --privileged -dti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 -p 5080:5080 --name apisvc local/apisvc
