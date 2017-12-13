@@ -76,11 +76,18 @@ def check_body_against_in_message(in_message):
         def wrapper(*args, **kwargs):
             LOGGER.debug('checking body content ... ')
 
-            body_content = request.get_json()
+            body_content = None
+            try:
+                body_content = request.get_json()
+            except Exception as e:
+                LOGGER.warn('aborting bad request due to invalid json body content present')
+                abort(400)
+
             if body_content is None:
                 body_content = {}
 
             if all(k in body_content for k, v in in_message.iteritems() if v is None):
+                LOGGER.debug('checked body content ... ')
                 in_message.update(body_content)
                 kwargs['apisvc_in_message'] = in_message
                 result = fn(*args, **kwargs)

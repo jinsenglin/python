@@ -61,10 +61,10 @@ function node() {
     curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{"roles": ["compute"]}' | jq '.'
 
     echo "$(date) | INFO | PUT /$APISVC_UT_VERSION/admin/node | switch compute node from os to k8s"
-    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"role": "compute", action: "from_os_to_k8s"}' | jq '.'
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"role": "compute", "action": "from_os_to_k8s"}' | jq '.'
 
     echo "$(date) | INFO | PUT /$APISVC_UT_VERSION/admin/node | switch compute node from k8s to os"
-    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"role": "compute", action: "from_k8s_to_os"}' | jq '.'
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"role": "compute", "action": "from_k8s_to_os"}' | jq '.'
 }
 
 function pools() {

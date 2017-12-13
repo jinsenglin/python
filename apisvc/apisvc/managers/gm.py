@@ -1,3 +1,4 @@
+import yaml
 from apisvc.common import util
 from apisvc.common.cache import fs as CACHE
 from apisvc.managers import k8s
@@ -55,6 +56,7 @@ class Manager(object):
     def update_node(self, node_id, node_role, node_action):
         if node_role == 'compute' and node_action in ['from_os_to_k8s', 'from_k8s_to_os']:
             node = self._fbi_mgr.get_node(node_id=node_id, node_roles=['compute'])
+            node = yaml.load(node['result']['compute'])
             if node_action == 'from_os_to_k8s':
                 return self._cia_mgr.switch_compute_node_from_os_to_k8s(node=node)
             else:

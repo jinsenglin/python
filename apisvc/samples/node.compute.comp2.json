@@ -1,4 +1,4 @@
 {
   "status": "UNKNOWN",
-  "mgmt_endpoint": "http://localhost:5080/mock/comp2/"
+  "mgmt_endpoint": "http://localhost:5080/mock/comp2"
 }
