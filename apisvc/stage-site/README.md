@@ -44,6 +44,11 @@ bash ../scripts/bring-up-local-os-keystone.sh
 
 docker run --rm --privileged -dti -p 5080:5080 --name apisvc --net mynet --link etcd:etcd --link os-keystone:os-keystone local/apisvc
 
+# TODO init etcd and update systemd service unit
+# - change samples/controller.os.yaml   : 127.0.0.1 -> os-keystone
+# - change samples/0-0-0-0.os.yaml      : 127.0.0.1 -> os-keystone
+# - change stage-site/apisvc.service    : 127.0.0.1 -> etcd
+
 # runt tests
 bash ../scripts/unit-test-via-curl.sh
 
