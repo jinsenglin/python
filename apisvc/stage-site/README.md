@@ -26,6 +26,10 @@ bash ../scripts/bring-up-local-k8s.sh
 
 export APISVC_UT_ENDPOINT=192.168.33.10:5080
 bash ../scripts/unit-test-via-curl.sh
+bash ../scripts/unit-test-via-curl.sh apis
+bash ../scripts/unit-test-via-curl.sh nodes
+bash ../scripts/unit-test-via-curl.sh pools
+bash ../scripts/unit-test-via-curl.sh rings
 ```
 
 # Docker container
@@ -44,8 +48,6 @@ bash ../scripts/bring-up-local-etcd.sh
 export APISVC_OS_HOST=172.18.0.12
 bash ../scripts/bring-up-local-os-keystone.sh
 
-bash ../scripts/bring-up-local-k8s.sh
-
 docker run --rm --privileged -dti -p 5080:5080 --name apisvc --net mynet --link etcd:etcd --link os-keystone:os-keystone local/apisvc
 
 # access
@@ -62,7 +64,11 @@ curl http://127.0.0.1:5080/v2/admin/healthz
 #:: docker exec apisvc systemctl daemon-reload
 #:: docker exec apisvc systemctl restart apisvc
 
-bash ../scripts/unit-test-via-curl.sh
+bash ../scripts/bring-up-local-k8s.sh
 
-# docker run --rm --privileged -dti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 -p 5080:5080 --name apisvc local/apisvc
+bash ../scripts/unit-test-via-curl.sh
+bash ../scripts/unit-test-via-curl.sh apis
+bash ../scripts/unit-test-via-curl.sh nodes
+bash ../scripts/unit-test-via-curl.sh pools
+bash ../scripts/unit-test-via-curl.sh rings
 ```
