@@ -8,7 +8,8 @@
   <body>
     <div id="diagram"></div>
       <script>
-        var res = "POST /v2/admin/pools";
+        var browser = "browser";
+        var res = "/v2/admin/pools";
         var handler = "apisvc.handlers.v2.admin.pools";
         var manager = "apisvc.managers.gm";
         var ninja = "native api"; // "apisvc.managers.ninja";
@@ -16,7 +17,8 @@
         var fbi = "db" ; // "apisvc.managers.fbi";
         var util = "apisvc.common.util";
 
-        var data = res + "->" + handler + ": post()";
+        var data = browser + "->" + res + ": POST";
+        data += "\n" + res + "->" + handler + ": post()";
         data += "\n" + handler + "->" + manager + ": create_pool()"
         data += "\n" + manager + "->" + ninja + ": create_k8s_namespace() commit 1"
         data += "\n" + ninja + "->" + manager + ": Message 1"
@@ -40,6 +42,7 @@
         data += "\n" + gm + "->" + manager + ": Message 10"
         data += "\n" + manager + "->" + handler + ": Message 11"
         data += "\n" + handler + "->" + res + ": Message 12"
+        data += "\n" + res + "->" + browser + ": Message 13"
         var diagram = Diagram.parse(data);
         //diagram.drawSVG("diagram", {theme: 'hand'});
         diagram.drawSVG("diagram", {theme: 'simple'});
