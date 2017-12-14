@@ -39,3 +39,4 @@
 * https://pymotw.com/2/threading/
 * http://blog.aaronboman.com/programming/testing/2016/02/11/how-to-write-tests-in-python-project-structure/
 * http://web.archive.org/web/20131017130434/http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
+* https://stackoverflow.com/questions/14814201/can-i-serve-multiple-clients-using-just-flask-app-run-as-standalone

@@ -5,6 +5,14 @@ app = Flask(__name__)
 def root():
     return "GET /"
 
+@app.route("/ptt")
+def ptt():
+    import thread
+    import os
+    import calendar
+    import time
+    return '{0}-{1}-{2}'.format(os.getpid(), thread.get_ident(), calendar.timegm(time.gmtime()))
+
 @app.route("/log")
 def log():
     app.logger.debug('This is log of level debug')
@@ -154,3 +162,5 @@ if __name__ == "__main__":
     """
 
     app.run()
+    #app.run(processes=3)
+    #app.run(threaded=True)
