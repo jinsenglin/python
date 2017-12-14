@@ -127,10 +127,9 @@ class Manager(object):
 
     def create_ring(self, tenant_id, account_id, ring_type):
         os_user = self._ninja_mgr.create_os_user(tenant_id=tenant_id, account_id=account_id)
-        #self._put_rollback('rescuer3')
+        self._put_rollback(self._ninja_mgr.delete_os_user, account_id=account_id)
 
         k8s_user = self._ninja_mgr.create_k8s_user(tenant_id=tenant_id, account_id=account_id)
-        #self._put_rollback(None)
 
         k8s_controller = self._fbi_mgr.get_controller('k8s')
         os_controller = self._fbi_mgr.get_controller('os')

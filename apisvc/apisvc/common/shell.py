@@ -57,11 +57,14 @@ def run_os_script(os_credential_path, script_name, script_args=[], output_format
         extended_script_args = [auth_url, username, password, project_name, project_domain_name, user_domain_name] + script_args + output_format
         stdout = bash(script_name=script_name, script_args=extended_script_args)
 
-        if stdout is not None and output_format[1] == 'json':
-            try:
-                data = json.loads(stdout)
-            except ValueError:
-                LOGGER.critical('failed to run os script due to returned data of invalid json format')
+        if stdout is not None:
+            if len(output_format) > 1 and output_format[1] == 'json':
+                try:
+                    data = json.loads(stdout)
+                except ValueError:
+                    LOGGER.critical('failed to run os script due to returned data of invalid json format')
+            else:
+                data = stdout
 
     else:
         LOGGER.error('failed to run os script due to invalid credential present')
@@ -75,11 +78,14 @@ def run_k8s_script(k8s_credential_path, script_name, script_args=[], output_form
     extended_script_args = [k8s_credential_path] + script_args + output_format
     stdout = bash(script_name=script_name, script_args=extended_script_args)
 
-    if stdout is not None and output_format[1] == 'json':
-        try:
-            data = json.loads(stdout)
-        except ValueError:
-            LOGGER.critical('failed to run k8s script due to invalid json format')
+    if stdout is not None:
+        if len(output_format) > 1 and output_format[1] == 'json':
+            try:
+                data = json.loads(stdout)
+            except ValueError:
+                LOGGER.critical('failed to run k8s script due to invalid json format')
+        else:
+            data = stdout
 
     return data
 
