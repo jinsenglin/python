@@ -1,0 +1,16 @@
+*.swp
+*.pyc
+
+# python virtual environment
+venv/
+
+# vagrant
+.vagrant/
+
+# distutils and/or setuptools
+apisvc.egg-info/
+build/
+dist/
+
+# pycharm
+.idea/
