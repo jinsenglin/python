@@ -5,7 +5,7 @@
 # - jq
 
 # sample usage
-# bash $0 /tmp http://127.0.0.1:35357/v3/ admin passw0rd admin default default
+# bash $0 /tmp http://127.0.0.1:35357/v3/ admin passw0rd admin default default -f json
 
 set -x
 set -e
@@ -27,8 +27,12 @@ exec 3>&1
 exec 1>&2
 
 # main
-openstack $@ -f json > $DATA
-jq '.' $DATA >&3
+openstack $@ > $DATA
+if [[ "$@" == *" -f json" ]]; then
+    jq '.' $DATA >&3
+else
+    cat $DATA >&3
+fi
 
 # clean up
 [ -f $DATA ] && rm $DATA

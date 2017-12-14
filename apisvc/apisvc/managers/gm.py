@@ -96,7 +96,7 @@ class Manager(object):
         self._put_rollback(self._ninja_mgr.delete_k8s_namespace, tenant_id=tenant_id)
 
         os_project = self._ninja_mgr.create_os_project(tenant_id=tenant_id)
-        #self._put_rollback('rescuer2')
+        self._put_rollback(self._ninja_mgr.delete_os_project, tenant_id=tenant_id)
 
         self.create_ring(tenant_id=tenant_id, account_id=tenant_id, ring_type='tenant')
 

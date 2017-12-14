@@ -47,7 +47,7 @@ def bash(script_name, script_args=[]):
     return stdout
 
 
-def run_os_script(os_credential_path, script_name, script_args=[]):
+def run_os_script(os_credential_path, script_name, script_args=[], output_format=['-f', 'json']):
     data = None
 
     auth_url, username, password, project_name, project_domain_name, user_domain_name = util.parse_os_credential_v3(os_credential_path)
@@ -57,7 +57,7 @@ def run_os_script(os_credential_path, script_name, script_args=[]):
         extended_script_args = [auth_url, username, password, project_name, project_domain_name, user_domain_name] + script_args
         stdout = bash(script_name=script_name, script_args=extended_script_args)
 
-        if stdout is not None:
+        if stdout is not None and output_format[1] == 'json':
             try:
                 data = json.loads(stdout)
             except ValueError:
@@ -99,10 +99,11 @@ def proxy_kubectl(k8s_credential_path, script_args=[], output_format=['-o', 'jso
                           output_format=output_format)
 
 
-def proxy_openstack(os_credential_path, script_args=[]):
+def proxy_openstack(os_credential_path, script_args=[], output_format=['-f', 'json']):
     return run_os_script(os_credential_path=os_credential_path,
                          script_name='proxy-openstack.sh',
-                         script_args=script_args)
+                         script_args=script_args,
+                         output_format=output_format)
 
 
 def new_k8s_user_cert(ca_crt_path, ca_key_path, username, group='system:masters'):

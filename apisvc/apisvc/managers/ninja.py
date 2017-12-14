@@ -24,7 +24,8 @@ class Manager(object):
 
     def delete_os_project(self, tenant_id):
         return shell.proxy_openstack(os_credential_path=self._os_credential_path,
-                                     script_args=['project', 'delete', tenant_id])
+                                     script_args=['project', 'delete', tenant_id],
+                                     output_format=[])
 
     def create_os_user(self, tenant_id, account_id):
         return shell.proxy_openstack(os_credential_path=self._os_credential_path,
