@@ -17,6 +17,7 @@ class Pools(object):
 
         # delegate to manager
         result = manager.create_pool(tenant_id=tenant_id)
+        manager.rollback_if_needed()
 
         # TODO may process result
 

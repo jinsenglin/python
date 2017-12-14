@@ -12,6 +12,7 @@ from apisvc.common.log import LOGGER
 class Manager(object):
     def __init__(self, role=None, account=None):
         # init rollback stacks
+        self._rollback_needed = False
         self._rollback_stack = []
         self._rollback_kwargs_stack = []
 
@@ -57,6 +58,10 @@ class Manager(object):
             LOGGER.debug('issuing rollback {0}'.format(rollback))
             rollback(**rollback_kwargs)
 
+    def rollback_if_needed(self):
+        if self._rollback_needed:
+            self._rollback()
+
 
     # ===================================== #
     #                                       #
@@ -92,15 +97,17 @@ class Manager(object):
         return self._fbi_mgr.get_rings(ring_filter='tenant')
 
     def create_pool(self, tenant_id):
+        # create k8s ns
         k8s_namespace = self._ninja_mgr.create_k8s_namespace(tenant_id=tenant_id)
         self._put_rollback(self._ninja_mgr.delete_k8s_namespace, tenant_id=tenant_id)
 
+        # create os project
         os_project = self._ninja_mgr.create_os_project(tenant_id=tenant_id)
         self._put_rollback(self._ninja_mgr.delete_os_project, tenant_id=tenant_id)
 
+        # create ring
         self.create_ring(tenant_id=tenant_id, account_id=tenant_id, ring_type='tenant')
 
-        self._rollback()
         return {'result': {'k8s_namespace': k8s_namespace,
                            'os_project': os_project}}
 
@@ -126,11 +133,14 @@ class Manager(object):
         return self._fbi_mgr.get_rings(ring_filter=ring_filter)
 
     def create_ring(self, tenant_id, account_id, ring_type):
+        # create os user
         os_user = self._ninja_mgr.create_os_user(tenant_id=tenant_id, account_id=account_id)
         self._put_rollback(self._ninja_mgr.delete_os_user, account_id=account_id)
 
+        # create k8s user
         k8s_user = self._ninja_mgr.create_k8s_user(tenant_id=tenant_id, account_id=account_id)
 
+        # create ring
         k8s_controller = self._fbi_mgr.get_controller('k8s')
         os_controller = self._fbi_mgr.get_controller('os')
 
