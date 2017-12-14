@@ -11,8 +11,9 @@ from apisvc.common.log import LOGGER
 
 class Manager(object):
     def __init__(self, role=None, account=None):
-        # init rollback stack
+        # init rollback stacks
         self._rollback_stack = []
+        self._rollback_kwargs_stack = []
 
         # init identity
         self._role = role
@@ -44,13 +45,17 @@ class Manager(object):
     def __str__(self):
         return '{0} {1}'.format(self._role, self._account)
 
-    def _put_rollback(self, rollback):
+    def _put_rollback(self, rollback, **rollback_kwargs):
         self._rollback_stack.append(rollback)
+        self._rollback_kwargs_stack.append(rollback_kwargs)
 
     def _rollback(self):
         while len(self._rollback_stack) > 0:
             rollback = self._rollback_stack.pop()
-            LOGGER.debug('poped rollback = {0}'.format(rollback))
+            rollback_kwargs = self._rollback_kwargs_stack.pop()
+
+            LOGGER.debug('issuing rollback {0}'.format(rollback))
+            rollback(**rollback_kwargs)
 
 
     # ===================================== #
@@ -88,10 +93,10 @@ class Manager(object):
 
     def create_pool(self, tenant_id):
         k8s_namespace = self._ninja_mgr.create_k8s_namespace(tenant_id=tenant_id)
-        self._put_rollback('rescuer1')
+        self._put_rollback(self._ninja_mgr.delete_k8s_namespace, tenant_id=tenant_id)
 
         os_project = self._ninja_mgr.create_os_project(tenant_id=tenant_id)
-        self._put_rollback('rescuer2')
+        #self._put_rollback('rescuer2')
 
         self.create_ring(tenant_id=tenant_id, account_id=tenant_id, ring_type='tenant')
 
@@ -122,10 +127,10 @@ class Manager(object):
 
     def create_ring(self, tenant_id, account_id, ring_type):
         os_user = self._ninja_mgr.create_os_user(tenant_id=tenant_id, account_id=account_id)
-        self._put_rollback('rescuer3')
+        #self._put_rollback('rescuer3')
 
         k8s_user = self._ninja_mgr.create_k8s_user(tenant_id=tenant_id, account_id=account_id)
-        self._put_rollback(None)
+        #self._put_rollback(None)
 
         k8s_controller = self._fbi_mgr.get_controller('k8s')
         os_controller = self._fbi_mgr.get_controller('os')
@@ -137,7 +142,7 @@ class Manager(object):
                                          account_id=account_id,
                                          k8s_credential=k8s_credential,
                                          os_credential=os_credential)
-        self._put_rollback('rescuer4')
+        #self._put_rollback('rescuer4')
 
         return {'result': {'os_user': os_user, 'k8s_user': k8s_user, 'ring': ring}}
 
