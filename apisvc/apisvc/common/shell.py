@@ -69,10 +69,10 @@ def run_os_script(os_credential_path, script_name, script_args=[]):
     return data
 
 
-def run_k8s_script(k8s_credential_path, script_name, script_args=[]):
+def run_k8s_script(k8s_credential_path, script_name, script_args=[], output_format=['-o', 'json']):
     data = None
 
-    extended_script_args = [k8s_credential_path] + script_args
+    extended_script_args = [k8s_credential_path] + script_args + output_format
     stdout = bash(script_name=script_name, script_args=extended_script_args)
 
     if stdout is not None:
@@ -92,10 +92,11 @@ def ls_all_os_projects(os_credential_path):
     return run_os_script(os_credential_path=os_credential_path, script_name='ls-all-os-projects.sh')
 
 
-def proxy_kubectl(k8s_credential_path, script_args=[]):
+def proxy_kubectl(k8s_credential_path, script_args=[], output_format=['-o', 'json']):
     return run_k8s_script(k8s_credential_path=k8s_credential_path,
-                         script_name='proxy-kubectl.sh',
-                         script_args=script_args)
+                          script_name='proxy-kubectl.sh',
+                          script_args=script_args,
+                          output_format=output_format)
 
 
 def proxy_openstack(os_credential_path, script_args=[]):

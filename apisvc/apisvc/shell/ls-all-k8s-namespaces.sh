@@ -5,7 +5,7 @@
 # - jq
 
 # sample usage
-# bash $0 /tmp ../../samples/0000-0000-0000-0000.k8s.yaml
+# bash $0 /tmp ../../samples/0000-0000-0000-0000.k8s.yaml -o json
 
 set -x
 set -e
@@ -23,7 +23,7 @@ exec 3>&1
 exec 1>&2
 
 # main
-kubectl --kubeconfig=$KUBECONFIG get ns -o json > $DATA
+kubectl --kubeconfig=$KUBECONFIG get ns $@ > $DATA
 jq '.items' $DATA >&3
 
 # clean up
