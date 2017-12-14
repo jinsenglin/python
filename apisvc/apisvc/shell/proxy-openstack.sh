@@ -18,7 +18,7 @@ export OS_PASSWORD=$1; shift
 export OS_TENANT_NAME=$1; shift
 export OS_PROJECT_DOMAIN_NAME=$1; shift
 export OS_USER_DOMAIN_NAME=$1; shift
-export OS_IDENTITY_API_VERSION=3; shift
+export OS_IDENTITY_API_VERSION=3
 
 # output
 DATA=$TMP/data

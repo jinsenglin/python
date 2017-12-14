@@ -44,6 +44,7 @@ function clean_up {
     [ -f /tmp/apisvc.log ] && rm  /tmp/apisvc.log
     [ -f /tmp/apisvc.lock ] && rm  /tmp/apisvc.lock
     for tmp in $(find /tmp/ -type d -name "apisvc-*"); do rm -rf $tmp; done
+    for tmp in $(find /tmp/ -type f -name "apisvc-*.log"); do rm -f $tmp; done
 
     echo "$(date) | INFO | cleaned"
     exit
@@ -61,6 +62,7 @@ echo "$(date) | INFO | clearing lock files and log files and tmp files"
 [ -f /tmp/apisvc.log ] && rm  /tmp/apisvc.log
 [ -f /tmp/apisvc.lock ] && rm  /tmp/apisvc.lock
 for tmp in $(find /tmp/ -type d -name "apisvc-*"); do rm -rf $tmp; done
+for tmp in $(find /tmp/ -type f -name "apisvc-*.log"); do rm -f $tmp; done
 
 # =========================================================================================
 

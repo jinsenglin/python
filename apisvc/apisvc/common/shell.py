@@ -54,7 +54,7 @@ def run_os_script(os_credential_path, script_name, script_args=[], output_format
 
     if all(v is not None for v in (auth_url, username, password, project_name, project_domain_name, user_domain_name)):
 
-        extended_script_args = [auth_url, username, password, project_name, project_domain_name, user_domain_name] + script_args
+        extended_script_args = [auth_url, username, password, project_name, project_domain_name, user_domain_name] + script_args + output_format
         stdout = bash(script_name=script_name, script_args=extended_script_args)
 
         if stdout is not None and output_format[1] == 'json':
