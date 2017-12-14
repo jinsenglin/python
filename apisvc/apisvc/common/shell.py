@@ -75,7 +75,7 @@ def run_k8s_script(k8s_credential_path, script_name, script_args=[], output_form
     extended_script_args = [k8s_credential_path] + script_args + output_format
     stdout = bash(script_name=script_name, script_args=extended_script_args)
 
-    if stdout is not None:
+    if stdout is not None and output_format[1] == 'json':
         try:
             data = json.loads(stdout)
         except ValueError:
