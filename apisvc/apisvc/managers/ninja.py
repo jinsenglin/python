@@ -13,9 +13,17 @@ class Manager(object):
         return shell.proxy_kubectl(k8s_credential_path=self._k8s_credential_path,
                                    script_args=['create', 'ns', tenant_id])
 
+    def delete_k8s_namespace(self, tenant_id):
+        return shell.proxy_kubectl(k8s_credential_path=self._k8s_credential_path,
+                                   script_args=['delete', 'ns', tenant_id])
+
     def create_os_project(self, tenant_id):
         return shell.proxy_openstack(os_credential_path=self._os_credential_path,
                                      script_args=['project', 'create', tenant_id])
+
+    def delete_os_project(self, tenant_id):
+        return shell.proxy_openstack(os_credential_path=self._os_credential_path,
+                                     script_args=['project', 'delete', tenant_id])
 
     def create_os_user(self, tenant_id, account_id):
         return shell.proxy_openstack(os_credential_path=self._os_credential_path,
