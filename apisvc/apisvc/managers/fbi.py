@@ -40,6 +40,11 @@ class Manager(object):
                                     credential_os=os_credential)
         return {'result': 'ok'}
 
+    def delete_ring(self, ring_type, account_id):
+        DB.del_ring_and_credentials(role=ring_type,
+                                    account=account_id)
+        return {'result': 'ok'}
+
     def get_controller(self, target):
         controller, _ = DB.get_controller(target=target)
         return {'result': controller}

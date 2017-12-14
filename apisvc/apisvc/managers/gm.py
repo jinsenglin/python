@@ -141,7 +141,7 @@ class Manager(object):
                                          account_id=account_id,
                                          k8s_credential=k8s_credential,
                                          os_credential=os_credential)
-        #self._put_rollback('rescuer4')
+        self._put_rollback(self._fbi_mgr.delete_ring, ring_type=ring_type, account_id=account_id)
 
         return {'result': {'os_user': os_user, 'k8s_user': k8s_user, 'ring': ring}}
 

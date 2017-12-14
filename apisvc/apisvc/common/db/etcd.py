@@ -90,3 +90,9 @@ def put_ring_and_credentials(role, account, credential_k8s, credential_os):
     _client.put('/apisvc/rings/{0}/{1}'.format(role, account), 'ok')
     _client.put('/apisvc/rings/{0}/{1}/{2}'.format(role, account, 'k8s'), credential_k8s)
     _client.put('/apisvc/rings/{0}/{1}/{2}'.format(role, account, 'os'), credential_os)
+
+def del_ring_and_credentials(role, account):
+    # TODO use transaction to del account and credentials
+    _client.delete('/apisvc/rings/{0}/{1}'.format(role, account))
+    _client.delete('/apisvc/rings/{0}/{1}/{2}'.format(role, account, 'k8s'))
+    _client.delete('/apisvc/rings/{0}/{1}/{2}'.format(role, account, 'os'))
