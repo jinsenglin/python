@@ -6,8 +6,8 @@ class Manager(object):
     def __init__(self, k8s_credential_path, os_credential_path, ca_crt_path, ca_key_path):
         self._k8s_credential_path = k8s_credential_path
         self._os_credential_path = os_credential_path
-        self._ca_crt_path = ca_crt_path;
-        self._ca_key_path = ca_key_path;
+        self._ca_crt_path = ca_crt_path
+        self._ca_key_path = ca_key_path
 
     def create_k8s_namespace(self, tenant_id):
         return shell.proxy_kubectl(k8s_credential_path=self._k8s_credential_path,

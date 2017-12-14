@@ -13,16 +13,11 @@ set -x
 set -e
 
 # input
-TMP=$1
-shift
-CA_CRT=$1
-shift
-CA_KEY=$1
-shift
-CN=$1
-shift
-O=$1
-shift
+TMP=$1; shift
+CA_CRT=$1; shift
+CA_KEY=$1; shift
+CN=$1; shift
+O=$1; shift
 
 # output
 DATA=$TMP/data

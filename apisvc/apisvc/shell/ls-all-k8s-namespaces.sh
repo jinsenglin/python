@@ -11,10 +11,8 @@ set -x
 set -e
 
 # input
-TMP=$1
-shift
-KUBECONFIG=$1
-shift
+TMP=$1; shift
+KUBECONFIG=$1; shift
 
 # output
 DATA=$TMP/data

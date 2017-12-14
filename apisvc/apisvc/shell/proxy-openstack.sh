@@ -11,21 +11,14 @@ set -x
 set -e
 
 # input
-TMP=$1
-shift
-export OS_AUTH_URL=$1
-shift
-export OS_USERNAME=$1
-shift
-export OS_PASSWORD=$1
-shift
-export OS_TENANT_NAME=$1
-shift
-export OS_PROJECT_DOMAIN_NAME=$1
-shift
-export OS_USER_DOMAIN_NAME=$1
-shift
-export OS_IDENTITY_API_VERSION=3
+TMP=$1; shift
+export OS_AUTH_URL=$1; shift
+export OS_USERNAME=$1; shift
+export OS_PASSWORD=$1; shift
+export OS_TENANT_NAME=$1; shift
+export OS_PROJECT_DOMAIN_NAME=$1; shift
+export OS_USER_DOMAIN_NAME=$1; shift
+export OS_IDENTITY_API_VERSION=3; shift
 
 # output
 DATA=$TMP/data
