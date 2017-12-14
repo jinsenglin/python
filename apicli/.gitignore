@@ -8,7 +8,7 @@ venv/
 .vagrant/
 
 # distutils and/or setuptools
-apisvc.egg-info/
+*.egg-info/
 build/
 dist/
 
