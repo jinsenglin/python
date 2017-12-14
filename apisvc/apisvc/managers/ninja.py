@@ -15,7 +15,8 @@ class Manager(object):
 
     def delete_k8s_namespace(self, tenant_id):
         return shell.proxy_kubectl(k8s_credential_path=self._k8s_credential_path,
-                                   script_args=['delete', 'ns', tenant_id])
+                                   script_args=['delete', 'ns', tenant_id],
+                                   output_format=['-o', 'name'])
 
     def create_os_project(self, tenant_id):
         return shell.proxy_openstack(os_credential_path=self._os_credential_path,

@@ -24,7 +24,11 @@ exec 1>&2
 
 # main
 kubectl --kubeconfig=$KUBECONFIG $@ > $DATA
-jq '.' $DATA >&3
+if [[ "$@" == *" -o json" ]]; then
+    jq '.' $DATA >&3
+else
+    cat $DATA >&3
+fi
 
 # clean up
 [ -f $DATA ] && rm $DATA
