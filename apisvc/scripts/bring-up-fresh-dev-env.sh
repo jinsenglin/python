@@ -73,7 +73,7 @@ bash bring-up-local-os-keystone.sh
 # =========================================================================================
 
 if [ $MODE == FULL ]; then
-    bash bring-up-local-os-keystone.sh
+    bash bring-up-local-k8s.sh
 fi
 
 # =========================================================================================
@@ -88,7 +88,7 @@ bash init-etcd-db-for-dev.sh
 
 if [ $APISVC_DEV_WORKERS -gt 0 ]; then
     echo "$(date) | INFO | bringing up http server"
-    cd ../ && gunicorn --workers=$APISVC_DEV_WORKERS -b 127.0.0.1:5080 apisvc:app
+    cd ../ && gunicorn --workers=$APISVC_DEV_WORKERS -b 127.0.0.1:5080 --timeout 120 apisvc:app
 fi
 
 # =========================================================================================

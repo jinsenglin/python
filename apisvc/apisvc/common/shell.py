@@ -13,6 +13,8 @@ _log_path = CONFIG['APISVC_LOG_PATH']
 
 
 def bash(script_name, script_args=[]):
+    LOGGER.debug('script_name = {0}'.format(script_name))
+
     stdout = None
 
     script_path = '{0}/{1}'.format(_shell_path, script_name)
