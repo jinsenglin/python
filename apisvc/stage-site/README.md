@@ -58,6 +58,8 @@ curl http://127.0.0.1:5080/v2/admin/healthz
 # HACK init etcd and update systemd service unit
 # - change samples/controller.os.yaml   : 127.0.0.1 -> os-keystone
 # - change samples/0-0-0-0.os.yaml      : 127.0.0.1 -> os-keystone
+#:: sed -i 's/127.0.0.1/os-keystone/' ../samples/controller.os.yaml
+#:: sed -i 's/127.0.0.1/os-keystone/' ../samples/0000-0000-0000-0000.os.yaml
 #:: bash ../scripts/init-etcd-db-for-dev.sh
 # - change stage-site/apisvc.service    : 127.0.0.1 -> etcd
 #:: docker exec apisvc sed -i 's/127.0.0.1/etcd/' /usr/lib/systemd/system/apisvc.service
