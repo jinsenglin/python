@@ -118,4 +118,10 @@ function scenarios() {
     curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/rings -H "X-PERSONATE: admin 0000-0000-0000-0000" -X POST -H "Content-Type: application/json" -d '{"tenant_id": "u4", "account_id": "u4"}' | jq '.'
 }
 
+function proxy() {
+    echo "$(date) | INFO | POST /proxy"
+    curl -s http://$APISVC_UT_ENDPOINT/proxy -X POST -H "Content-Type: application/json" -d '{}'
+    
+}
+
 $CMD
