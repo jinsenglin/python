@@ -8,5 +8,6 @@ from apisvc.common.audit import audit_anonymous_access
 @timeit
 @audit_anonymous_access
 def proxy():
-    return json.dumps({'status': 200}), \
+    from flask import request
+    return json.dumps({'status': 200, 'data': request.get_json()}), \
            {'Content-Type': 'application/json'}
