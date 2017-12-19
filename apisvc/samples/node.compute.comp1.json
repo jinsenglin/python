@@ -1,4 +1,7 @@
 {
+  "role": "UNKNOWN",
   "status": "UNKNOWN",
-  "mgmt_endpoint": "http://localhost:5080/mock/comp1"
+  "hostname": "UNKNOWN",
+  "mgmt_endpoint": "http://localhost:5080/mock/comp1",
+  "last_modified": "1513664303"
 }
