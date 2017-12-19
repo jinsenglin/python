@@ -120,7 +120,7 @@ function scenarios() {
 
 function proxy() {
     echo "$(date) | INFO | POST /proxy"
-    curl -s http://$APISVC_UT_ENDPOINT/proxy -X POST -H "Content-Type: application/json" -d '{}'
+    curl -s http://$APISVC_UT_ENDPOINT/proxy -X POST -H "Content-Type: application/json" -d '{}' | jq -r '.data'
     
 }
 
