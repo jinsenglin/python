@@ -2,6 +2,8 @@
 
 set -e
 
+[ -d data ] || mkdir data
+
 # (required)
 cp apisvc.service data/
 cp ../dist/apisvc-1.0.0.tar.gz data/
