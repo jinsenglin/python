@@ -2,7 +2,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Example of nesting parsers')
 
-subparsers = parser.add_subparsers(help='commands')
+subparsers = parser.add_subparsers(help='commands', dest='subparser_name')
 
 # A openstack command
 openstack_parser = subparsers.add_parser('openstack', help='Proxy openstack commands')
