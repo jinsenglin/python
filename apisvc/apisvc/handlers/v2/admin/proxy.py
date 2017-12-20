@@ -1,5 +1,6 @@
 from apisvc.common.log import LOGGER
 
+
 class Proxy(object):
 
     def put(self, manager, in_message, out_message, cmd, *args, **kwargs):
