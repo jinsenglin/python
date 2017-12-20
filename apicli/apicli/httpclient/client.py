@@ -1,9 +1,9 @@
 import requests
 
 
-def put(cmd, arg):
-    url = 'http://localhost:5080/v2/admin/proxy/{0}'.format(cmd)
-    headers = {'X-PERSONATE': 'admin 0000-0000-0000-0000'}
+def put(endpoint, role, user, cmd, arg):
+    url = '{0}/v2/admin/proxy/{1}'.format(endpoint, cmd)
+    headers = {'X-PERSONATE': '{0} {1}'.format(role, user)}
     payload = {'arg': arg.split()}
     result = requests.put(url=url, headers=headers, json=payload)
     print(result.json()['result'])
