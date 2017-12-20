@@ -3,7 +3,7 @@
 set -e
 
 APISVC_OS_HOST=${APISVC_OS_HOST:-127.0.0.1}
-APISVC_OS_HTTPS=${APISVC_OS_HTTPS:-false}
+APISVC_OS_HTTPS=${APISVC_OS_HTTPS:-true}
 
 echo -n "$(date) | INFO | bringing up openstack keystone v9.1.0 (identity v3) "
 
