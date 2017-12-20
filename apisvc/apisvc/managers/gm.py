@@ -62,6 +62,20 @@ class Manager(object):
         if self._rollback_needed:
             self._rollback()
 
+    # ===================================== #
+    #                                       #
+    # proxy                                 #
+    #                                       #
+    # ===================================== #
+
+    def proxy(self, cmd, arg):
+        if cmd == 'openstack':
+            return {'result': self._shellm.proxy_openstack(script_args=arg)}
+        elif cmd == 'kubectl':
+            return {'result': self._shellm.proxy_kubectl(script_args=arg)}
+        else:
+            LOGGER.debug('unsupported command: {0}'.format(cmd))
+            return {'result': ''}
 
     # ===================================== #
     #                                       #

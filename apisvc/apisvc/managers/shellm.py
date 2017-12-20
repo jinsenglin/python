@@ -9,6 +9,16 @@ class Manager(object):
         self._ca_crt_path = ca_crt_path
         self._ca_key_path = ca_key_path
 
+    def proxy_kubectl(self, script_args):
+        return shell.proxy_kubectl(k8s_credential_path=self._k8s_credential_path,
+                                   script_args=script_args,
+                                   output_format=[])
+
+    def proxy_openstack(self, script_args):
+        return shell.proxy_openstack(os_credential_path=self._os_credential_path,
+                                     script_args=script_args,
+                                     output_format=[])
+
     def create_k8s_namespace(self, tenant_id):
         return shell.proxy_kubectl(k8s_credential_path=self._k8s_credential_path,
                                    script_args=['create', 'ns', tenant_id])

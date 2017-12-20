@@ -44,6 +44,7 @@ def bash(script_name, script_args=[]):
     else:
         LOGGER.error('failed to run script due to script file {0} not found'.format(script_path))
 
+    #LOGGER.debug('stdout = {0}'.format(stdout))
     return stdout
 
 

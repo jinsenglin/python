@@ -119,9 +119,16 @@ function scenarios() {
 }
 
 function proxy() {
-    echo "$(date) | INFO | POST /proxy"
-    curl -s http://$APISVC_UT_ENDPOINT/proxy -X POST -H "Content-Type: application/json" -d '{}' | jq -r '.data'
-    
+    echo "$(date) | INFO | PUT /$APISVC_UT_VERSION/admin/proxy/openstack | project list"
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/proxy/openstack -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"arg": ["project", "list"]}' | jq -r '.result'
+    echo "$(date) | INFO | PUT /$APISVC_UT_VERSION/admin/proxy/openstack | project list -f json"
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/proxy/openstack -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"arg": ["project", "list", "-f", "json"]}' | jq -r '.result'
+    echo "$(date) | INFO | PUT /$APISVC_UT_VERSION/admin/proxy/kubectl | get ns"
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/proxy/kubectl -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"arg": ["get", "ns"]}' | jq -r '.result'
+    echo "$(date) | INFO | PUT /$APISVC_UT_VERSION/admin/proxy/kubectl | get ns -o json"
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/proxy/kubectl -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"arg": ["get", "ns", "-o", "json"]}' | jq -r '.result'
+    echo "$(date) | INFO | PUT /$APISVC_UT_VERSION/admin/proxy/kubectl | get ns -o yaml"
+    curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/proxy/kubectl -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"arg": ["get", "ns", "-o", "yaml"]}' | jq -r '.result'
 }
 
 $CMD

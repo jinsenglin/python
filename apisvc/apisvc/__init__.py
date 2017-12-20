@@ -52,7 +52,7 @@ app.config['APISVC_TMP_PATH_PROC_WIDE'] = os.path.join(app.config['APISVC_TMP_PA
 
 handler = RotatingFileHandler(app.config['APISVC_LOG_FILE'], maxBytes=10485760, backupCount=10) # 10MB per file
 handler.setLevel(logging.DEBUG)
-handler.setFormatter(logging.Formatter('%(asctime)s - %(process)d - %(thread)d - %(levelname)s - %(pathname)s - %(message)s'))
+handler.setFormatter(logging.Formatter('%(asctime)s - %(process)d - %(thread)d - %(levelname)s - %(pathname)s - %(lineno)d - %(message)s'))
 
 app.logger.addHandler(handler)
 app.logger.setLevel(app.config['APISVC_LOG_LEVEL']) # WARNING for production, DEBUG for development
