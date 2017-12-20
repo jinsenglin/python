@@ -27,7 +27,7 @@ exec 3>&1
 exec 1>&2
 
 # main
-openstack $@ > $DATA
+openstack --insecure $@ > $DATA
 if [[ "$@" == *" -f json" ]]; then
     jq '.' $DATA >&3
 else
