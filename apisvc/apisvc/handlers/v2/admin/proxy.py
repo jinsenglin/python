@@ -1,5 +1,4 @@
 from apisvc.common.log import LOGGER
-from flask import abort
 
 
 class Proxy(object):
