@@ -5,7 +5,7 @@ from httpclient import client
 def main():
     args = parser.parse_args()
     print(args)
-    client.put(endpoint=args.endpoint, role=args.role, user=args.user, cmd=args.subparser_name, arg=args.args_string)
+    client.put(endpoint=args.endpoint, role=args.role, user=args.user, cmd=args.cmd, arg=args.args_string)
 
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@ parent_parser.add_argument('--user', '-u', action="store", default='0000-0000-00
 
 parser = argparse.ArgumentParser(description='apicli - apisvc command line', parents=[parent_parser])
 
-subparsers = parser.add_subparsers(help='commands', dest='subparser_name')
+subparsers = parser.add_subparsers(help='commands', dest='cmd')
 
 # A openstack command
 openstack_parser = subparsers.add_parser('openstack', help='proxy remote openstack command')
