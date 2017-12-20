@@ -31,9 +31,9 @@ PERSONATE_USER = 'user'
 
 def need_personate_header(role):
     """
-        return HTTP status code 400 if there is no X-PERSONATE header in the request
-        return HTTP status code 400 if there is no or wrong role specified in the value of X-PERSONATE header
-        return HTTP status code 400 if the specified account does not exist in the system
+        return HTTP status code 401 if there is no X-PERSONATE header in the request
+        return HTTP status code 401 if there is no or wrong role specified in the value of X-PERSONATE header
+        return HTTP status code 401 if the specified account does not exist in the system
         expand **kwargs by injecting an object 'apisvc_res_manager' if all checks are passed
     """
 
@@ -53,14 +53,14 @@ def need_personate_header(role):
                         result = fn(*args, **kwargs)
                         return result
                     else:
-                        LOGGER.warn('aborting bad request due to no or wrong account present')
-                        abort(400)
+                        LOGGER.warn('aborting unauthenticated request due to no or wrong account present')
+                        abort(401)
                 else:
-                    LOGGER.warn('aborting bad request due to no or wrong role present')
-                    abort(400)
+                    LOGGER.warn('aborting unauthenticated request due to no or wrong role present')
+                    abort(401)
             else:
-                LOGGER.warn('aborting bad request due to no X-PERSONATE header present')
-                abort(400)
+                LOGGER.warn('aborting unauthenticated request due to no X-PERSONATE header present')
+                abort(401)
         return wrapper
     return need_personate_header_decorator
 
