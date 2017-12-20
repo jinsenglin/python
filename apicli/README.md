@@ -13,3 +13,12 @@ python -m apicli -h
 cd $PROJECT_HOME
 python apicli/main.py -h
 ```
+
+# Example
+
+```
+alias apicli="python -m apicli"
+
+apicli openstack "project list"
+apicli kubectl "get ns"
+```
