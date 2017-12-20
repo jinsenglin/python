@@ -70,12 +70,12 @@ class Manager(object):
 
     def proxy(self, cmd, arg):
         if cmd == 'openstack':
-            return {'result': self._shellm.proxy_openstack(script_args=arg)}
+            return {'result': self._shellm.proxy_openstack(script_args=arg)}, None
         elif cmd == 'kubectl':
-            return {'result': self._shellm.proxy_kubectl(script_args=arg)}
+            return {'result': self._shellm.proxy_kubectl(script_args=arg)}, None
         else:
             LOGGER.debug('unsupported command: {0}'.format(cmd))
-            return {'result': ''}
+            return None, 'ERR_UNSUPPORTED_COMMAND'
 
     # ===================================== #
     #                                       #

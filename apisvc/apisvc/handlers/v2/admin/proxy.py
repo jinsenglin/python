@@ -1,4 +1,5 @@
 from apisvc.common.log import LOGGER
+from flask import abort
 
 
 class Proxy(object):
@@ -8,16 +9,18 @@ class Proxy(object):
         arg = in_message['arg']
 
         # delegate to manager
-        result = manager.proxy(cmd=cmd, arg=arg)
+        data, error = manager.proxy(cmd=cmd, arg=arg)
 
-        # TODO may process result
-
-        # update out_message
-        LOGGER.debug('out_message: {0}'.format(out_message))
-        out_message.update(result)
-        LOGGER.debug('out_message: {0}'.format(out_message))
-
-        return out_message, {'Content-Type': 'application/json'}
+        # process result
+        if error is None:
+            # update out_message
+            LOGGER.debug('out_message: {0}'.format(out_message))
+            out_message.update(data)
+            LOGGER.debug('out_message: {0}'.format(out_message))
+            return out_message, {'Content-Type': 'application/json'}
+        else:
+            LOGGER.warn('aborting bad response due to internal server error')
+            return error, 500, {'Content-Type': 'application/json'}
 
 
 def new_handler():

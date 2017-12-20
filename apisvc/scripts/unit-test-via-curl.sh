@@ -131,4 +131,24 @@ function proxy() {
     curl -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/proxy/kubectl -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"arg": ["get", "ns", "-o", "yaml"]}' | jq -r '.result'
 }
 
+function http400() {
+    echo "$(date) | INFO | HTTP 400"
+    curl -v -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes/comp1 -H "X-PERSONATE: admin 0000-0000-0000-0000" -X GET -H "Content-Type: application/json" -d '{}'
+}
+
+function http401() {
+    echo "$(date) | INFO | HTTP 401"
+    curl -v -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/nodes -X GET
+}
+
+function http404() {
+    echo "$(date) | INFO | HTTP 404"
+    curl -v -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/none -X GET
+}
+
+function http500() {
+    echo "$(date) | INFO | HTTP 500"
+    curl -v -s http://$APISVC_UT_ENDPOINT/$APISVC_UT_VERSION/admin/proxy/none -H "X-PERSONATE: admin 0000-0000-0000-0000" -X PUT -H "Content-Type: application/json" -d '{"arg": []}'
+}
+
 $CMD
