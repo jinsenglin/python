@@ -18,8 +18,8 @@ class Proxy(object):
             LOGGER.debug('out_message: {0}'.format(out_message))
             return out_message, {'Content-Type': 'application/json'}
         else:
-            LOGGER.warn('aborting bad response due to internal server error')
-            return error, 500, {'Content-Type': 'application/json'}
+            LOGGER.warn('aborting bad response due to {0}'.format(error))
+            return error, 500, {'Content-Type': 'text/plain'}
 
 
 def new_handler():

@@ -70,9 +70,11 @@ class Manager(object):
 
     def proxy(self, cmd, arg):
         if cmd == 'openstack':
-            return {'result': self._shellm.proxy_openstack(script_args=arg)}, None
+            data, error = self._shellm.proxy_openstack(script_args=arg)
+            return {'result': data}, error
         elif cmd == 'kubectl':
-            return {'result': self._shellm.proxy_kubectl(script_args=arg)}, None
+            data, error = self._shellm.proxy_kubectl(script_args=arg)
+            return {'result': data}, error
         else:
             LOGGER.debug('unsupported command: {0}'.format(cmd))
             return None, 'ERR_UNSUPPORTED_COMMAND'
@@ -112,11 +114,11 @@ class Manager(object):
 
     def create_pool(self, tenant_id):
         # create k8s ns
-        k8s_namespace = self._shellm.create_k8s_namespace(tenant_id=tenant_id)
+        k8s_namespace, error = self._shellm.create_k8s_namespace(tenant_id=tenant_id)
         self._put_rollback(self._shellm.delete_k8s_namespace, tenant_id=tenant_id)
 
         # create os project
-        os_project = self._shellm.create_os_project(tenant_id=tenant_id)
+        os_project, error = self._shellm.create_os_project(tenant_id=tenant_id)
         self._put_rollback(self._shellm.delete_os_project, tenant_id=tenant_id)
 
         # create ring
@@ -148,11 +150,11 @@ class Manager(object):
 
     def create_ring(self, tenant_id, account_id, ring_type):
         # create os user
-        os_user = self._shellm.create_os_user(tenant_id=tenant_id, account_id=account_id)
+        os_user, error = self._shellm.create_os_user(tenant_id=tenant_id, account_id=account_id)
         self._put_rollback(self._shellm.delete_os_user, account_id=account_id)
 
         # create k8s user
-        k8s_user = self._shellm.create_k8s_user(tenant_id=tenant_id, account_id=account_id)
+        k8s_user, error = self._shellm.create_k8s_user(tenant_id=tenant_id, account_id=account_id)
 
         # create ring
         k8s_controller = self._dbm.get_controller('k8s')

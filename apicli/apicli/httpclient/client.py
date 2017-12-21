@@ -41,8 +41,8 @@ def put(endpoint, role, user, cmd, arg):
         print('ERR_NOT_FOUND')
         return
     elif r.status_code == requests.codes.internal_server_error:
-        print('ERR_INTERNAL_SERVER_ERROR')
+        print('ERR_INTERNAL_SERVER_ERROR :: {0}'.format(r.content))
         return
     else:
-        print('ERR_OTHER_ERROR :: Status code = {0}'.format(r.status_code))
+        print('ERR_OTHER_ERROR :: {0}'.format(r.reason))
         return
