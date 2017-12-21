@@ -4,7 +4,10 @@ from httpclient import client
 
 def main():
     args = parser.parse_args()
-    print(args)
+
+    if args.debug:
+        print(args)
+
     client.put(endpoint=args.endpoint, role=args.role, user=args.user, cmd=args.cmd, arg=args.args_string)
 
 

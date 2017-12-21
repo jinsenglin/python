@@ -5,7 +5,7 @@ parent_parser = argparse.ArgumentParser(add_help=False)
 parent_parser.add_argument('--endpoint', '-e', action="store", default='http://localhost:5080', help='default: http://localhost:5080')
 parent_parser.add_argument('--role', '-r', action="store", default='admin', help='default: admin')
 parent_parser.add_argument('--user', '-u', action="store", default='0000-0000-0000-0000', help='default: 0000-0000-0000-0000')
-
+parent_parser.add_argument('--debug', action="store_true", default=False)
 
 parser = argparse.ArgumentParser(description='apicli - apisvc command line', parents=[parent_parser])
 
