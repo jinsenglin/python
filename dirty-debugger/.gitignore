@@ -1,2 +1,5 @@
 *.swp
 *.pyc
+
+dirty_debugger.egg-info/
+dist/
