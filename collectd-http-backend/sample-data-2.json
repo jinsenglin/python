@@ -1,0 +1,1 @@
+[{u'dstypes': [u'derive'], u'plugin': u'statsd', u'dsnames': [u'value'], u'interval': 10.0, u'host': u'2018-dib-machine.novalocal', u'values': [6], u'time': 1522202922.648, u'plugin_instance': u'', u'type_instance': u'foo', u'type': u'derive'}]
