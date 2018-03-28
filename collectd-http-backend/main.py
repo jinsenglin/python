@@ -9,6 +9,8 @@ app = Flask(__name__)
 def publish():
     for m in json.loads(request.data):
         # TODO: iterate over dsnames list
+        # TODO: plugin_instance -> dimension
+        # TODO: host -> dimension
         ml = ['metric-create', '--time', str(m['time']*1000), str(m['plugin'] + '.' + m['plugin_instance'] + '.' + m['type'] + '.' + m['type_instance'] + '.' + m['dsnames'][0]), str(m['values'][0])]
         main(ml)
     return "ok"
