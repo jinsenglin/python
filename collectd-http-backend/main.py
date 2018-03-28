@@ -8,9 +8,9 @@ app = Flask(__name__)
 @app.route("/publish/", methods=['POST'])
 def publish():
     for m in json.loads(request.data):
-        if m['plugin'] == 'statsd' :
-            ml = ['metric-create', '--time', str(m['time']*1000), str(m['type_instance']), str(m['values'][0])]
-            main(ml)
+        # TODO: iterate over dsnames list
+        ml = ['metric-create', '--time', str(m['time']*1000), str(m['plugin'] + '.' + m['plugin_instance'] + '.' + m['type'] + '.' + m['type_instance'] + '.' + m['dsnames'][0]), str(m['values'][0])]
+        main(ml)
     return "ok"
 
 if __name__ == '__main__':
