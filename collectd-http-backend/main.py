@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/publish/", methods=['POST'])
 def publish():
     for m in json.loads(request.data):
-        ml = ['metric-create', '--time', str(m['timestamp']*1000), str(m['metric']), str(m['value'])]
+        ml = ['metric-create', '--time', str(m['time']*1000), str(m['dsnames'][0]), str(m['values'][0])]
         main(ml)
     return "ok"
 
