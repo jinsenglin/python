@@ -28,6 +28,10 @@ Mac OSX built-in
 openssl version
 
 OpenSSL 0.9.8zh 14 Jan 2016
+
+
+# vagrant box :: bento/centos-7.4 v201801.02.0
+# OpenSSL 1.0.2k-fips  26 Jan 2017
 ```
 
 Does it support cipher suite 'EDH-RSA-DES-CBC-SHA' ?
@@ -41,6 +45,11 @@ openssl ciphers -v 'ALL' | grep EDH-RSA-DES-CBC-SHA
 
 EDH-RSA-DES-CBC-SHA     SSLv3 Kx=DH       Au=RSA  Enc=DES(56)   Mac=SHA1
 EXP-EDH-RSA-DES-CBC-SHA SSLv3 Kx=DH(512)  Au=RSA  Enc=DES(40)   Mac=SHA1 export
+
+
+# vagrant box :: bento/centos-7.4 v201801.02.0
+# DEFAULT : no
+# ALL : no
 ```
 
 # About python
@@ -51,6 +60,10 @@ Mac OSX built-in
 python --version
 
 Python 2.7.10
+
+
+# vagrant box :: bento/centos-7.4 v201801.02.0
+# Python 2.7.5
 ```
 
 Does it support SSLv3 protocol?
@@ -60,6 +73,9 @@ import ssl
 ssl.PROTOCOL_SSLv3
 
 1
+
+# vagrant box :: bento/centos-7.4 v201801.02.0
+# 1
 ```
 
 # About 192.168.120.200:443
