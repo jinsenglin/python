@@ -129,3 +129,21 @@ SSL-Session:
     Protocol  : SSLv3
     Cipher    : EDH-RSA-DES-CBC-SHA
 ```
+
+# Build openssl to support ECDHE-RSA-DES-CBC3-SHA
+
+```
+wget https://www.openssl.org/source/openssl-1.0.2o.tar.gz
+tar -zxf openssl-1.0.2o.tar.gz
+cd openssl-1.0.2o
+
+./config enable-weak-ssl-ciphers enable-des
+
+make depend
+make install
+
+/usr/local/ssl/bin/openssl ciphers -v 'ALL' | grep EDH-RSA-DES-CBC-SHA
+
+EDH-RSA-DES-CBC-SHA     SSLv3 Kx=DH       Au=RSA  Enc=DES(56)   Mac=SHA1
+EXP-EDH-RSA-DES-CBC-SHA SSLv3 Kx=DH(512)  Au=RSA  Enc=DES(40)   Mac=SHA1 export
+```
