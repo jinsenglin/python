@@ -33,6 +33,10 @@ OpenSSL 0.9.8zh 14 Jan 2016
 Does it support cipher suite 'EDH-RSA-DES-CBC-SHA' ?
 
 ```
+openssl ciphers -v 'DEFAULT' | grep EDH-RSA-DES-CBC-SHA
+
+# no result -> which means no support for 'EDH-RSA-DES-CBC-SHA' by default
+
 openssl ciphers -v 'ALL' | grep EDH-RSA-DES-CBC-SHA
 
 EDH-RSA-DES-CBC-SHA     SSLv3 Kx=DH       Au=RSA  Enc=DES(56)   Mac=SHA1
