@@ -13,7 +13,7 @@ setup(
         'openstacksdk == 0.9.19',
         'kubernetes == 4.0.0b1',
         'etcd3 == 0.7.0',
-        'requests == 2.18.4',
+        'requests == 2.20.0',
         'fasteners == 0.14.1'
     ],
 )
