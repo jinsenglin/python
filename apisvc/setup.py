@@ -8,7 +8,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'flask == 0.12.2',
+        'flask == 1.0',
         'flask-restful == 0.3.6',
         'openstacksdk == 0.9.19',
         'kubernetes == 4.0.0b1',

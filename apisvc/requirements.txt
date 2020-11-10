@@ -1,4 +1,4 @@
-flask == 0.12.2
+flask == 1.0
 flask-restful == 0.3.6
 openstacksdk == 0.9.19
 python-openstackclient == 3.12.0
